@@ -36,12 +36,12 @@
                     <p>Username:</p>
                     <div class="input-group mb-3">
                         <span class="input-group-text input-group-left"><i class="fa-regular fa-user"></i></span>
-                        <input type="text" class="form-control form-control-lg" placeholder="Username" id="un">
+                        <input type="text" class="form-control form-control-lg" placeholder="Username" id="un" required>
                     </div>
                     <p>Password:</p>
                     <div class="input-group mb-4">
                         <span class="input-group-text input-group-left"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" class="form-control form-control-lg" placeholder="Password" id="psw">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password" id="psw" required>
                     </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-success btn-lg mb-3 login-btn">Log in</button>
@@ -62,32 +62,32 @@
                         <p>Email:</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text input-group-left"><i class="fa-regular fa-envelope"></i></i></span>
-                            <input name="email" type="email" class="form-control form-control-lg" placeholder="Email" id="email">
+                            <input name="email" type="email" class="form-control form-control-lg" placeholder="Email" id="email" required>
                         </div>
                         <p>Username:</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text input-group-left"><i class="fa-regular fa-user"></i></span>
-                            <input name="username" type="text" class="form-control form-control-lg" placeholder="Username" id="uname">
+                            <input name="username" type="text" class="form-control form-control-lg" placeholder="Username" id="uname" required>
                         </div>
                         <p>First Name:</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text input-group-left"><i class="fa-regular fa-user"></i></span>
-                            <input name="firstname" type="text" class="form-control form-control-lg" placeholder="First Name" id="fname">
+                            <input name="firstname" type="text" class="form-control form-control-lg" placeholder="First Name" id="fname" required>
                         </div>
                         <p>Last Name:</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text input-group-left"><i class="fa-regular fa-user"></i></span>
-                            <input name="lastname" type="text" class="form-control form-control-lg" placeholder="Last Name" id="lname">
+                            <input name="lastname" type="text" class="form-control form-control-lg" placeholder="Last Name" id="lname" required>
                         </div>
                         <p>Password:</p>
                         <div class="input-group mb-4">
                             <span class="input-group-text input-group-left"><i class="fa-solid fa-lock"></i></span>
-                            <input name="password1" type="password" class="form-control form-control-lg psw" placeholder="Password" id="psswd1">
+                            <input name="password1" type="password" class="form-control form-control-lg psw" placeholder="Password" id="psswd1" required>
                         </div>
                         <p>Retype password:</p>
                         <div class="input-group mb-4">
                             <span class="input-group-text input-group-left"><i class="fa-solid fa-lock"></i></span>
-                            <input name="password2" type="password" class="form-control form-control-lg psw" placeholder="Password" id="psswd2">
+                            <input name="password2" type="password" class="form-control form-control-lg psw" placeholder="Password" id="psswd2" required>
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success btn-lg mb-3 login-btn" id="sign-up">Sign up</button>
@@ -159,7 +159,7 @@
                 <div class="row" id="profile-container">
                     <div class="col-12">
                         <div class="row" id="user-info">
-                            <div class="col-12 col-md-2 uInfo" id="first">
+                            <div class="col-12 col-lg-2 uInfo" id="first">
                                 <div id="user-picture">
                                 </div>
                                 <div id="us">
@@ -168,7 +168,7 @@
                                 </div>
                                 <!-- <i class="fa-solid fa-user"></i> -->
                             </div>
-                            <div class="col-12 col-md-6 uInfo" id="second">
+                            <div class="col-12 col-lg-6 uInfo" id="second">
                                 <div class="par" style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
                                     <h4>Level42</h4>
                                     <h4>2560/3000</h4>
@@ -181,7 +181,7 @@
                                     <h4>43</h4>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 uInfo d-flex justify-content-center align-items-center" id="third">
+                            <div class="col-12 col-lg-4 uInfo d-flex justify-content-center align-items-center" id="third">
                                 <h3>wins: 42</h3>
                                 <h3>loses: 0</h3>
                             </div>

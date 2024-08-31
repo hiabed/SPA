@@ -19,24 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const registrationFunction = async (event) => {
         event.preventDefault();
-        const formData = new FormData(registerForm);
-        const response = await fetch('/register/', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrfToken, // Include the CSRF token
-            },
-            body: formData
-        });
-        if (response.ok) {
-            const jsonResponse = await response.json();
-            if (jsonResponse.status === "success") {
-                const dataObj = Object.fromEntries(formData);
-                showHome(dataObj);
+        try {
+            const formData = new FormData(registerForm);
+            console.log(typeof formData);
+            const response = await fetch('/register/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken, // Include the CSRF token
+                },
+                body: formData
+            });
+            if (response.ok) {
+                const jsonResponse = await response.json();
+                console.log("Json response: " + jsonResponse.data.username);
+                if (jsonResponse.status === "success") {
+                    showHome(jsonResponse.data);
+                }
+                return jsonResponse;
             }
-            return jsonResponse;
         }
-        else {
-            alert("error happened.");
+        catch(err) {
+            console.error(err);
         }
     }
     registerForm.addEventListener("submit", registrationFunction);
