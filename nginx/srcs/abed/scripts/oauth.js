@@ -1,4 +1,4 @@
-// let csrfToken;
+let csrfToken;
 document.addEventListener('DOMContentLoaded', function() {
     get_csrf_token();
     // Function to fetch and set the CSRF token
@@ -49,20 +49,20 @@ console.log('window.location.search:', window.location.search);
 if (code) 
 {
     console.log('Authorization code detected, sending it to backend');
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
-    if (csrfToken) {
-        console.log('CSRF token found:', csrfToken.value);
+    const csrfToken2 = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (csrfToken2) {
+        console.log('CSRF token found:', csrfToken2.value);
     }
     else {
         console.error('CSRF token not found!');
     }
-    console.log('------- CSRF token found:', csrfToken.value);
+    console.log('------- CSRF token found:', csrfToken2.value);
     fetch('/oauth/callback/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-            'X-CSRFToken': document.getElementById('csrf_token').value,
+            // 'X-CSRFToken2': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-CSRFToken2': document.getElementById('csrf_token').value,
         },
         body: JSON.stringify({ code: code })
     })

@@ -1,28 +1,27 @@
-let csrfToken;
+// Function to fetch and set the CSRF token
+export const get_csrf_token = () => {
+    let csrfToken;
+    fetch('/get_csrf_token/')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('csrf_token').value = data.csrfToken;
+        // csrfToken = data.csrfToken;
+        return csrfToken;
+    })
+    .catch(error => console.error('Error fetching CSRF token:', error));
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and set the CSRF token
-    get_csrf_token();
-
-    // Function to fetch and set the CSRF token
-    function get_csrf_token() {
-        fetch('/get_csrf_token/')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('csrf_token').value = data.csrfToken;
-            csrfToken = data.csrfToken;
-        })
-        .catch(error => console.error('Error fetching CSRF token:', error));
-    }
-
+    let csrfToken = get_csrf_token();
     const registerForm = document.querySelector("#register-form");
-    const signUpBtn = document.querySelector("#sign-up");
-
+    
     const registrationFunction = async (event) => {
+        console.log("this is it: " + csrfToken);
         event.preventDefault();
         try {
             const formData = new FormData(registerForm);
-            console.log(typeof formData);
-            const response = await fetch('/register/', {
+            const response = await fetch('/register/', { // /login/, /user/update/
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrfToken, // Include the CSRF token
@@ -31,9 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log("Json response: " + jsonResponse.data.username);
+                console.log("Json response: " + jsonResponse);
                 if (jsonResponse.status === "success") {
-                    showHome(jsonResponse.data);
+                    const dataObj = Object.fromEntries(formData);
+                    console.log("dataObj type is: " + typeof dataObj);
+                    showHome(dataObj);
                 }
                 return jsonResponse;
             }
