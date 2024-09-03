@@ -1,5 +1,11 @@
 const homeButton = document.querySelector("#home");
-const main = document.querySelector("#main");
+export const main = document.querySelector("#main");
+
+import { profileId } from "./profile.js";
+import {settingPage} from "./setting.js";
+import { chatPage } from "./chat.js";
+import { rankPart } from "./rank.js";
+import { friendsPart } from "./friends.js";
 
 const mainFunction = () => {
     profileId.style.display = "none";

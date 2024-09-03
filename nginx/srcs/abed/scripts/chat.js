@@ -1,5 +1,11 @@
 const chatButton = document.querySelector("#chat");
-const chatPage = document.querySelector("#chat-part");
+export const chatPage = document.querySelector("#chat-part");
+
+import { profileId } from "./profile.js";
+import { main } from "./home.js";
+import {settingPage} from "./setting.js";
+import { rankPart } from "./rank.js";
+import { friendsPart } from "./friends.js";
 
 const chatFunction = () => {
     profileId.style.display = "none";

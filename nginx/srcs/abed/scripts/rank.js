@@ -1,5 +1,11 @@
 const rankBtn = document.querySelector("#rank");
-const rankPart = document.querySelector("#rank-part");
+export const rankPart = document.querySelector("#rank-part");
+
+import { main } from "./home.js";
+import { settingPage } from "./setting.js";
+import { chatPage } from "./chat.js";
+import { profileId } from "./profile.js";
+import { friendsPart } from "./friends.js";
 
 const rankFunct = () => {
     main.style.display = "none";

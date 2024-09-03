@@ -1,5 +1,11 @@
 const settingButton = document.querySelector("#setting");
-const settingPage = document.querySelector("#setting-part");
+export const settingPage = document.querySelector("#setting-part");
+
+import { profileId } from "./profile.js";
+import { main } from "./home.js";
+import { chatPage } from "./chat.js";
+import { rankPart } from "./rank.js";
+import { friendsPart } from "./friends.js";
 
 const settingFunction = () => {
     profileId.style.display = "none";

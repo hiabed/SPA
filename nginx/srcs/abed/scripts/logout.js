@@ -1,4 +1,4 @@
-let token;
+let csrfToken;
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and set the CSRF token
     get_csrf_token();
@@ -9,25 +9,24 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             document.getElementById('csrf_token').value = data.csrfToken;
-            token = data.csrfToken;
+            csrfToken = data.csrfToken;
         })
         .catch(error => console.error('Error fetching CSRF token:', error));
     }
 
     // const loginForm = document.querySelector("#login-form");
-    const logoutBtn = document.querySelector("#logout");
+    const logoutBtn = document.querySelector("#logout button");
 
     const logoutFuntion = async (event) => {
         event.preventDefault();
         try {
             console.log("clicked2");
-            console.log("token : ", token);
+            console.log("token : ", csrfToken);
             const response = await fetch('/logout/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': token, // Include the CSRF token
+                    'X-CSRFToken': csrfToken, // Include the CSRF token
                 },
-                body: ""
             });
             if (response.ok) {
                 const jsonResponse = await response.json();

@@ -1,5 +1,11 @@
 const friendsBtn = document.querySelector("#friends");
-const friendsPart = document.querySelector("#friends-part");
+export const friendsPart = document.querySelector("#friends-part");
+
+import { main } from "./home.js";
+import { settingPage } from "./setting.js";
+import { chatPage } from "./chat.js";
+import { profileId } from "./profile.js"; 
+import { rankPart } from "./rank.js";
 
 const friendsFunc = () => {
     main.style.display = "none";
