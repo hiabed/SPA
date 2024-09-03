@@ -1,4 +1,4 @@
-let token2;
+let token;
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and set the CSRF token
     get_csrf_token();
@@ -9,30 +9,30 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             document.getElementById('csrf_token').value = data.csrfToken;
-            token2 = data.csrfToken;
+            token = data.csrfToken;
         })
         .catch(error => console.error('Error fetching CSRF token:', error));
     }
 
-    const registerForm = document.querySelector("#register-form");
-    const signUpBtn = document.querySelector("#sign-up");
+    // const loginForm = document.querySelector("#login-form");
+    const logoutBtn = document.querySelector("#logout");
 
-    const registrationFunction = async (event) => {
+    const logoutFuntion = async (event) => {
         event.preventDefault();
         try {
-            const formData = new FormData(registerForm);
-            const response = await fetch('/register/', {
+            console.log("clicked2");
+            console.log("token : ", token);
+            const response = await fetch('/logout/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': token2, // Include the CSRF token
+                    'X-CSRFToken': token, // Include the CSRF token
                 },
-                body: formData
+                body: ""
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log("Json response: " + jsonResponse.data.username);
                 if (jsonResponse.status === "success") {
-                    showHome(jsonResponse.data);
+                    showLogin(jsonResponse.data);
                 }
                 return jsonResponse;
             }
@@ -41,13 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(err);
         }
     }
-    registerForm.addEventListener("submit", registrationFunction);
+    logoutBtn.addEventListener("click", logoutFuntion);
 });
 
-const showHome = (dataObj)=> {
+const showLogin = ()=> {
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "flex";
-    document.querySelector("#main").style.display = "block";
-    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
-    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
+    document.querySelector("#main").style.display = "none";
+    document.querySelector("#profile-part").style.display = "none";
+    document.querySelector("#chat-part").style.display = "none";
+    document.querySelector("#setting-part").style.display = "none";
+    document.querySelector("#friends-part").style.display = "none";
+    document.querySelector("#rank-part").style.display = "none";
 }

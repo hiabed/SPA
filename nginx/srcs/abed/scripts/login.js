@@ -22,7 +22,7 @@ function singIn_function(event)
 singUp.addEventListener("click", singUp_function);
 singIn.addEventListener("click", singIn_function);
 
-let csrfToken;
+let token3;
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and set the CSRF token
     get_csrf_token();
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             document.getElementById('csrf_token').value = data.csrfToken;
-            csrfToken = data.csrfToken;
+            token3 = data.csrfToken;
         })
         .catch(error => console.error('Error fetching CSRF token:', error));
     }
@@ -44,21 +44,19 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         try {
             const formData = new FormData(loginForm);
-            console.log(typeof data);
             const response = await fetch('/login/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken, // Include the CSRF token
+                    'X-CSRFToken': token3, // Include the CSRF token
                 },
                 body: formData
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log("Json response: " + jsonResponse);
                 if (jsonResponse.status === "success") {
-                    showHome(jsonResponse);
+                    showHome(jsonResponse.data);
                 }
-                return jsonResponse;
+                return jsonResponse.data;
             }
         }
         catch(err) {
