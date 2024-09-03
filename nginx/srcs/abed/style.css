@@ -345,7 +345,7 @@ h1 {
     height: 43%;
     position: absolute;
     bottom: 46%;
-    background-image: url(/images/design4.png);
+    background-image: url(images/design4.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -354,13 +354,13 @@ h1 {
 
 @keyframes frame {
     0% {
-        background-image: url("/images/design4.png");
+        background-image: url("images/design4.png");
     }
     50% {
-        background-image: url("/images/design3.png");
+        background-image: url("images/design3.png");
     }
     100% {
-        background-image: url("/images/design4.png");
+        background-image: url("images/design4.png");
     }
 }
 

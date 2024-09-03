@@ -3,6 +3,7 @@
     height: 100vh;
     width: calc(100% - 215px);
     min-width: calc(100% - 16.66666667%);
+    overflow-y: auto;
 }
 
 #setting-nav-bar {
@@ -21,19 +22,17 @@
     width: fit-content !important;
 }
 
-#profile-setting {
+#profile-setting, #log-sec {
     overflow-y: auto;
-    height: calc(100vh - 50px - 20px); /* 50px height of nav-bar 20px margin-bottom of nav-bar */
+    height: calc(100vh - 50px - 20px);
     width: 100%;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    /* justify-content: center; */
     gap: 20px;
 }
 
 #setting-pic {
-    background-image: url(/images/me.jpg);
+    background-image: url(../images/me.jpg);
     background-size: cover;
     border-radius: 50%;
     border: 2px solid white;
@@ -51,8 +50,10 @@
 }
 
 #profile-header {
-    margin: 0 30px;
-    width: 60%;
+    width: 600px;
+    margin: auto;
+    border: 2px solid white;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -66,6 +67,7 @@
 #first-container {
     display: flex;
     gap: 15px;
+    width: fit-content;
 }
 
 #setting-pic-infos {
@@ -74,13 +76,13 @@
 }
 
 #profile-header .separator {
-    width: 150%;
+    width: 100%;
     display: flex;
     gap: 30px;
 }
 
 .separator hr {
-    width: 80%;
+    width: 60%;
     position: relative;
     bottom: 5px;
 }
@@ -151,13 +153,16 @@
 }
 
 #log-sec-container {
-    width: 60%;
+    width: 600px;
+    margin: auto;
+    border: 2px solid white;
+    padding: 15px;
 }
 
 .account-info .separator {
     margin-top: 20px;
     height: 25px;
-    width: 150%;
+    width: 100%;
     display: flex;
     gap: 30px;
 }
@@ -172,6 +177,10 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    /* justify-content: center; */
+    overflow-y: auto;
+    height: calc(100vh - 50px - 20px);
+    width: 100%;
 }
 
 #switch-mod {
@@ -190,11 +199,11 @@
 }
 
 #first-sep hr {
-    width: 40%;
+    width: 35%;
 }
 
 #second-sep hr {
-    width: 37%;
+    width: 33%;
 }
 
 #language {
@@ -219,20 +228,70 @@
         width: 100vw !important;
     }
     #log-sec-container {
+        padding: 0 !important;
         width: 100% !important;
+        border: none !important;
     }
     #log-sec {
-        width: 100vw;
+        width: 100%;
     }
     #log-sec-container .separator {
         width: 100% !important;
     }
     #general {
         align-items: start;
-        min-width: 340px;
+        min-width: 320px;
     }
-
     #switch-mod, #language, #dif, #check-box {
         margin-left: 20px;
+    }
+    #second-sep hr {
+        min-width: 22%;
+        width: 30%;
+    }
+    .separator hr {
+        width: 60% !important;
+    }
+    #save-div button {
+        width: fit-content;
+    }
+    #profile-header {
+        border: none;
+    }
+    #setting-pic {
+        width: 64px;
+        min-width: 64px;
+        height: 64px;
+    }
+    #setting-pic-infos {
+        top: 10px;
+    }
+    #setting-pic-infos h5 {
+        font-size: 16px !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .separator hr {
+        width: 60% !important;
+    }
+    #log-sec {
+        width: 100%;
+    }
+    #log-sec-container {
+        padding: 0 !important;
+        width: 100% !important;
+        border: none !important;
+    }
+    .account-info .separator {
+        width: 100%;
+    }
+    #profile-header {
+        border: none;
+    }
+    #setting-pic {
+        width: 96px;
+        height: 96px;
+        min-width: 96px;
     }
 }

@@ -1,15 +1,75 @@
 @media (min-width: 0px) and (max-width: 575px) {
     #chat-part {
-        margin-top: 10% !important;
+        margin-top: 60px !important;
         width: 100% !important;
+        min-width: 320px !important;
+    }
+    #players {
+        display: none;
+    }
+    #messages {
+        width: 100% !important;
+    }
+    #insert-msg {
+        width: 90% !important;
+    }
+    #secondd {
+        position: relative;
+        width: 100% !important;
+    }
+    .dropdown {
+        display: block !important;
+        position: absolute;
+        right: 0;
+        margin-right: 20px;
+    }
+    .show {
+        background-color: rgb(0, 12, 45, 0.90) !important;
+    }
+    .dropdown .btn {
+        background-color: rgb(0, 12, 45, 0.90) !important;
+        border: white 1px solid;
+    }
+    .dropdown .dropdown-toggle {
+        border-color: white !important;
+        box-shadow: 0 0 2px #02ffff !important;
+    }
+    #chats2 {
+        height: 200px !important;
+    }
+    .dropdown-toggle::after {
+        display: none;
     }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
     #chat-part {
-        margin-top: 10% !important;
-        width: 73% !important;
+        /* margin-top: 10% !important; */
+        width: 80% !important;
     }
+    #messages {
+        width: 100% !important;
+    }
+    #insert-msg {
+        width: 90% !important;
+    }
+    #secondd {
+        position: relative;
+        width: 100% !important;
+    }
+    #players {
+        left: 0 !important;
+    }
+    #firstt {
+        width: 110% !important;
+    }
+    #chats {
+        width: 110% !important;
+    }
+}
+
+.dropdown {
+    display: none;
 }
 
 #chat-part {
@@ -17,13 +77,13 @@
     display: none;
     width: 80%;
     max-width: 1200px;
-    min-width: 500px;
+    min-width: 480px;
     height: 70vh;
     border-radius: 10px;
     margin: auto;
     background: rgb(37,46,71);
     background: linear-gradient(180deg, rgba(37,46,71,1) 0%, rgba(9,24,66,1) 50%, rgba(0,17,62,1) 100%);
-    background-image: url(/images/1.jpeg);
+    background-image: url(../images/1.jpeg);
     background-size: cover;
 }
 
@@ -150,7 +210,7 @@
     background-color: rgb(0, 12, 45, 0.80);
 }
 
-#chats {
+#chats, #chats2 {
     background-color: rgb(0, 12, 45, 0.90);
     border-radius: 10px;
     box-shadow: 0 0 10px #0e1c1f;
@@ -177,7 +237,7 @@
     background-color: rgba(151, 151, 151, 0.6);
 }
 
-#chats div {
+#chats div, #chats2 div {
     margin-top: 15px !important;
     width: 90%;
     height: 50px;
@@ -189,7 +249,7 @@
     cursor: pointer;
 }
 
-#chats div:not(.selected-user):hover {
+#chats div:not(.selected-user):hover, #chats2 div:not(.selected-user):hover {
     background-color: rgba(21, 27, 80, 0.5);
 }
 
