@@ -1,30 +1,26 @@
-let csrfToken;
-document.addEventListener('DOMContentLoaded', function() {
-    // Fetch and set the CSRF token
-    get_csrf_token();
+export const get_csrf_token = async () => {
+    const response = await fetch('/get_csrf_token/');
+    const jsonResponse = await response.json();
+    document.getElementById('csrf_token').value = jsonResponse.csrfToken;
+    // console.log("TOKENNN: " + jsonResponse.csrfToken);
+    return jsonResponse.csrfToken;
+}
 
+document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch and set the CSRF token
-    function get_csrf_token() {
-        fetch('/get_csrf_token/')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('csrf_token').value = data.csrfToken;
-            csrfToken = data.csrfToken;
-        })
-        .catch(error => console.error('Error fetching CSRF token:', error));
-    }
 
     const registerForm = document.querySelector("#register-form");
-    const signUpBtn = document.querySelector("#sign-up");
 
     const registrationFunction = async (event) => {
         event.preventDefault();
+        const token =  await get_csrf_token();
+        // console.log("++++" + token + "+++++");
         try {
             const formData = new FormData(registerForm);
             const response = await fetch('/register/', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrfToken, // Include the CSRF token
+                    'X-CSRFToken': token, // Include the CSRF token
                 },
                 body: formData
             });
@@ -44,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     registerForm.addEventListener("submit", registrationFunction);
 });
 
-const showHome = (dataObj)=> {
+export const showHome = (dataObj)=> {
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#main").style.display = "block";
