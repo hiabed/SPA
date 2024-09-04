@@ -78,7 +78,7 @@ def login_vu(request):
     user = authenticate(username=username, password=password)
     if user is None:
         print("\033[1;46m this User Is Not Found \n")
-        return Response({"status": False, "message": "Invalid credentials"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"status": False, "error": "Invalid credentials"}, status=status.HTTP_404_NOT_FOUND)
     print("\033[1;46m this User Is Found \n")
     print("user == ", user)
 

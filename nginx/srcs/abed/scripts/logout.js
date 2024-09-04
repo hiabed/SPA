@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const showLogin = ()=> {
+    // document.querySelector("#un").value = "";
+    // document.querySelector("#psw").value = "";
+    // foreach method better;
     document.querySelector("#login-parent").style.display = "flex";
     document.querySelector("#nav").style.display = "none";
     document.querySelector("#main").style.display = "none";
