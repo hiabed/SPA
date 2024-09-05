@@ -12,10 +12,31 @@ import { logoutBtn, showLogin } from "./scripts/logout.js";
 
 const loginBtn = document.querySelector(".login-btn");
 
-const navigateTo = (path) => {
-    if (path != "forback")
-        history.pushState(null, null, path);
+const errorPage = document.querySelector("#error")
 
+const showError = ()=> {
+    // document.querySelector("#un").value = "";
+    // document.querySelector("#psw").value = "";
+    // foreach method better;
+    errorPage.style.display = "block";
+    document.querySelector("#login-parent").style.display = "none";
+    document.querySelector("#nav").style.display = "none";
+    document.querySelector("#main").style.display = "none";
+    document.querySelector("#profile-part").style.display = "none";
+    document.querySelector("#chat-part").style.display = "none";
+    document.querySelector("#setting-part").style.display = "none";
+    document.querySelector("#friends-part").style.display = "none";
+    document.querySelector("#rank-part").style.display = "none";
+}
+
+const navigateTo = (path) => {
+    if (path != "forback" && path != "current")
+        history.pushState(null, null, path);
+    else {
+        document.querySelector("#nav").style.display = "flex";
+        document.querySelector("#login-parent").style.display = "none";
+    }
+    console.log("the path is: ", location.pathname);
     if (location.pathname === "/home") {
         mainFunction();
     } else if (location.pathname === "/profile") {
@@ -31,7 +52,7 @@ const navigateTo = (path) => {
     } else if (location.pathname === "/") {
         showLogin();
     } else {
-        showError(); // need to be implemented
+        showError() // need to be implemented
     }
 }
 
@@ -61,6 +82,8 @@ loginBtn.addEventListener("click", ()=> {
 });
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
+document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
+// document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
 
 
 // add styled class to the clicked button (.nav-button) in #nav
