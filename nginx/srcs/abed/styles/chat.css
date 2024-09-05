@@ -1,4 +1,7 @@
 @media (min-width: 0px) and (max-width: 575px) {
+    #chat-page {
+        width: 100%;
+    }
     #chat-part {
         margin-top: 60px !important;
         width: 100% !important;
