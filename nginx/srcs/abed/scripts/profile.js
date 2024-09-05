@@ -1,4 +1,4 @@
-const profileButton = document.querySelector("#profile");
+export const profileButton = document.querySelector("#profile");
 export const profileId = document.querySelector("#profile-part");
 
 import { main } from "./home.js";
@@ -7,7 +7,7 @@ import { chatPage } from "./chat.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-const profile = () => {
+export const profileFunction = () => {
     main.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";
@@ -17,4 +17,4 @@ const profile = () => {
     // document.querySelector("#profile-img").style.display = "none";
 }
 
-profileButton.addEventListener("click", profile);
+// profileButton.addEventListener("click", profile);

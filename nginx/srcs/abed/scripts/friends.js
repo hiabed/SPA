@@ -1,4 +1,4 @@
-const friendsBtn = document.querySelector("#friends");
+export const friendsBtn = document.querySelector("#friends");
 export const friendsPart = document.querySelector("#friends-part");
 
 import { main } from "./home.js";
@@ -7,7 +7,7 @@ import { chatPage } from "./chat.js";
 import { profileId } from "./profile.js"; 
 import { rankPart } from "./rank.js";
 
-const friendsFunc = () => {
+export const friendsFunc = () => {
     main.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";
@@ -16,7 +16,7 @@ const friendsFunc = () => {
     friendsPart.style.display = "block";
 }
 
-friendsBtn.addEventListener("click", friendsFunc);
+// friendsBtn.addEventListener("click", friendsFunc);
 
 // nav manipulation style.
 const frdNavBtns = document.querySelectorAll(".frd-nav-btn");

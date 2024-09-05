@@ -1,4 +1,4 @@
-const chatButton = document.querySelector("#chat");
+export const chatButton = document.querySelector("#chat");
 export const chatPage = document.querySelector("#chat-part");
 
 import { profileId } from "./profile.js";
@@ -7,7 +7,7 @@ import {settingPage} from "./setting.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-const chatFunction = () => {
+export const chatFunction = () => {
     profileId.style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
@@ -17,7 +17,7 @@ const chatFunction = () => {
     // document.querySelector("#profile-img").style.display = "block";
 }
 
-chatButton.addEventListener("click", chatFunction);
+// chatButton.addEventListener("click", chatFunction);
 
 const data_example = async() => { // get characters.
     try {

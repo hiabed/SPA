@@ -1,4 +1,4 @@
-const settingButton = document.querySelector("#setting");
+export const settingButton = document.querySelector("#setting");
 export const settingPage = document.querySelector("#setting-part");
 
 import { profileId } from "./profile.js";
@@ -7,7 +7,7 @@ import { chatPage } from "./chat.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-const settingFunction = () => {
+export const settingFunction = () => {
     profileId.style.display = "none";
     main.style.display = "none";
     chatPage.style.display = "none";
@@ -18,7 +18,7 @@ const settingFunction = () => {
     // console.log("test mic..");
 }
 
-settingButton.addEventListener("click", settingFunction);
+// settingButton.addEventListener("click", settingFunction);
 
 // nav manipulation style.
 const settingNavBtn = document.querySelectorAll(".setting-nav-btn");
