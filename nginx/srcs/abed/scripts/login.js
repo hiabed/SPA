@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const jsonResponse = await response.json();
                 if (jsonResponse.status === "success") {
                     showHome(jsonResponse.data);
+                    localStorage.setItem('isLoggedIn', 'true');
                 }
                 return jsonResponse.data;
             }

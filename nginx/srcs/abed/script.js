@@ -15,9 +15,6 @@ const loginBtn = document.querySelector(".login-btn");
 const errorPage = document.querySelector("#error")
 
 const showError = ()=> {
-    // document.querySelector("#un").value = "";
-    // document.querySelector("#psw").value = "";
-    // foreach method better;
     errorPage.style.display = "block";
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "none";
@@ -30,6 +27,7 @@ const showError = ()=> {
 }
 
 const navigateTo = (path) => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
         history.pushState(null, null, path);
     else {
@@ -37,22 +35,26 @@ const navigateTo = (path) => {
         document.querySelector("#login-parent").style.display = "none";
     }
     console.log("the path is: ", location.pathname);
-    if (location.pathname === "/home") {
-        mainFunction();
-    } else if (location.pathname === "/profile") {
-        profileFunction();
-    } else if (location.pathname === "/friends") {
-        friendsFunc();
-    } else if (location.pathname === "/rank") {
-        rankFunct();
-    } else if (location.pathname === "/chat") {
-        chatFunction();
-    } else if (location.pathname === "/setting") {
-        settingFunction();
-    } else if (location.pathname === "/") {
+    if (isLoggedIn)
+    {
+        if (location.pathname === "/home" || location.pathname === "/") {
+            mainFunction();
+        } else if (location.pathname === "/profile") {
+            profileFunction();
+        } else if (location.pathname === "/friends") {
+            friendsFunc();
+        } else if (location.pathname === "/rank") {
+            rankFunct();
+        } else if (location.pathname === "/chat") {
+            chatFunction();
+        } else if (location.pathname === "/setting") {
+            settingFunction();
+        } else {
+            showError() // need to be implemented
+        }
+    }
+    else {
         showLogin();
-    } else {
-        showError() // need to be implemented
     }
 }
 
@@ -83,7 +85,6 @@ loginBtn.addEventListener("click", ()=> {
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
-// document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
 
 
 // add styled class to the clicked button (.nav-button) in #nav
