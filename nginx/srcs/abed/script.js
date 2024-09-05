@@ -8,60 +8,59 @@ import { friendsBtn, friendsFunc } from "./scripts/friends.js";
 import { rankBtn, rankFunct } from "./scripts/rank.js";
 import { chatButton, chatFunction } from "./scripts/chat.js";
 import { settingButton, settingFunction} from "./scripts/setting.js";
-import { logoutBtn } from "./scripts/logout.js";
+import { logoutBtn, showLogin } from "./scripts/logout.js";
+
 const loginBtn = document.querySelector(".login-btn");
 
-const navigateTo = () => {
-    console.log("history state", history.state);
-    if (history.state === "home") {
+const navigateTo = (path) => {
+    if (path != "forback")
+        history.pushState(null, null, path);
+
+    if (location.pathname === "/home") {
         mainFunction();
-    } else if (history.state === "profile") {
+    } else if (location.pathname === "/profile") {
         profileFunction();
-    } else if (history.state === "friends") {
+    } else if (location.pathname === "/friends") {
         friendsFunc();
-    } else if (history.state === "rank") {
+    } else if (location.pathname === "/rank") {
         rankFunct();
-    } else if (history.state === "chat") {
+    } else if (location.pathname === "/chat") {
         chatFunction();
-    } else if (history.state === "setting") {
+    } else if (location.pathname === "/setting") {
         settingFunction();
+    } else if (location.pathname === "/") {
+        showLogin();
+    } else {
+        showError(); // need to be implemented
     }
 }
 
 homeButton.addEventListener("click", () => {
-    history.pushState("home", '', "/?page=home");
-    navigateTo();
+    navigateTo("/home");
 });
 profileButton.addEventListener("click", () => {
-    history.pushState("profile", '', "/?page=profile");
-    navigateTo();
+    navigateTo("/profile");
 });
 friendsBtn.addEventListener("click", () => {
-    history.pushState("friends", '', "/?page=friends");
-    navigateTo();
+    navigateTo("/friends");
 });
 rankBtn.addEventListener("click", () => {
-    history.pushState("rank", '', "/?page=rank");
-    navigateTo();
+    navigateTo("/rank");
 });
 chatButton.addEventListener("click", () => {
-    history.pushState("chat", '', "/?page=chat");
-    navigateTo();
+    navigateTo("/chat");
 });
 settingButton.addEventListener("click", () => {
-    history.pushState("setting", '', "/?page=setting");
-    navigateTo();
+    navigateTo("/setting");
 });
 logoutBtn.addEventListener("click", ()=> {
-    history.pushState("/", '', "/");
-    navigateTo();
+    navigateTo("/");
 });
 loginBtn.addEventListener("click", ()=> {
-    history.pushState("home", '', "/?page=home");
-    navigateTo();
+    navigateTo("/home");
 });
 
-window.addEventListener('popstate', navigateTo);
+window.addEventListener('popstate', ()=> navigateTo("forback"));
 
 
 // add styled class to the clicked button (.nav-button) in #nav

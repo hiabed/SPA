@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     logoutBtn.addEventListener("click", logoutFuntion);
 });
 
-const showLogin = ()=> {
+export const showLogin = ()=> {
     // document.querySelector("#un").value = "";
     // document.querySelector("#psw").value = "";
     // foreach method better;
