@@ -27,18 +27,27 @@ const showError = ()=> {
     document.querySelector("#rank-part").style.display = "none";
 }
 
+const sideBtns = document.querySelectorAll(".nav-button");
+
 export const reloadFunction = (jsonData)=> {
+    sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
     if (location.pathname === "/home" || location.pathname === "/") {
+        sideBtns[0].classList.add('link');
         mainFunction(jsonData);
     } else if (location.pathname === "/profile") {
+        sideBtns[1].classList.add('link');
         profileFunction(jsonData);
     } else if (location.pathname === "/friends") {
+        sideBtns[2].classList.add('link');
         friendsFunc(jsonData);
     } else if (location.pathname === "/rank") {
+        sideBtns[3].classList.add('link');
         rankFunct(jsonData);
     } else if (location.pathname === "/chat") {
+        sideBtns[4].classList.add('link');
         chatFunction(jsonData);
     } else if (location.pathname === "/setting") {
+        sideBtns[5].classList.add('link');
         settingFunction(jsonData);
     } else {
         showError() // need to be implemented
@@ -48,7 +57,13 @@ export const reloadFunction = (jsonData)=> {
 const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
+    {
         history.pushState(null, null, path);
+    }
+    else {
+        console.log("enter here please..");
+        // when the user reload the page or navigate backword or forward;
+    }
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {
@@ -57,6 +72,7 @@ const navigateTo = (path) => {
         showLogin();
     }
 }
+
 
 homeButton.addEventListener("click", () => {
     navigateTo("/home");
@@ -87,40 +103,12 @@ window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
 
 // add styled class to the clicked button (.nav-button) in #nav
-const sideBtns = document.querySelectorAll(".nav-button");
-sideBtns[0].classList.add('link');
 
-sideBtns.forEach ((sideBtn)=> {
-    sideBtn.addEventListener("click", (event)=> {
-        sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
-        sideBtn.classList.add('link');
-    })
-});
+// sideBtns[0].classList.add('link');
 
-// switch from login to home page.
-// const loginBtn = document.querySelector(".login-btn");
-// const loginPart = document.querySelector("#login-parent");
-// const navBar = document.querySelector("#nav");
-// const mainPart = document.querySelector("#main");
-// const profilePart = document.querySelector("#profile-part");
-// const chatPart = document.querySelector("#chat-part");
-// const setting = document.querySelector("#setting-part");
-// const friends = document.querySelector("#friends-part");
-
-// loginBtn.addEventListener("click", ()=> {
-//     navBar.style.display = "flex";
-//     mainPart.style.display = "block";
-//     loginPart.style.display = "none";
-// })
-
-// // switch from home to login page.
-// const logoutBtn = document.querySelector("#logout");
-// logoutBtn.addEventListener("click", ()=> {
-//     setting.style.display = "none";
-//     chatPart.style.display = "none";
-//     profilePart.style.display = "none";
-//     navBar.style.display = "none";
-//     mainPart.style.display = "none";
-//     friends.style.display = "none";
-//     loginPart.style.display = "flex";
-// })
+// sideBtns.forEach ((sideBtn)=> {
+//     sideBtn.addEventListener("click", (event)=> {
+//         sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
+//         sideBtn.classList.add('link');
+//     })
+// });

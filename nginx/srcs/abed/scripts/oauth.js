@@ -1,5 +1,5 @@
 let csrfToken;
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener("DOMContentLoaded", function() {
     get_csrf_token();
     // Function to fetch and set the CSRF token
     function get_csrf_token() {
@@ -87,4 +87,4 @@ if (code)
         console.error('Error:', error);
     });
 }
-});
+// });

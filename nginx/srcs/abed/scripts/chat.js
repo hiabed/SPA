@@ -35,6 +35,7 @@ const container = document.querySelector("#msgs");
 
 const scrollToBottom = ()=> {
     container.scrollTop = container.scrollHeight;
+    
 }
 
 const data_characters = async () => {

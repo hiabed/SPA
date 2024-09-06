@@ -28,7 +28,7 @@ import { get_csrf_token, showHome } from "./register.js";
 import { reloadFunction } from "../script.js";
 export let dataObject;
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener("DOMContentLoaded", () => {
 
     const updateData = async () => {
         if(localStorage.getItem("isLoggedIn") === "true")
@@ -76,4 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     loginForm.addEventListener("submit", loginFunction);
-});
+// });

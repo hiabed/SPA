@@ -1,6 +1,6 @@
 import { get_csrf_token } from "./register.js";
 
-document.addEventListener("DOMContentLoaded", ()=> {
+// document.addEventListener("DOMContentLoaded", ()=> {
     const updateForm = document.querySelector("#update-form");
     const update = async (event)=> {
         event.preventDefault();
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
         }
     };
     updateForm.addEventListener("submit", update);
-})
+// })
 
 const showHome2 = (dataObj)=> {
     document.querySelector("#login-parent").style.display = "none";

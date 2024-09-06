@@ -8,7 +8,7 @@ export const get_csrf_token = async () => {
     return jsonResponse.csrfToken;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch and set the CSRF token
 
     const registerForm = document.querySelector("#register-form");
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     registerForm.addEventListener("submit", registrationFunction);
-});
+// });
 
 export const showHome = (dataObj)=> {
     // localStorage.setItem(dataObj.username);
