@@ -7,13 +7,15 @@ import {settingPage} from "./setting.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-export const chatFunction = () => {
+export const chatFunction = (dataObj) => {
     profileId.style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     chatPage.style.display = "block";
+    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
     // document.querySelector("#profile-img").style.display = "block";
 }
 

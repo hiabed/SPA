@@ -13,6 +13,21 @@ from .models             import RequestFriend
 from .serializer         import RequestFriendSerializer
 # Create your views here.
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def     get_user(request):
+    if request.method == 'GET':
+        user = request.user
+        if user.is_authenticated:
+            serialize = ProfileSerializer(instance=user)
+            return JsonResponse ({"status" : "success",
+             "data" : serialize.data})
+        return JsonResponse ({"status" : "failed",
+                "error" : "User Not Authenticated"})
+    return JsonResponse ({"status" : "failed", 
+            "error" : "method Not allowed"})
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def profile(request):

@@ -1,3 +1,5 @@
+// export let dataObjectt = null;
+
 export const get_csrf_token = async () => {
     const response = await fetch('/get_csrf_token/');
     const jsonResponse = await response.json();
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 export const showHome = (dataObj)=> {
+    // localStorage.setItem(dataObj.username);
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#main").style.display = "block";

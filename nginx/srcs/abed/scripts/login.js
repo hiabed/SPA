@@ -24,8 +24,29 @@ singUp.addEventListener("click", singUp_function);
 singIn.addEventListener("click", singIn_function);
 
 import { get_csrf_token, showHome } from "./register.js";
+// import { profileFunction } from "./profile.js";
+import { reloadFunction } from "../script.js";
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+
+    const updateData = async () => {
+        if(localStorage.getItem("isLoggedIn") === "true")
+        {
+            try {
+                const response = await fetch('/user/get_user_info/');
+                // alert("yay");
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    if (jsonResponse.status === "success") {
+                        reloadFunction(jsonResponse.data);
+                    }
+                }
+            } catch(err) {
+                console.error(err);
+            }
+        }
+    }
+    updateData();
     const loginForm = document.querySelector("#login-form");
 
     const loginFunction = async (event) => {

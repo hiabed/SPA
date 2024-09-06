@@ -26,6 +26,26 @@ const showError = ()=> {
     document.querySelector("#rank-part").style.display = "none";
 }
 
+export const reloadFunction = (jsonResponse)=> {
+    if (location.pathname === "/home" || location.pathname === "/") {
+        // alert("im here man.");
+        mainFunction(jsonResponse);
+    } else if (location.pathname === "/profile") {
+        console.log();
+        profileFunction(jsonResponse);
+    } else if (location.pathname === "/friends") {
+        friendsFunc(jsonResponse);
+    } else if (location.pathname === "/rank") {
+        rankFunct(jsonResponse);
+    } else if (location.pathname === "/chat") {
+        chatFunction(jsonResponse);
+    } else if (location.pathname === "/setting") {
+        settingFunction(jsonResponse);
+    } else {
+        showError() // need to be implemented
+    }
+}
+
 const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
@@ -37,21 +57,7 @@ const navigateTo = (path) => {
     console.log("the path is: ", location.pathname);
     if (isLoggedIn)
     {
-        if (location.pathname === "/home" || location.pathname === "/") {
-            mainFunction();
-        } else if (location.pathname === "/profile") {
-            profileFunction();
-        } else if (location.pathname === "/friends") {
-            friendsFunc();
-        } else if (location.pathname === "/rank") {
-            rankFunct();
-        } else if (location.pathname === "/chat") {
-            chatFunction();
-        } else if (location.pathname === "/setting") {
-            settingFunction();
-        } else {
-            showError() // need to be implemented
-        }
+        reloadFunction();
     }
     else {
         showLogin();

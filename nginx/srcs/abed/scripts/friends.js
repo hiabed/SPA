@@ -7,13 +7,15 @@ import { chatPage } from "./chat.js";
 import { profileId } from "./profile.js"; 
 import { rankPart } from "./rank.js";
 
-export const friendsFunc = () => {
+export const friendsFunc = (dataObj) => {
     main.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";
     profileId.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "block";
+    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
 }
 
 // friendsBtn.addEventListener("click", friendsFunc);
