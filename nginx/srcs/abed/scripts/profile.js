@@ -14,9 +14,11 @@ export const profileFunction = (dataObj) => {
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     profileId.style.display = "flex";
-    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
-    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
-    // document.querySelector("#profile-img").style.display = "none";
+    if (dataObj != undefined)
+    {
+        document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+        document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
+    }
 }
 
 // profileButton.addEventListener("click", profile);

@@ -9,6 +9,7 @@ import { rankBtn, rankFunct } from "./scripts/rank.js";
 import { chatButton, chatFunction } from "./scripts/chat.js";
 import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
+import { dataObject } from "./scripts/login.js";
 
 const loginBtn = document.querySelector(".login-btn");
 
@@ -26,21 +27,20 @@ const showError = ()=> {
     document.querySelector("#rank-part").style.display = "none";
 }
 
-export const reloadFunction = (jsonResponse)=> {
+export const reloadFunction = (jsonData)=> {
+    console.log(jsonData);
     if (location.pathname === "/home" || location.pathname === "/") {
-        // alert("im here man.");
-        mainFunction(jsonResponse);
+        mainFunction(jsonData);
     } else if (location.pathname === "/profile") {
-        console.log();
-        profileFunction(jsonResponse);
+        profileFunction(jsonData);
     } else if (location.pathname === "/friends") {
-        friendsFunc(jsonResponse);
+        friendsFunc(jsonData);
     } else if (location.pathname === "/rank") {
-        rankFunct(jsonResponse);
+        rankFunct(jsonData);
     } else if (location.pathname === "/chat") {
-        chatFunction(jsonResponse);
+        chatFunction(jsonData);
     } else if (location.pathname === "/setting") {
-        settingFunction(jsonResponse);
+        settingFunction(jsonData);
     } else {
         showError() // need to be implemented
     }
@@ -50,16 +50,12 @@ const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
         history.pushState(null, null, path);
-    else {
-        document.querySelector("#nav").style.display = "flex";
-        document.querySelector("#login-parent").style.display = "none";
-    }
+    document.querySelector("#nav").style.display = "flex";
+    document.querySelector("#login-parent").style.display = "none";
     console.log("the path is: ", location.pathname);
-    if (isLoggedIn)
-    {
-        reloadFunction();
-    }
-    else {
+    if (isLoggedIn) {
+        reloadFunction(dataObject);
+    } else {
         showLogin();
     }
 }
@@ -91,7 +87,6 @@ loginBtn.addEventListener("click", ()=> {
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
-
 
 // add styled class to the clicked button (.nav-button) in #nav
 const sideBtns = document.querySelectorAll(".nav-button");

@@ -14,10 +14,6 @@ export const settingFunction = (dataObj) => {
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     settingPage.style.display = "block";
-    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
-    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
-    // document.querySelector("#profile-img").style.display = "block";
-    // console.log("test mic..");
 }
 
 // settingButton.addEventListener("click", settingFunction);

@@ -14,8 +14,6 @@ export const friendsFunc = (dataObj) => {
     profileId.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "block";
-    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
-    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
 }
 
 // friendsBtn.addEventListener("click", friendsFunc);

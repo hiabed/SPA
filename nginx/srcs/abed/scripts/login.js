@@ -26,6 +26,7 @@ singIn.addEventListener("click", singIn_function);
 import { get_csrf_token, showHome } from "./register.js";
 // import { profileFunction } from "./profile.js";
 import { reloadFunction } from "../script.js";
+export let dataObject;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -34,11 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             try {
                 const response = await fetch('/user/get_user_info/');
-                // alert("yay");
                 if (response.ok) {
                     const jsonResponse = await response.json();
                     if (jsonResponse.status === "success") {
-                        reloadFunction(jsonResponse.data);
+                        dataObject = jsonResponse.data;
+                        console.log("object data: ", dataObject);
+                        reloadFunction(dataObject);
                     }
                 }
             } catch(err) {
