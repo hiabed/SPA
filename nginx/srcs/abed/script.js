@@ -28,7 +28,6 @@ const showError = ()=> {
 }
 
 export const reloadFunction = (jsonData)=> {
-    console.log(jsonData);
     if (location.pathname === "/home" || location.pathname === "/") {
         mainFunction(jsonData);
     } else if (location.pathname === "/profile") {
@@ -52,7 +51,6 @@ const navigateTo = (path) => {
         history.pushState(null, null, path);
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
-    console.log("the path is: ", location.pathname);
     if (isLoggedIn) {
         reloadFunction(dataObject);
     } else {

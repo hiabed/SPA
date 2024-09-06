@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (response.ok) {
                 const jsonResponse = await response.json();
-                console.log("Json response: " + jsonResponse.data.username);
+                // console.log("Json response: " + jsonResponse.data.username);
                 if (jsonResponse.status === "success") {
                     showHome(jsonResponse.data);
                 }

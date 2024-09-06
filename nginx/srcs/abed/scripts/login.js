@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const jsonResponse = await response.json();
                     if (jsonResponse.status === "success") {
                         dataObject = jsonResponse.data;
-                        console.log("object data: ", dataObject);
                         reloadFunction(dataObject);
                     }
                 }
