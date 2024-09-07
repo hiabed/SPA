@@ -26,7 +26,7 @@ const profileAlert = ()=> {
             if (jsonResponse.status === "success") {
                 updatedData = jsonResponse.data;
                 document.querySelector("#update-alert").style.display = "block";
-                setTimeout(profileAlert, 5000);
+                setTimeout(profileAlert, 3000);
             }
             return jsonResponse.data;
         }
