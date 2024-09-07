@@ -4,13 +4,17 @@ import { dataObject } from "./login.js";
 
 export let updatedData = dataObject;
 
-const profileAlert = ()=> {
-    document.querySelector("#update-alert").style.display = "none";
+const profileAlert = (status)=> {
+    if (status === "success")
+        document.querySelector("#update-alert").style.display = "none";
+    else {
+        document.querySelector("#update-alert-failed").style.display = "none";
+    }
 }
 
 // document.addEventListener("DOMContentLoaded", ()=> {
-    const updateForm = document.querySelector("#update-form");
-    const update = async (event)=> {
+        const updateForm = document.querySelector("#update-form");
+        const update = async (event)=> {
         event.preventDefault();
         const formData = new FormData(updateForm);
         const token = await get_csrf_token();
@@ -26,6 +30,7 @@ const profileAlert = ()=> {
             if (jsonResponse.status === "success") {
                 updatedData = jsonResponse.data;
                 document.querySelector("#update-alert").style.display = "block";
+                // document.querySelector("#update-alert-failed").style.display = "block"; if failed;
                 setTimeout(profileAlert, 3000);
             }
             return jsonResponse.data;

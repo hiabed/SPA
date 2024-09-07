@@ -6,11 +6,11 @@
     overflow-y: auto;
 }
 
-#prog {
+#prog, #prog2 {
     height: 7px;
 }
 
-#fadeout{
+#fadeout, #fadeout2{
     animation: fadeout 3s;
     background-color: green;
 }
@@ -24,7 +24,7 @@
     }
 }
 
-#alert-container {
+#alert-container, #alert-container2 {
     gap: 12px;
     flex-direction: column;
 }
@@ -34,7 +34,7 @@
     height: 40px;
 }
 
-#update-alert {
+#update-alert, #update-alert-failed {
     display: none;
 }
 
