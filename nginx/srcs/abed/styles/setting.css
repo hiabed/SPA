@@ -6,6 +6,29 @@
     overflow-y: auto;
 }
 
+#prog {
+    height: 7px;
+}
+
+#fadeout{
+    animation: fadeout 5s;
+    background-color: green;
+}
+
+@keyframes fadeout {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+#alert-container {
+    gap: 12px;
+    flex-direction: column;
+}
+
 #success-svg {
     width: 40px;
     height: 40px;
