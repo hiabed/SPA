@@ -9,7 +9,9 @@ import { rankBtn, rankFunct } from "./scripts/rank.js";
 import { chatButton, chatFunction } from "./scripts/chat.js";
 import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
-import { dataObject } from "./scripts/login.js";
+import { updatedData } from "./scripts/update.js";
+
+
 
 const loginBtn = document.querySelector(".login-btn");
 
@@ -54,7 +56,7 @@ export const reloadFunction = (jsonData)=> {
     }
 }
 
-const navigateTo = (path) => {
+export const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
     {
@@ -67,7 +69,7 @@ const navigateTo = (path) => {
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {
-        reloadFunction(dataObject);
+        reloadFunction(updatedData);
     } else {
         showLogin();
     }

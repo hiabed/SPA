@@ -6,6 +6,15 @@
     overflow-y: auto;
 }
 
+#success-svg {
+    width: 40px;
+    height: 40px;
+}
+
+#update-alert {
+    display: none;
+}
+
 #setting-nav-bar {
     display: flex;
     justify-content: center;
@@ -138,6 +147,7 @@
 
 .account-info input {
     background-color: rgb(0, 21, 52);
+    color: white;
 }
 
 .account-info .form-control:focus {

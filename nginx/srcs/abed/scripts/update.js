@@ -1,4 +1,8 @@
 import { get_csrf_token } from "./register.js";
+import { reloadFunction } from "../script.js";
+import { dataObject } from "./login.js";
+
+export let updatedData = dataObject;
 
 // document.addEventListener("DOMContentLoaded", ()=> {
     const updateForm = document.querySelector("#update-form");
@@ -16,17 +20,14 @@ import { get_csrf_token } from "./register.js";
         if (response.ok) {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
-                showHome2(jsonResponse.data);
+                // document.querySelector("#welcome > h1").innerHTML = `Welcome ${jsonResponse.data.firstname} ${jsonResponse.data.lastname}!`;
+                // alert(jsonResponse.data.firstname);
+                updatedData = jsonResponse.data;
+                // reloadFunction(jsonResponse.data);
+                document.querySelector("#update-alert").style.display = "block";    
             }
             return jsonResponse.data;
         }
     };
     updateForm.addEventListener("submit", update);
 // })
-
-const showHome2 = (dataObj)=> {
-    document.querySelector("#login-parent").style.display = "none";
-    document.querySelector("#nav").style.display = "flex";
-    document.querySelector("#main").style.display = "block";
-    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
-}
