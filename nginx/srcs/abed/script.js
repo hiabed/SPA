@@ -11,6 +11,16 @@ import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
 import { dataObject } from "./scripts/login.js";
 
+const newDataFunc = async ()=> {
+    const response = await fetch('/user/get_user_info/');
+    if (response.ok) {
+        const jsonResponse = await response.json();
+        if (jsonResponse.status === "success") {
+            return jsonResponse.data;
+        }
+    }
+}
+
 const loginBtn = document.querySelector(".login-btn");
 
 const errorPage = document.querySelector("#error")
@@ -35,6 +45,7 @@ export const reloadFunction = (jsonData)=> {
         sideBtns[0].classList.add('link');
         mainFunction(jsonData);
     } else if (location.pathname === "/profile") {
+        // alert(jsonData);
         sideBtns[1].classList.add('link');
         profileFunction(jsonData);
     } else if (location.pathname === "/friends") {
@@ -54,7 +65,7 @@ export const reloadFunction = (jsonData)=> {
     }
 }
 
-export const navigateTo = (path) => {
+export const navigateTo = async (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
     {
@@ -67,7 +78,8 @@ export const navigateTo = (path) => {
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {
-        reloadFunction(dataObject);
+        const updateDataObj = await newDataFunc();
+        reloadFunction(updateDataObj);
     } else {
         showLogin();
     }

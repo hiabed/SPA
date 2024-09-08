@@ -337,6 +337,7 @@
                                 <h5></h5>
                                 <p></p>
                             </div>
+                            <!-- <div id="update-message" class="update-message">Profile updated</div> -->
                         </div>
                         <div id="second-container">
                                 <input type="file" id="file-input" style="display: none;" accept="image/*">
@@ -349,16 +350,16 @@
                         <form id="update-form">
                             <div class="account-info">
                                 <div>
-                                    <label for="formControlInput" class="form-label">First Name</label>
-                                    <input name="firstname" type="text" class="form-control" id="formControlInput" placeholder="Mohammed Abed" required>
+                                    <label for="formControlInput1" class="form-label">First Name</label>
+                                    <input name="firstname" type="text" class="form-control" id="formControlInput1" placeholder="Mohammed Abed" required>
                                 </div>
                                 <div>
-                                    <label for="formControlInput" class="form-label">Last Name</label>
-                                    <input name="lastname" type="text" class="form-control" id="formControlInput" placeholder="Hassani Idrissi" required>
+                                    <label for="formControlInput2" class="form-label">Last Name</label>
+                                    <input name="lastname" type="text" class="form-control" id="formControlInput2" placeholder="Hassani Idrissi" required>
                                 </div>
                                 <div>
-                                    <label for="formControlInput" class="form-label">Email Adress</label>
-                                    <input name="email" type="email" class="form-control" id="formControlInput" placeholder="name@example.com" required>
+                                    <label for="formControlInput3" class="form-label">Email Adress</label>
+                                    <input name="email" type="email" class="form-control" id="formControlInput3" placeholder="name@example.com" required>
                                 </div>
                                 <div id="save-changes">
                                     <button type="button" class="btn btn-outline-secondary" id="cancel-btn">Cancel</button>
@@ -405,14 +406,14 @@
                                 </symbol>
                             </svg>
                             <div id="alert-container2" class="alert alert-danger d-flex" role="alert">
-                                <div style="display: flex; justify-content: center; align-items: center;"></div>
-                                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                                    <svg id="failure-svg" class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                                     <div>
-                                    An example danger alert with an icon
+                                    Email already exists!
                                     </div>
                                 </div>
-                                <div class="progress" id="prog2" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    <div id="fadeout2" class="progress-bar bg-success"></div>
+                                <div class="progress" id="prog2" role="progressbar" aria-label="danger example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    <div id="fadeout2" class="progress-bar bg-danger"></div>
                                 </div>
                             </div>
                         </div>
@@ -421,41 +422,43 @@
                 <div id="log-sec">
                     <div id="log-sec-container">
                         <div class="account-info">
-                            <div class="separator">
-                                <p>Change Password</p>
-                                <hr>
-                            </div>
-                            <div>
-                                <label for="formControlInput" class="form-label">Actual password</label>
-                                <input type="password" class="form-control" id="formControlInput" placeholder="Password" required>
-                            </div>
-                            <div>
-                                <label for="formControlInput" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="formControlInput" placeholder="Password" required>
-                            </div>
-                            <div>
-                                <label for="inputPassword5" class="form-label">Retype New Password</label>
-                                <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Password" required>
-                                <div id="passwordHelpBlock" class="form-text" style="color: red; margin-top: 15px;display: none;">
-                                  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                            <form id="password-form">
+                                <div class="separator">
+                                    <p>Change Password</p>
+                                    <hr>
                                 </div>
-                            </div>
-                            <div class="separator">
-                                <p>Change Username</p>
-                                <hr>
-                            </div>
-                            <div>
-                                <label for="formControlInput" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="formControlInput" placeholder="@Username(Optional)">
-                            </div>
-                            <div id="last-buttons">
-                                <div id="save-div">
-                                    <button type="submit" class="btn btn-outline-success" id="save-btn">Save Changes</button>
+                                <div>
+                                    <label for="formControlInput4" class="form-label">Actual password</label>
+                                    <input name="old_password" type="password" class="form-control" id="formControlInput4" placeholder="Password" required>
                                 </div>
-                                <div id="delete-div"></div>
-                                    <button type="submit" class="btn btn-outline-danger" id="delete-btn">Delete Account</button>
+                                <div>
+                                    <label for="formControlInput5" class="form-label">New Password</label>
+                                    <input name="new_password" type="password" class="form-control" id="formControlInput5" placeholder="Password" required>
                                 </div>
-                            </div>
+                                <div>
+                                    <label for="inputPassword5" class="form-label">Retype New Password</label>
+                                    <input name="new_password" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Password" required>
+                                    <div id="passwordHelpBlock" class="form-text" style="color: red; margin-top: 15px;display: none;">
+                                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                                    </div>
+                                </div>
+                                <div class="separator">
+                                    <p>Change Username</p>
+                                    <hr>
+                                </div>
+                                <div>
+                                    <label for="formControlInput6" class="form-label">Username</label>
+                                    <input name="new_username" type="text" class="form-control" id="formControlInput6" placeholder="@Username(Optional)">
+                                </div>
+                                <div id="last-buttons">
+                                    <div id="save-div">
+                                        <button type="submit" class="btn btn-outline-success" id="save-btn">Save Changes</button>
+                                    </div>
+                                    <div id="delete-div">
+                                        <button type="submit" class="btn btn-outline-danger" id="delete-btn">Delete Account</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                 </div>
                 <div id="general">
@@ -1676,5 +1679,6 @@
         <script type="module" src="scripts/login.js"></script>
         <script type="module" src="scripts/logout.js"></script>
         <script type="module" src="scripts/update.js"></script>
+        <script type="module" src="scripts/password.js"></script>
 </body>
 </html>

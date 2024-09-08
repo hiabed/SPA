@@ -1,16 +1,23 @@
 import { get_csrf_token } from "./register.js";
-// import { reloadFunction } from "../script.js";
 import { dataObject } from "./login.js";
 import { settingFunction } from "./setting.js";
+import { profileFunction } from "./profile.js";
+import { reloadFunction } from "../script.js";
 
-const profileAlert = (status)=> {
-    if (status === "success")
-    {
+export const profileAlert = (status, jsonData)=> {
+    if (status === "success") {
+        reloadFunction(jsonData);
         document.querySelector("#update-alert").style.display = "none";
-    }
-    else {
+    } else {
         document.querySelector("#update-alert-failed").style.display = "none";
     }
+}
+
+const clearInputs = () => {
+    const inputs = document.querySelectorAll(".account-info input");
+        inputs.forEach((input) => {
+        input.value = "";
+    });
 }
 
 const updateForm = document.querySelector("#update-form");
@@ -29,13 +36,21 @@ export const update = async (event)=> {
     if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
-            settingFunction(jsonResponse.data);
+            //update profile infos:
             document.querySelector("#update-alert").style.display = "block";
-            // document.querySelector("#update-alert-failed").style.display = "block"; if failed;
-            setTimeout(() => profileAlert("success"), 3000);
+            //update setting infos:
+            clearInputs();
+            setTimeout(() => profileAlert("success", jsonResponse.data), 3000);
+        }
+        else {
+            document.querySelector("#update-alert-failed").style.display = "block";
+            setTimeout(() => profileAlert("failed", jsonResponse.data), 3000);
         }
         return jsonResponse.data;
     }
 };
 
 updateForm.addEventListener("submit", update);
+
+document.querySelector("#cancel-btn").addEventListener("click", clearInputs);
+
