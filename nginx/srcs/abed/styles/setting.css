@@ -11,7 +11,7 @@
 }
 
 #fadeout, #fadeout2{
-    animation: fadeout 3s;
+    animation: fadeout 3s linear;
     background-color: green;
 }
 

@@ -11,8 +11,6 @@ import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
 import { updatedData } from "./scripts/update.js";
 
-
-
 const loginBtn = document.querySelector(".login-btn");
 
 const errorPage = document.querySelector("#error")

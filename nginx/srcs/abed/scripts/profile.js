@@ -16,7 +16,9 @@ export const profileFunction = (dataObj) => {
     profileId.style.display = "flex";
     if (dataObj != undefined)
     {
-        document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+        if (dataObj.username != undefined) {
+            document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+        }
         document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
     }
 }

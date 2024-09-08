@@ -1,12 +1,14 @@
 import { get_csrf_token } from "./register.js";
-import { reloadFunction } from "../script.js";
+// import { reloadFunction } from "../script.js";
 import { dataObject } from "./login.js";
 
 export let updatedData = dataObject;
 
 const profileAlert = (status)=> {
     if (status === "success")
+    {
         document.querySelector("#update-alert").style.display = "none";
+    }
     else {
         document.querySelector("#update-alert-failed").style.display = "none";
     }
@@ -31,7 +33,7 @@ const profileAlert = (status)=> {
                 updatedData = jsonResponse.data;
                 document.querySelector("#update-alert").style.display = "block";
                 // document.querySelector("#update-alert-failed").style.display = "block"; if failed;
-                setTimeout(profileAlert, 3000);
+                setTimeout(() => profileAlert("success"), 3000);
             }
             return jsonResponse.data;
         }
