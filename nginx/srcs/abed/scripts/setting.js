@@ -14,6 +14,13 @@ export const settingFunction = (dataObj) => {
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     settingPage.style.display = "block";
+    if (dataObj != undefined)
+    {
+        document.querySelector("#first-container h5").innerHTML = `${dataObj.firstname} ${dataObj.lastname}`;
+        if (dataObj.email != undefined) {
+            document.querySelector("#first-container p").innerHTML = `${dataObj.email}`;
+        }
+    }
 }
 
 // settingButton.addEventListener("click", settingFunction);
