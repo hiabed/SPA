@@ -6,8 +6,9 @@ export const profileAlert2 = (status, jsonData)=> {
     if (status === "success") {
         reloadFunction(jsonData);
         document.querySelector("#update-alert2").style.display = "none";
-    } else {
+    } else{
         document.querySelector("#passwordHelpBlock").style.display = "none";
+        document.querySelector("#update-alert-failed2").style.display = "none";
     }
 }
 

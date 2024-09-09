@@ -157,7 +157,7 @@
 
 /* suggestion part */
 
-#ac-ref, #add-del {
+#ac-ref, .add-del {
     display: flex;
     margin: auto;
     gap: 20px;

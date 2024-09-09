@@ -49,4 +49,88 @@ frdNavBtns[2].addEventListener("click", ()=> {
     myFriends.style.display = "none";
     suggestions.style.display = "flex";
     requestsDiv.style.display = "none";
+    suggestionsFunction();
 })
+
+const createCard = (jsonObject, i) => {
+    const element = document.createElement("div");
+    element.classList.add("friend-suggestion-card");
+    const secondElement = document.createElement("div");
+    secondElement.classList.add("frd-sug-header");
+    const thirdElement = document.createElement("div");
+    thirdElement.classList.add("frd-sug-statistics");
+    const forthElement = document.createElement("div");
+    forthElement.classList.add("add-del");
+    element.append(secondElement, thirdElement, forthElement);
+
+    const imageElement = document.createElement("div");
+    imageElement.classList.add("frd-sug-img");
+    const sugInfos = document.createElement("div");
+    sugInfos.classList.add("frd-sug-infos");
+    secondElement.append(imageElement, sugInfos);
+
+    const wins = document.createElement("div");
+    wins.classList.add("wins");
+    const loses = document.createElement("div");
+    loses.classList.add("loses");
+    const score = document.createElement("div");
+    score.classList.add("score");
+    thirdElement.append(wins, loses, score);
+
+    const addBtnDiv = document.createElement("div");
+    addBtnDiv.classList.add("add");
+    const deleteBtnDiv = document.createElement("div");
+    deleteBtnDiv.classList.add("delete");
+    forthElement.append(addBtnDiv, deleteBtnDiv);
+
+    const userName = document.createElement("h4");
+    userName.classList.add("user-name");
+    const pRank = document.createElement("p");
+    pRank.innerHTML = "rank: 5";
+    sugInfos.append(userName, pRank);
+
+    const winsKey = document.createElement("h4");
+    const winsValue = document.createElement("h4");
+    winsKey.innerHTML = "Wins:";
+    winsValue.classList.add("pts", "value");
+    winsValue.innerHTML = "42";
+    wins.append(winsKey, winsValue);
+
+    const losesKey = document.createElement("h4");
+    losesKey.innerHTML = "Loses:";
+    const losesValue = document.createElement("h4");
+    losesValue.innerHTML = "0";
+    losesValue.classList.add("value");
+    loses.append(losesKey, losesValue);
+
+    const scoreKey = document.createElement("h4");
+    scoreKey.innerHTML = "Score:";
+    const scoreValue = document.createElement("h4");
+    scoreValue.innerHTML = "2560";
+    scoreValue.classList.add("value");
+    score.append(scoreKey, scoreValue);
+
+    const addBtn = document.createElement("button");
+    addBtn.innerHTML = "Add";
+    addBtn.classList.add("btn", "btn-lg");
+    addBtnDiv.append(addBtn);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "Delete";
+    deleteBtn.classList.add("btn", "btn-lg");
+    deleteBtnDiv.append(deleteBtn);
+    userName.innerHTML = jsonObject[i].username;
+    document.querySelector("#suggestions").append(element);
+}
+
+const suggestionsFunction = async ()=> {
+    const response = await fetch("/user/list/");
+    if (response.ok) {
+        const jsonResponse = await response.json();
+        if (jsonResponse.status === "success") {
+            for (let i = 0; i < jsonResponse.data.length; i++) {
+                createCard(jsonResponse.data, i);
+            }
+        }
+        return jsonResponse.data;
+    }
+}

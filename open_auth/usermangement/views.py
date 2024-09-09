@@ -92,7 +92,7 @@ def update_user(request):
     else:
         return JsonResponse({'status': 'failed', 'data': update_serializer.errors})
 
-@api_view(['GET'])
+# @api_view(['GET'])
 def     users_list(request):
     print ('Users List \n')
     current_user = request.user
