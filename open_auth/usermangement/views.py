@@ -172,20 +172,20 @@ def ChangePassword(request):
 
     if new_username:
         if user.username == new_username:
-            return JsonResponse({"error": "New username cannot be the same as the current one."}, status=400)
+            return JsonResponse({"status": "bad-username"})
         else:
             # Check if the new username is already taken by another user
             if User_info.objects.filter(username=new_username).exists():
-                return JsonResponse({"error": "Username is already taken."}, status=400)
+                return JsonResponse({"status": "bad-username"})
             else:
                 user.username = new_username  # Update the username
 
     # Check if old password is correct
     if not user.check_password(old_password):
-        return JsonResponse({"error": "Old password is incorrect."}, status=400)
+        return JsonResponse({"status": "incorrect-psw"})
 
-    if len(new_password) < 5:
-        return JsonResponse({"error": "New password must be at least 8 characters long."}, status=400)
+    if len(new_password) < 8:
+        return JsonResponse({"status": "bad-password"})
     user.set_password(new_password)
     user.save()
 

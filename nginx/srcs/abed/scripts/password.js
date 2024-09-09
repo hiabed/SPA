@@ -1,9 +1,19 @@
 import { reloadFunction } from "../script.js";
 import { get_csrf_token } from "./register.js";
 
+
+export const profileAlert2 = (status, jsonData)=> {
+    if (status === "success") {
+        reloadFunction(jsonData);
+        document.querySelector("#update-alert2").style.display = "none";
+    } else {
+        document.querySelector("#passwordHelpBlock").style.display = "none";
+    }
+}
+
 const updatePasswordForm = document.querySelector("#password-form");
 
-export const updatePassword = async (event)=> {
+const updatePassword = async (event)=> {
     event.preventDefault();
     const formData = new FormData(updatePasswordForm);
     const token = await get_csrf_token();
@@ -17,13 +27,16 @@ export const updatePassword = async (event)=> {
     if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
-            //update profile infos:
-            // document.querySelector("#update-alert").style.display = "block";
-            //update setting infos:
-            reloadFunction(jsonResponse.data);
-            // document.querySelector("#update-alert-failed").style.display = "block"; if failed;
-            // clearInputs();
-            // setTimeout(() => profileAlert("success"), 3000);
+            document.querySelector("#passwordHelpBlock").style.display = "none";
+            document.querySelector("#update-alert2").style.display = "block";
+            setTimeout(() => profileAlert2("success", jsonResponse.data), 3000);
+        } else if (jsonResponse.status === "bad-username") {
+            document.querySelector("#update-alert-failed2").style.display = "block";
+            setTimeout(() => profileAlert2("failed", jsonResponse.data), 3000);
+        }
+        else {
+            document.querySelector("#passwordHelpBlock").style.display = "block";
+            setTimeout(() => profileAlert2("failed", jsonResponse.data), 10000);
         }
         return jsonResponse.data;
     }

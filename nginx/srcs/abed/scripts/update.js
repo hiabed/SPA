@@ -36,14 +36,13 @@ export const update = async (event)=> {
     if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
-            //update profile infos:
             document.querySelector("#update-alert").style.display = "block";
-            //update setting infos:
             clearInputs();
             setTimeout(() => profileAlert("success", jsonResponse.data), 3000);
         }
         else {
             document.querySelector("#update-alert-failed").style.display = "block";
+            // clearInputs();
             setTimeout(() => profileAlert("failed", jsonResponse.data), 3000);
         }
         return jsonResponse.data;
