@@ -6,6 +6,7 @@ import { settingPage } from "./setting.js";
 import { chatPage } from "./chat.js";
 import { profileId } from "./profile.js"; 
 import { rankPart } from "./rank.js";
+import { get_csrf_token } from "./register.js";
 
 export const friendsFunc = (dataObj) => {
     main.style.display = "none";
@@ -49,7 +50,6 @@ frdNavBtns[2].addEventListener("click", ()=> {
     myFriends.style.display = "none";
     suggestions.style.display = "flex";
     requestsDiv.style.display = "none";
-    suggestionsFunction();
 })
 
 const createCard = (jsonObject, i) => {
@@ -131,6 +131,37 @@ const suggestionsFunction = async ()=> {
                 createCard(jsonResponse.data, i);
             }
         }
+        const addBtnsListen = document.querySelectorAll(".add .btn");
+        for(let i = 0; i < addBtnsListen.length; i++) {
+            // listen for add-friend button click event to send the id for the backend;
+            addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "add"));
+        }
+
+        const deleteBtnsListen = document.querySelectorAll(".delete .btn");
+        for(let i = 0; i < deleteBtnsListen.length; i++) {
+            deleteBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "delete"));
+        }
         return jsonResponse.data;
     }
 }
+
+const sendIdToBackend = async (id, action) => {
+    console.log(id);
+    const token = await get_csrf_token();
+    if (action === "add") {
+        const response = await fetch(`/user/send_friend/${id}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': token,
+            },
+        });
+    }
+    else {
+        // waiting for backend in case of delete.
+    }
+}
+
+document.addEventListener("DOMContentLoaded", suggestionsFunction);
+
+
+

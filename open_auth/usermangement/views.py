@@ -139,7 +139,7 @@ def     accepte_request(request, receiver_id):
 
 
 @api_view(['POST'])
-def reject_request(request, receiver_id):
+def refuse_request(request, receiver_id):
     print("\033[1;35m Hi I Enter To accept_request view  \n")
     print("\033[1;35m receiver_id : ", receiver_id)
     all_requests = RequestFriend.objects.all()
