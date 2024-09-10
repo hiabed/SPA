@@ -94,6 +94,28 @@ const frontChat = (event)=> {
     }
 }
 
+const frontChat2 = (event)=> {
+    if (sendMsg.value != "") {
+        if (sendMsg.value != "friend" && sendMsg.value != "alaykum salam") {
+            const msg = document.createElement("div");
+            msg.classList.add("my-msg");
+            document.querySelector("#msgs").appendChild(msg);
+            msg.innerHTML = `${sendMsg.value}`;
+            sendMsg.value = "";
+            scrollToBottom();
+        } else {
+            const msg = document.createElement("div");
+            document.querySelector("#msgs").appendChild(msg);
+            msg.classList.add("friend-msg");
+            msg.innerHTML = `${sendMsg.value}`;
+            sendMsg.value = "";
+            scrollToBottom();
+        }
+    }
+}
+
 sendMsg.addEventListener("keyup", frontChat);
+const sendMsgBtn = document.querySelector("#input-group-text-chat");
+sendMsgBtn.addEventListener("click", frontChat2);
 
 data_characters();
