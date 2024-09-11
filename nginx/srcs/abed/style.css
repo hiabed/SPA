@@ -365,6 +365,7 @@ h1 {
 }
 
 #ping-pong, #XO {
+    cursor: pointer;
     margin-left: 0;
     height: 170px;
     width: 300px;
