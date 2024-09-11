@@ -1,9 +1,9 @@
-*{
+/* *{
     color: white;
     font-family: sans-serif;
     transition: 0.2s ease-in-out;
     user-select: none;
-}
+} */
 
 .align{
     display: flex;
@@ -103,10 +103,10 @@
     position: absolute;
     top: 15%;
     left: 40%;
-    /* color: white;
+    color: white;
     font-family: sans-serif;
     transition: 0.2s ease-in-out;
-    user-select: none; */
+    user-select: none;
     background-color: #233354;
     text-align: center;
     padding-top: 5vh;

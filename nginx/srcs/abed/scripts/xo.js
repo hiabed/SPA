@@ -51,7 +51,7 @@ function CheckWin()
             storeResult(turn);
             document.querySelector("#result").innerHTML = turn + " win";
             document.querySelector("#play-again").style.display = "inline";
-            for (j = 0; j < 3; j++)
+            for (let j = 0; j < 3; j++)
             {
                 boxes[WinCondation[i][j]].style.backgroundColor = "#08D9D6";
                 boxes[WinCondation[i][j]].style.color = "#000";
@@ -81,7 +81,7 @@ function CheckDraw()
     }
 }
 
-document.querySelector("#play-again").addEventListener("click", ()=>{
+const playAgain = ()=> {
     isGmaeovaer = false;
     turn = "X";
     document.querySelector(".bg").style.left = "0";
@@ -91,8 +91,10 @@ document.querySelector("#play-again").addEventListener("click", ()=>{
         e.innerHTML = "";
         e.style.removeProperty("background-color");
         e.style.color = "#fff"
-    })
-})
+    });
+}
+
+document.querySelector("#play-again").addEventListener("click", playAgain);
 
 function storeResult(winner) {
     fetch('http://127.0.0.1:8000/api/store-result/', {
@@ -126,6 +128,7 @@ const xoDiv = document.querySelector("#XO");
 xoDiv.addEventListener("click", xoFunction);
 
 const closeFunction = () => {
+    playAgain();
     mainXO.style.display = "none";
     document.querySelector("#design").style.filter = "blur(0px)";
     document.querySelector("#games").style.filter = "blur(0px)";
