@@ -153,12 +153,12 @@
     justify-content: space-between;
 }
 
-#save-btn, #save-btn2 {
+.save-btn {
     border: 1px #198754 solid;
 }
 
-#save-btn:hover, #save-btn2:hover {
-    background-color: #198754;
+.save-btn:hover {
+    background-color: #198754 !important;
 }
 
 #delete-btn {

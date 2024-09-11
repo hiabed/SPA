@@ -42,9 +42,9 @@ document.querySelector('.intra').addEventListener('click', function(event){
 // Handle the OAuth callback (after successful login)
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('code');
-console.log('URL Params:', urlParams.toString()); // Log the query string
-console.log('Authorization code:', code);
-console.log('window.location.search:', window.location.search);
+// console.log('URL Params:', urlParams.toString());
+// console.log('Authorization code:', code);
+// console.log('window.location.search:', window.location.search);
 
 if (code) 
 {
