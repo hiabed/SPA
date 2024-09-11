@@ -6,7 +6,7 @@ let csrfToken;
         fetch('/get_csrf_token/')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('csrf_token').value = data.csrfToken;
+                document.querySelector('.csrf_token').value = data.csrfToken;
                 csrfToken = data.csrfToken;
             })
             .catch(error => console.error('Error fetching CSRF token:', error));

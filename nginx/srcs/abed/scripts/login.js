@@ -12,9 +12,9 @@ function singUp_function(event)
     three.style.display = "block";
 }
 
-function singIn_function(event)
+export function singIn_function(event)
 {
-    event.preventDefault();
+    // event.preventDefault();
     // add class so the transition can work probably;
     three.style.display = "none";
     one.style.display = "block";

@@ -2,7 +2,7 @@ import { get_csrf_token } from "./register.js";
 
 export const logoutBtn = document.querySelector("#logout");
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
     const logoutFuntion = async (event) => {
         event.preventDefault();
         try {
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const jsonResponse = await response.json();
                 if (jsonResponse.status === "success") {
+                    alert("succes");
                     showLogin();
                     localStorage.removeItem('isLoggedIn');
                 }
@@ -27,14 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     logoutBtn.addEventListener("click", logoutFuntion);
-});
+// });
+
+import { singIn_function } from "./login.js";
 
 export const showLogin = ()=> {
-    // document.querySelector("#un").value = "";
-    // document.querySelector("#psw").value = "";
-    // foreach method better;
-    
     document.querySelector("#login-parent").style.display = "flex";
+    singIn_function();
     document.querySelector("#nav").style.display = "none";
     document.querySelector("#main").style.display = "none";
     document.querySelector("#profile-part").style.display = "none";

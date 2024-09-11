@@ -32,7 +32,7 @@
             <div class="col-12" id="login-parent"> <!--  style="display: flex;" -->
                 <div class="col-12 col-md-12 col-lg-6" id="one">
                     <form id="login-form">
-                        <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken">
+                        <input type="hidden" class="csrf_token" name="csrfmiddlewaretoken">
                         <h1 class="mb-3">Let's play <i class="fa-solid fa-table-tennis-paddle-ball icon"></i></h1> <!-- with logo in right -->
                         <div class="d-grid gap-2 mb-4">
                             <button class="btn btn-secondary btn-lg intra">Log in with 42</button>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-lg-6"  id="three">
                     <form id="register-form">
-                        <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken">
+                        <input type="hidden" class="csrf_token2" name="csrfmiddlewaretoken">
                         <h1 class="mb-3" >join us! <i class="fa-regular fa-hand" id="hand"></i></h1> <!-- with logo in right -->
                         <div class="d-grid gap-2 mb-4">
                             <button class="btn btn-secondary btn-lg intra">Sign up with 42</button>
@@ -126,7 +126,7 @@
                     <button class="btn nav-button"><div class="ll"><i class="fa-solid fa-gear"></i> <h3 class="rem d-inline-block">Setting</h3></div></button>
                 </div>
                 <div class="row" id="logout">
-                    <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken">
+                    <input type="hidden" class="csrf_token" name="csrfmiddlewaretoken">
                     <button class="btn nav-button"><div class="ll"><i class="fa-solid fa-arrow-right-from-bracket"></i> <h3 class="rem" style="display: inline-block;">Logout</h3></div></button>
                 </div>
                 <!-- <div id="profile-img" style="display: none;">

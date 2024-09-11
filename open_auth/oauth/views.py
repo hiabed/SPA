@@ -50,7 +50,7 @@ def     register_vu(request):
             errors = form.errors.as_json()
             print("\033[1;39m This user failed to sign up \n")
             print(f"Errors: {errors}")  # Add this line
-            return JsonResponse({'status': 'faild', 'error': form.errors}, status=400)
+            return JsonResponse({'status': 'faild', 'error': form.errors})
     return JsonResponse({'status': False, "error": form.errors}, status=400)
 
 @csrf_exempt
