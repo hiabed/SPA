@@ -5,7 +5,7 @@ import { showLogin } from "./logout.js";
 export const get_csrf_token = async () => {
     const response = await fetch('/get_csrf_token/');
     const jsonResponse = await response.json();
-    document.querySelector('.csrf_token2').value = jsonResponse.csrfToken;
+    document.querySelector('.csrf_token').value = jsonResponse.csrfToken;
     // console.log("TOKENNN: " + jsonResponse.csrfToken);
     return jsonResponse.csrfToken;
 }

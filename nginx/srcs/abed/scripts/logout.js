@@ -16,7 +16,6 @@ export const logoutBtn = document.querySelector("#logout");
             if (response.ok) {
                 const jsonResponse = await response.json();
                 if (jsonResponse.status === "success") {
-                    alert("succes");
                     showLogin();
                     localStorage.removeItem('isLoggedIn');
                 }
