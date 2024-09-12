@@ -4,11 +4,15 @@ let turn = "X";
 
 let isGmaeovaer = false;
 
+/**/
+const mainGrid = document.querySelector('.main_grid'); 
+
 boxes.forEach(e  => {
     e.innerHTML = ""
     e.addEventListener("click", ()=>{
             if (!isGmaeovaer && e.innerHTML === ""){
                 e.innerHTML = turn;
+                e.classList.add('filled'); 
                 CheckWin();
                 CheckDraw();
                 ChangeTurn();
@@ -21,11 +25,15 @@ function ChangeTurn(){
     {
         turn = "O";
         document.querySelector(".bg").style.left = "85px";
+        document.querySelector(".bg").style.backgroundColor = "#08D9D6";
+        mainGrid.classList.add('player-o-turn');
     }
     else
     {
         turn = "X";
         document.querySelector(".bg").style.left = "0";
+        document.querySelector(".bg").style.backgroundColor = "#FF2E63";
+        mainGrid.classList.remove('player-o-turn');
     }
 }
 
@@ -53,7 +61,7 @@ function CheckWin()
             document.querySelector("#play-again").style.display = "inline";
             for (let j = 0; j < 3; j++)
             {
-                boxes[WinCondation[i][j]].style.backgroundColor = "#08D9D6";
+                boxes[WinCondation[i][j]].style.backgroundColor = "#00ffa2";
                 boxes[WinCondation[i][j]].style.color = "#000";
             }
         }
@@ -83,6 +91,7 @@ function CheckDraw()
 
 const playAgain = ()=> {
     isGmaeovaer = false;
+    // box.classList.remove('filled');
     turn = "X";
     document.querySelector(".bg").style.left = "0";
     document.querySelector("#result").innerHTML = "";
@@ -117,23 +126,38 @@ function storeResult(winner) {
 }
 
 const mainXO = document.querySelector(".main_Xo");
+const freeze = document.querySelector("#freeze");
+
 const xoFunction = () => {
+    freeze.classList.add("unclick");
     mainXO.style.display = "block";
-    document.querySelector("#design").style.filter = "blur(3px)";
-    document.querySelector("#games").style.filter = "blur(3px)";
-    document.querySelector("#nav").style.filter = "blur(3px)";
+    const design = document.querySelector("#design");
+    design.style.filter = "blur(3px)";
+    const games = document.querySelector("#games");
+    games.style.filter = "blur(3px)";
+    const nav = document.querySelector("#nav");
+    nav.style.filter = "blur(3px)";
 }
 
 const xoDiv = document.querySelector("#XO");
 xoDiv.addEventListener("click", xoFunction);
 
 const closeFunction = () => {
+    freeze.classList.remove("unclick");
     playAgain();
     mainXO.style.display = "none";
     document.querySelector("#design").style.filter = "blur(0px)";
     document.querySelector("#games").style.filter = "blur(0px)";
     document.querySelector("#nav").style.filter = "blur(0px)";
 }
+
+const escapeFunction = (event)=> {
+    if (event.key === "Escape") {
+        closeFunction();
+    }
+}
+
+document.addEventListener("keyup", escapeFunction);
 
 const closeBtn = document.querySelector(".btn-close");
 closeBtn.addEventListener("click", closeFunction);
