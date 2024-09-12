@@ -128,7 +128,7 @@ function storeResult(winner) {
 const mainXO = document.querySelector(".main_Xo");
 const freeze = document.querySelector("#freeze");
 
-const xoFunction = () => {
+const displayXoFunction = () => {
     freeze.classList.add("unclick");
     mainXO.style.display = "block";
     const design = document.querySelector("#design");
@@ -140,9 +140,9 @@ const xoFunction = () => {
 }
 
 const xoDiv = document.querySelector("#XO");
-xoDiv.addEventListener("click", xoFunction);
+xoDiv.addEventListener("click", displayXoFunction);
 
-const closeFunction = () => {
+const closeGame = () => {
     freeze.classList.remove("unclick");
     playAgain();
     mainXO.style.display = "none";
@@ -153,11 +153,11 @@ const closeFunction = () => {
 
 const escapeFunction = (event)=> {
     if (event.key === "Escape") {
-        closeFunction();
+        closeGame();
     }
 }
 
 document.addEventListener("keyup", escapeFunction);
 
 const closeBtn = document.querySelector(".btn-close");
-closeBtn.addEventListener("click", closeFunction);
+closeBtn.addEventListener("click", closeGame);
