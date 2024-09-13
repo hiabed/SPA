@@ -385,6 +385,15 @@ h1 {
     margin-bottom: 20px;
     box-shadow: 0px 0px 10px 0px violet;
     border-radius: 10%;
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+#img1:hover, #img2:hover {
+    border: 1px solid white !important;
+    /* width: 255px;
+    height: 175px; */
+    opacity: 0.7;
 }
 
 #games {

@@ -64,6 +64,10 @@ function CheckWin()
                 boxes[WinCondation[i][j]].style.backgroundColor = "#00ffa2";
                 boxes[WinCondation[i][j]].style.color = "#000";
             }
+            boxes.forEach(e =>
+                {
+                    e.classList.add('filled');
+                })
         }
     }
 }
@@ -91,12 +95,14 @@ function CheckDraw()
 
 const playAgain = ()=> {
     isGmaeovaer = false;
-    // box.classList.remove('filled');
     turn = "X";
     document.querySelector(".bg").style.left = "0";
     document.querySelector("#result").innerHTML = "";
     document.querySelector("#play-again").style.display = "none";
+    document.querySelector(".bg").style.backgroundColor = "#FF2E63";
+        mainGrid.classList.remove('player-o-turn'); 
     boxes.forEach(e => {
+        e.classList.remove('filled');
         e.innerHTML = "";
         e.style.removeProperty("background-color");
         e.style.color = "#fff"
