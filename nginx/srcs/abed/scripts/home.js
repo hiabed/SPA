@@ -13,7 +13,7 @@ export const mainFunction = (dataObj) => {
     chatPage.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
-    main.style.display = "block";
+    main.style.display = "flex";
 }
 
 // homeButton.addEventListener("click", mainFunction);
