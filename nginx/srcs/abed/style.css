@@ -311,11 +311,14 @@ h1 {
 }
 
 #main {
-    min-height: 70vh;
-    padding-left: 4%;
-    padding-bottom: 2%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+    width: calc(100% - 215px);
+    gap: 20px;
+    height: 100vh;
     background-color: rgb(0, 21, 52);
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 #icon > img {
@@ -343,33 +346,31 @@ h1 {
     margin-top: 15px;
 }
 
+/* still 20% of the height remaining */
+
+#home-navbar {
+    height: 20%;
+    width: 60%;
+    border: solid white 1px;
+}
+
 #design {
-    height: 70%;
-    /* border: 3px solid yellow; */
+    display: flex;
+    position: relative;
+    height: 35%;
+    width: 60%;
+    background: rgb(13, 0, 36);
+    background: linear-gradient(90deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 30%, rgb(63 29 84 / 90%) 100%);
+    border: 2px solid white;
+    border-radius: 20px;
 }
 
 #main-img {
-    width: 30%;
-    height: 50%;
-    position: absolute;
-    top: 80px;
+    width: 209px;
+    height: 80%;
     background-image: url(images/design4.png);
-    background-repeat: no-repeat;
-    background-position: center;
     background-size: cover;
-    animation: frame 3s infinite;
-}
-
-@keyframes frame {
-    0% {
-        background-image: url("images/design4.png");
-    }
-    50% {
-        background-image: url("images/design3.png");
-    }
-    100% {
-        background-image: url("images/design4.png");
-    }
+    margin: auto;
 }
 
 #ping-pong, #XO {
@@ -398,6 +399,8 @@ h1 {
 
 #games {
     height: 30%;
+    width: 60%;
+    border: 2px solid white;
 }
 
 #games > h1 {
@@ -412,13 +415,19 @@ p {
 #description {
     color: whitesmoke;
     font-family: 'Games', sans-serif;
-    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 40%;
+    height: 90%;
+    margin: auto 30px;
+    justify-content: center;
 }
 
 #description p {
     font-family: sans-serif;
     color: rgb(207, 206, 206);
-    font-size: 15px;
+    font-size: 20px;
 }
 
 /* play Button */
@@ -428,34 +437,25 @@ p {
 } */
 
 #play-block {
-    position: relative;
-    top: 15px;
-    margin: 0;
-    max-width: 185px;
-    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 170px;
+    height: 60px;
+    background-color: #6d349cdb;
+    box-shadow: 0px 0px 5px #977097;
+    font-family: sans-serif;
+    border-radius: 10px;
 }
 
 #play-button {
     font-size: 20px;
-    background-color: #6d349cdb;
-    box-shadow: 0px 0px 10px violet;
-    border: none;
-    font-family: sans-serif;
-    border-radius: 20px;
-    color: whitesmoke;
-    text-align: start;
-}
-
-#play-block button {
-    padding-left: 11%;
+    background-color: #ffffff00;
 }
 
 #play-icon {
-    font-size: 50px;
-    width: fit-content;
-    position: relative;
-    bottom: 46px;
-    left: 112px;
+    font-size: 40px;
     cursor: pointer;
 }
 
