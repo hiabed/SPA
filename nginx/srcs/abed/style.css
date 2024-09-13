@@ -323,10 +323,12 @@ h1 {
 }
 
 #online-friends {
-    background: linear-gradient(180deg, rgba(13,0,36,0.9) 0%, rgba(71,9,121,0.9023984593837535) 50%, rgba(98,0,158,0.9) 100%);
+    background: linear-gradient(180deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 50%, rgba(98, 0, 158, 0.9) 100%);
     border: 2px solid white;
     border-radius: 20px;
     width: 25%;
+    min-width: 250px;
+    max-width: 500px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -452,12 +454,12 @@ h1 {
 }
 
 #design {
-    min-width: 600px;
-    max-width: 722px;
+    min-width: 650px;
+    max-width: 750px;
     display: flex;
     position: relative;
     height: 35%;
-    width: 65%;
+    width: 70%;
     background: rgb(13, 0, 36);
     background: linear-gradient(90deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 30%, rgb(63 29 84 / 90%) 100%);
     border: 2px solid white;
@@ -477,7 +479,7 @@ h1 {
     cursor: pointer;
     margin-left: 0;
     height: 170px;
-    width: 300px;
+    width: 250px;
 }
 
 #img1, #img2 {
@@ -502,7 +504,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 30%;
+    height: 35%;
     width: 65%;
     border: 2px solid white;
     margin: 0;
@@ -513,18 +515,24 @@ h1 {
 }
 
 #games-cont {
-    margin-left: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     align-self: center;
+    justify-content: space-around;
 }
 
 #games-icons {
     display: flex;
-    align-self: center;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
 }
 
-#games > h1 {
+#games h1 {
     color: whitesmoke;
     margin-left: 55px;
+    text-align: center;
 }
 
 p {

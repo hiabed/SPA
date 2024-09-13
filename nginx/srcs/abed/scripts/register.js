@@ -48,9 +48,11 @@ registerForm.addEventListener("submit", registrationFunction);
 
 export const showHome = (dataObj)=> {
     // localStorage.setItem(dataObj.username);
+    document.querySelector("#full-container").style.display = "flex";
+    document.querySelector("#online-friends").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "flex";
-    document.querySelector("#main").style.display = "block";
+    document.querySelector("#main").style.display = "flex";
     document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
     document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
 }

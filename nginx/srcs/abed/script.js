@@ -75,6 +75,7 @@ export const navigateTo = async (path) => {
         console.log("enter here please..");
         // when the user reload the page or navigate backword or forward;
     }
+    
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {

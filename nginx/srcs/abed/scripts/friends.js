@@ -9,6 +9,7 @@ import { rankPart } from "./rank.js";
 import { get_csrf_token } from "./register.js";
 
 export const friendsFunc = (dataObj) => {
+    document.querySelector("#online-friends").style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";

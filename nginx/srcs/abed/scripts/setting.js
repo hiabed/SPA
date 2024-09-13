@@ -14,15 +14,16 @@ export const settingFunction = (dataObj) => {
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     settingPage.style.display = "block";
+    document.querySelector("#online-friends").style.display = "none";
     // alert(dataObj);
-    if (dataObj != undefined)
-    {
-        document.querySelector("#first-container h5").innerHTML = `${dataObj.firstname} ${dataObj.lastname}`;
-        if (dataObj.email != undefined) {
-            // alert("dont enter.");
-            document.querySelector("#first-container p").innerHTML = `${dataObj.email}`;
-        }
-    }
+    // if (dataObj != undefined)
+    // {
+    //     document.querySelector("#first-container h5").innerHTML = `${dataObj.firstname} ${dataObj.lastname}`;
+    //     if (dataObj.email != undefined) {
+    //         // alert("dont enter.");
+    //         document.querySelector("#first-container p").innerHTML = `${dataObj.email}`;
+    //     }
+    // }
 }
 
 // settingButton.addEventListener("click", settingFunction);
