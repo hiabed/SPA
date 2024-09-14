@@ -323,7 +323,7 @@ h1 {
 }
 
 #online-friends {
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
+    background-color: rgb(10 19 57);
     border: 2px solid white;
     border-radius: 20px;
     width: 25%;
