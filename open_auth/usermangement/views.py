@@ -11,9 +11,10 @@ from django.views.decorators.csrf import csrf_exempt
 from oauth.models     import User_info
 from .models             import RequestFriend
 from .serializer         import RequestFriendSerializer
+from .serializer         import UserInfoSerializer
 from django.contrib.auth import update_session_auth_hash
-# Create your views here.
 
+# Create your views here.
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -22,6 +23,7 @@ def     get_user(request):
         user = request.user
         if user.is_authenticated:
             serialize = ProfileSerializer(instance=user)
+            print("\033[1;38m data ===> ", serialize.data)
             return JsonResponse ({"status" : "success",
              "data" : serialize.data})
         return JsonResponse ({"status" : "failed",
@@ -73,10 +75,16 @@ def update_user(request):
 
     if not user.is_authenticated:
         return JsonResponse({'status': 'failed', 'data': 'User is not authenticated'}, status=401)
+    print("Request data:", request.data)
+    print("Request files:", request.FILES)
+    
+    # Handle file uploads for imageProfile
+    if 'imageProfile' in request.FILES:
+        request.data['imageProfile'] = request.FILES['imageProfile']
 
     # Use request.data instead of request.body
-    data = request.data
-
+    data  = request.data
+    
     if not data:
         return JsonResponse({'status': 'failed', 'data': 'Request body is empty'}, status=400)
 
@@ -90,7 +98,36 @@ def update_user(request):
         update_serializer.save()
         return JsonResponse({'status': 'success', 'data': update_serializer.data})
     else:
-        return JsonResponse({'status': 'failed', 'data': update_serializer.errors})
+        return JsonResponse({'status': 'failed', 'data': update_serializer.errors}, status=400)
+
+@api_view(['GET'])
+def get_request(request):
+    to_user = request.user
+    if to_user.is_authenticated:
+        print("\033[1;37m ---> current_user : ", to_user)
+        
+        user_requests = RequestFriend.objects.filter(to_user=to_user, accepted=False)
+        
+        print("\033[1;37m ---> Fetched requests : ", user_requests)  # Print fetched requests
+        
+        if user_requests.exists():
+            serialize_user_requests = RequestFriendSerializer(user_requests, many=True)
+            print("\033[1;37m ---> Serialized data : ", serialize_user_requests.data)  # Print serialized data
+            return JsonResponse({'status': 'success', 'data': serialize_user_requests.data})
+        # If no requests are found
+        print("\033[1;37m ---> No requests found")
+        return JsonResponse({'status': 'success', 'data': []})
+    return JsonResponse({'status': 'failed', 'data': 'user is not authenticated'})
+
+@api_view(['GET'])
+def get_user_friends(request):
+    current_user = request.user  # Assuming the user is authenticated
+    friends = current_user.friends.all()  # Get all friends of the current user
+    serialized_friends = UserInfoSerializer(friends, many=True)  # Serialize the friends list
+    return JsonResponse({
+        'status': 'success',
+        'data': serialized_friends.data
+    })
 
 # @api_view(['GET'])
 def     users_list(request):
@@ -102,18 +139,25 @@ def     users_list(request):
     print("\033[1;35m ---> current_user : ", serialize_users.data)
     return JsonResponse({'status': 'success', 'data': serialize_users.data})
 
+
 @api_view(['POST'])
 def     send_friend_request(request, receiver_id): 
-    print("\033[1;35m send friend request handle it  \n")
+    print("\033[1;37m send friend request method \n")
     from_user = request.user
-    print("\033[1;35m -------------------------------------------> ", receiver_id)
+    print("\033[1;37m -------------------------------------------> ", receiver_id)
     to_user   = User_info.objects.get(id=receiver_id)
 
     if RequestFriend.objects.filter(from_user = from_user, to_user = to_user).exists():
         return JsonResponse({'status' : 'failed', 'error':'the request Already exist'})
     friend_req    = RequestFriend.objects.create(from_user = from_user, to_user = to_user)
-    print("\033[1;35m -------------------------------------------  \n")
+    friend_req = RequestFriend.objects.create(from_user=from_user, to_user=to_user)
+    print("\033[1;35m from_user: ", friend_req.from_user)  # Print the from_user
+    print("\033[1;35m to_user: ", friend_req.to_user)      # Print the to_user
+    friend_req.save()
     serialize_req = RequestFriendSerializer(friend_req) 
+    all_req = RequestFriend.objects.all()
+    print("\033[1;37m ------------------------------> ", serialize_req.data)
+    print("\033[1;37m ------------------------------> ",all_req)
     return JsonResponse({'status' : 'success', 'data' : serialize_req.data})
 
 @api_view(['POST'])
@@ -124,7 +168,6 @@ def     accepte_request(request, receiver_id):
     for request in all_requests:
         print(f"ID: {request.id}, From: {request.from_user.username}, To: {request.to_user.username}, Accepted: {request.accepted}")
     try:
-        # if request.method == 'POST':
         friend_request = RequestFriend.objects.get(id=receiver_id)
         print ('************************************************************************ff')
         if friend_request.accepted:
@@ -137,9 +180,8 @@ def     accepte_request(request, receiver_id):
     except friend_request.DoesNotExist:
         return JsonResponse({'status': 'failed', 'data': f'Friend request with ID {receiver_id} does not exist'}, status=404)
 
-
 @api_view(['POST'])
-def refuse_request(request, receiver_id):
+def reject_request(request, receiver_id):
     print("\033[1;35m Hi I Enter To accept_request view  \n")
     print("\033[1;35m receiver_id : ", receiver_id)
     all_requests = RequestFriend.objects.all()
@@ -156,39 +198,38 @@ def refuse_request(request, receiver_id):
     except RequestFriend.DoesNotExist:
         return JsonResponse({'status': 'failed', 'data': f'Friend request with ID {receiver_id} does not exist'}, status=404)
     
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Ensure the user is logged in
 def ChangePassword(request):
     user = request.user
     data = request.data
 
     # Get the old password and new password from the request
-    # print ("++++++++++++++++++++done++++++++++++++++\n")
-    # return JsonResponse({"TEST": "GOOD."}, status=200)
     old_password = data.get('old_password')
     new_password = data.get('new_password')
     new_username = data.get('new_username')
-    # Check if new_username is provided
 
+    # Check if new_username is provided
     if new_username:
         if user.username == new_username:
-            return JsonResponse({"status": "bad-username"})
+            return JsonResponse({"error": "New username cannot be the same as the current one."}, status=400)
         else:
             # Check if the new username is already taken by another user
             if User_info.objects.filter(username=new_username).exists():
-                return JsonResponse({"status": "bad-username"})
+                return JsonResponse({"error": "Username is already taken."}, status=400)
             else:
                 user.username = new_username  # Update the username
 
     # Check if old password is correct
     if not user.check_password(old_password):
-        return JsonResponse({"status": "incorrect-psw"})
+        return JsonResponse({"error": "Old password is incorrect."}, status=400)
 
-    if len(new_password) < 8:
-        return JsonResponse({"status": "bad-password"})
+    if len(new_password) < 5:
+        return JsonResponse({"error": "New password must be at least 8 characters long."}, status=400)
     user.set_password(new_password)
     user.save()
 
     # Update the session with the new password (to prevent logging out)
     update_session_auth_hash(request, user)
-    return JsonResponse({"status": "success"}, status=200)
+
+    return JsonResponse({"status": "Password changed successfully!"}, status=200)

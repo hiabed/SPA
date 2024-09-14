@@ -15,13 +15,16 @@ export const profileFunction = (dataObj) => {
     friendsPart.style.display = "none";
     profileId.style.display = "flex";
     document.querySelector("#online-friends").style.display = "none";
-    // if (dataObj != undefined)
-    // {
-    //     if (dataObj.username != undefined) {
-    //         document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
-    //     }
-    //     document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
-    // }
+    if (dataObj != undefined)
+    {
+        if (dataObj.username != undefined) {
+            document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+        }
+        if (dataObj.imageProfile != undefined) {
+            document.querySelector("#user-picture").style.backgroundImage = `url(${dataObj.imageProfile})`;
+        }
+        document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
+    }
 }
 
 // profileButton.addEventListener("click", profile);

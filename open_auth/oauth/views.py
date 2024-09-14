@@ -50,7 +50,7 @@ def     register_vu(request):
             errors = form.errors.as_json()
             print("\033[1;39m This user failed to sign up \n")
             print(f"Errors: {errors}")  # Add this line
-            return JsonResponse({'status': 'faild', 'error': form.errors})
+            return JsonResponse({'status': 'faild', 'error': form.errors}, status=400)
     return JsonResponse({'status': False, "error": form.errors}, status=400)
 
 @csrf_exempt
@@ -84,6 +84,9 @@ def login_vu(request):
 
     # Log the user in
     login(request, user) # from now django will know that this user who make a request and will be update in case other user login 
+
+    # Example: Print session data
+    print(f"Session Data: {request.session.items()}")
 
     # Get or create token
     token, created = Token.objects.get_or_create(user=user)
@@ -140,7 +143,7 @@ def callback(request):
         data = response.json()
         access_token = data.get('access_token')
         if access_token:
-            user_data   = get_user_info(access_token)
+            user_data   = get_user_info_api(access_token)
             print ('user_data : ' , user_data)
             username    = user_data.get('login', 'Guest')
             fullname    = user_data.get('displayname', '')
@@ -178,7 +181,7 @@ def callback(request):
     else:
         return JsonResponse({'status': 'error', 'message': 'Failed to exchange token'}, status=response.status_code)
 
-def     get_user_info(access_token):
+def     get_user_info_api(access_token):
    user_endpoint = 'https://api.intra.42.fr/v2/me'
    headers= {
       'Authorization' : f'Bearer {access_token}'

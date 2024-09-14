@@ -66,6 +66,11 @@ const createSuggestionCard = (jsonObject, i) => {
 
     const imageElement = document.createElement("div");
     imageElement.classList.add("frd-sug-img");
+    imageElement.style.backgroundImage = `url(${jsonObject[i].imageProfile})`;
+    console.log("The image is: ");
+    console.log(jsonObject[i].imageProfile);
+    // imageElement.style.backgroundSize= "cover";
+
     const sugInfos = document.createElement("div");
     sugInfos.classList.add("frd-sug-infos");
     secondElement.append(imageElement, sugInfos);
