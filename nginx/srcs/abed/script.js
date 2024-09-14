@@ -40,12 +40,12 @@ const showError = ()=> {
 const sideBtns = document.querySelectorAll(".nav-button");
 
 export const reloadFunction = (jsonData)=> {
+    document.querySelector("#full-container").style.display = "flex";
     sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
     if (location.pathname === "/home" || location.pathname === "/") {
         sideBtns[0].classList.add('link');
         mainFunction(jsonData);
     } else if (location.pathname === "/profile") {
-        // alert(jsonData);
         sideBtns[1].classList.add('link');
         profileFunction(jsonData);
     } else if (location.pathname === "/friends") {
@@ -61,7 +61,7 @@ export const reloadFunction = (jsonData)=> {
         sideBtns[5].classList.add('link');
         settingFunction(jsonData);
     } else {
-        showError() // need to be implemented
+        showError() // need to implemet better front.
     }
 }
 

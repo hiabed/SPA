@@ -323,7 +323,7 @@ h1 {
 }
 
 #online-friends {
-    background: linear-gradient(180deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 50%, rgba(98, 0, 158, 0.9) 100%);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border: 2px solid white;
     border-radius: 20px;
     width: 25%;
@@ -378,9 +378,9 @@ h1 {
 /* still 20% of the height remaining */
 
 #home-navbar {
-    background: linear-gradient(90deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 30%, rgb(63 29 84 / 90%) 100%);
-    border: 2px solid white;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border-radius: 20px;
+    box-shadow: 0 0 6px black;
     display: flex;
     align-items: center;
     height: 10%;
@@ -395,7 +395,6 @@ h1 {
 }
 
 .search-icons {
-    border: solid white 1px;
     border-radius: 10px;
     height: 60%;
     width: 150px;
@@ -413,12 +412,12 @@ h1 {
     background-color: white;
     width: 67%;
     height: 60%;
-    border: solid white 1px;
+    box-shadow: 0 0 3px white;
     border-radius: 10px;
 }
 
 #search-bar input {
-    color: white !important;
+    color: white;
     background-color: #001534;
     width: 90%;
     height: 100%;
@@ -454,22 +453,22 @@ h1 {
 }
 
 #design {
-    min-width: 650px;
-    max-width: 750px;
+    min-width: 700px;
+    max-width: 850px;
     display: flex;
     position: relative;
-    height: 35%;
-    width: 70%;
-    background: rgb(13, 0, 36);
-    background: linear-gradient(90deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 30%, rgb(63 29 84 / 90%) 100%);
-    border: 2px solid white;
+    height: 40%;
+    width: 75%;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border-radius: 20px;
+    box-shadow: 0 0 6px black;
 }
 
 #main-img {
-    width: 209px;
-    height: 80%;
-    background-image: url(images/design4.png);
+    min-width: 377px;
+    width: 436px;
+    height: 69%;
+    background-image: url(images/design3.png);
     background-size: cover;
     margin: auto;
     filter: drop-shadow(0px 0px 5px black);
@@ -504,14 +503,13 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 35%;
+    height: 30%;
     width: 65%;
-    border: 2px solid white;
     margin: 0;
     min-width: 600px;
-    background: linear-gradient(90deg, rgba(13, 0, 36, 0.9) 0%, rgba(71, 9, 121, 0.9023984593837535) 30%, rgb(63 29 84 / 90%) 100%);
-    border: 2px solid white;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border-radius: 20px;
+    box-shadow: 0 0 6px black;
 }
 
 #games-cont {
@@ -545,7 +543,7 @@ p {
     display: flex;
     flex-direction: column;
     gap: 35px;
-    width: 40%;
+    width: 37%;
     height: 90%;
     margin: auto 30px;
     justify-content: center;

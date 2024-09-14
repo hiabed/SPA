@@ -27,13 +27,6 @@ export const update = async (event)=> {
     const fileInput = document.querySelector("#file-input");
     const formData = new FormData(updateForm);
     formData.append("imageProfile", fileInput.files[0]);
-    formData.forEach((value, key) => {
-        if (value instanceof File) {
-            console.log(`${key} = ${value.name}, size: ${value.size} bytes`);
-        } else {
-            console.log(`${key} = ${value}`);
-        }
-    });
     const token = await get_csrf_token();
     const response = await fetch('/user/update/', {
         method: 'POST',
@@ -45,7 +38,6 @@ export const update = async (event)=> {
     if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
-            console.log("what i receive: ", jsonResponse.data);
             document.querySelector("#update-alert").style.display = "block";
             clearInputs();
             setTimeout(() => profileAlert("success", jsonResponse.data), 3000);
