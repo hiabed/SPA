@@ -378,9 +378,9 @@ h1 {
 /* still 20% of the height remaining */
 
 #home-navbar {
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
+    background-color: rgb(10 19 57);
     border-radius: 20px;
-    box-shadow: 0 0 6px black;
+    box-shadow: 0 0 2px black;
     display: flex;
     align-items: center;
     height: 10%;
@@ -455,21 +455,21 @@ h1 {
     min-width: 700px;
     display: flex;
     position: relative;
-    height: 40%;
+    height: 50%;
     width: 95%;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
+    background-color: rgb(10 19 57);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
 }
 
 #main-img {
-    min-width: 377px;
-    width: 436px;
-    height: 69%;
+    min-width: 463px;
+    width: 65%;
+    height: 100%;
     background-image: url(images/design3.png);
     background-size: cover;
     margin: auto;
-    filter: drop-shadow(0px 0px 5px black);
+    /* filter: drop-shadow(0px 0px 5px black); */
 }
 
 #ping-pong, #XO {
@@ -505,9 +505,9 @@ h1 {
     width: 75%;
     margin: 0;
     min-width: 700px;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
+    background-color: rgb(10 19 57);
     border-radius: 20px;
-    box-shadow: 0 0 6px black;
+    box-shadow: 0 0 2px black;
 }
 
 #games-cont {
@@ -540,8 +540,8 @@ p {
     font-family: 'Games', sans-serif;
     display: flex;
     flex-direction: column;
-    gap: 35px;
-    width: 37%;
+    gap: 60px;
+    width: 35%;
     height: 90%;
     margin: auto 30px;
     justify-content: center;
