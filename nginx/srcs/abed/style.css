@@ -384,8 +384,7 @@ h1 {
     display: flex;
     align-items: center;
     height: 10%;
-    max-width: 722px;
-    width: 65%;
+    width: 95%;
     min-width: 600px;
     justify-content: space-evenly;
 }
@@ -454,7 +453,7 @@ h1 {
 
 #design {
     min-width: 700px;
-    max-width: 850px;
+    max-width: 900px;
     display: flex;
     position: relative;
     height: 40%;
@@ -499,14 +498,14 @@ h1 {
 }
 
 #games {
-    max-width: 722px;
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 30%;
-    width: 65%;
+    width: 75%;
     margin: 0;
-    min-width: 600px;
+    min-width: 700px;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
