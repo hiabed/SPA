@@ -26,7 +26,7 @@ export const update = async (event)=> {
     event.preventDefault();
     const fileInput = document.querySelector("#file-input");
     const formData = new FormData(updateForm);
-    formData.append("imageProfile", fileInput.files[0]);
+    // formData.append("imageProfile", fileInput.files[0]);
     const token = await get_csrf_token();
     const response = await fetch('/user/update/', {
         method: 'POST',

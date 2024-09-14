@@ -157,7 +157,7 @@
                                 <p>Ping Pong Game</p>
                             </div>
                             <div id="speech">
-                                <h3>It's time for<br>ping-pong Party!</h3>
+                                <h3>It's time for ping-pong Party!</h3>
                             </div>
                             <div id="play-block">
                                 <button type="button" class="btn btn-primary btn-sm" id="play-button">Play Now </button>
@@ -392,9 +392,9 @@
                                 </div>
                                 <!-- <div id="update-message" class="update-message">Profile updated</div> -->
                             </div>
-                            <form id="update-form">
+                            <form id="update-form" method="post" enctype="multipart/form-data">
                                 <div id="second-container">
-                                    <input type="file" id="file-input" style="display: none;" accept="image/*">
+                                    <input name="imageProfile" type="file" id="file-input" style="display: none;" accept="image/*">
                                     <button type="button" class="btn btn-outline-primary" id="change-img">Change Image</button>
                                 </div>
                                 <div class="separator">
@@ -404,11 +404,11 @@
                                 <div class="account-info">
                                     <div>
                                         <label for="formControlInput1" class="form-label">First Name</label>
-                                        <input name="firstname" type="text" class="form-control" id="formControlInput1" placeholder="Mohammed Abed" required>
+                                        <input name="firstname" type="text" class="form-control" id="formControlInput1" placeholder="Your first name" required>
                                     </div>
                                     <div>
                                         <label for="formControlInput2" class="form-label">Last Name</label>
-                                        <input name="lastname" type="text" class="form-control" id="formControlInput2" placeholder="Hassani Idrissi" required>
+                                        <input name="lastname" type="text" class="form-control" id="formControlInput2" placeholder="Your last name" required>
                                     </div>
                                     <div>
                                         <label for="formControlInput3" class="form-label">Email Adress</label>

@@ -75,13 +75,13 @@ def update_user(request):
 
     if not user.is_authenticated:
         return JsonResponse({'status': 'failed', 'data': 'User is not authenticated'}, status=401)
+
     print("Request data:", request.data)
     print("Request files:", request.FILES)
     
     # Handle file uploads for imageProfile
     if 'imageProfile' in request.FILES:
         request.data['imageProfile'] = request.FILES['imageProfile']
-
     # Use request.data instead of request.body
     data  = request.data
     
@@ -94,11 +94,14 @@ def update_user(request):
 
     update_serializer = UpdateUserSerializers(user, data=data, partial=True)
 
-    if update_serializer.is_valid():
-        update_serializer.save()
-        return JsonResponse({'status': 'success', 'data': update_serializer.data})
-    else:
-        return JsonResponse({'status': 'failed', 'data': update_serializer.errors}, status=400)
+    update_serializer.is_valid()
+    print ('data === ', update_serializer.errors)
+    update_serializer.save()
+    print ('data === ', update_serializer.data)
+    return JsonResponse({'status': 'success', 'data': update_serializer.data})
+    # else:
+    #     print ('data =====')
+    #     return JsonResponse({'status': 'failed', 'data': update_serializer.errors}, status=400)
 
 @api_view(['GET'])
 def get_request(request):

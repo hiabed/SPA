@@ -453,11 +453,10 @@ h1 {
 
 #design {
     min-width: 700px;
-    max-width: 900px;
     display: flex;
     position: relative;
     height: 40%;
-    width: 75%;
+    width: 95%;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 5, 61, 1) 35%, rgb(3 3 40) 100%);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
