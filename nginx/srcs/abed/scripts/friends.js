@@ -131,6 +131,7 @@ const suggestionsFunction = async ()=> {
     if (response.ok) {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
+            document.querySelector("#suggestions").innerHTML = "";
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 createSuggestionCard(jsonResponse.data, i);
             }
@@ -259,9 +260,10 @@ const requestsFunction = async ()=> {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
             console.log(jsonResponse.data);
-            // for (let i = 0; i < jsonResponse.data.length; i++) {
-            //     createRequestCards(jsonResponse.data[i].username, jsonResponse.data[i].images[0]);
-            // }
+            document.querySelector("#requests").innerHTML = "";
+            for (let i = 0; i < jsonResponse.data.length; i++) {
+                createRequestCards(jsonResponse.data[i].from_user, null);
+            }
         }
         // else if (jsonResponse.status === "failed") {
         //     alert("you already sent a request to this user.");
@@ -343,6 +345,7 @@ const createFriendCards = (name, image) => {
 const friendsFunction = async() => {
     const response = await fetch("https://dattebayo-api.onrender.com/characters");
     if (response.ok) {
+        document.querySelector("#my-friends").innerHTML = "";
         const jsonResponse = await response.json();
         // if (jsonResponse.status === "success") {
         // console.log(jsonResponse.characters);
