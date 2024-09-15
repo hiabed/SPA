@@ -110,12 +110,12 @@ def get_request(request):
         print("\033[1;37m ---> current_user : ", to_user)
         
         user_requests = RequestFriend.objects.filter(to_user=to_user, accepted=False)
-        
-        print("\033[1;37m ---> Fetched requests : ", user_requests)  # Print fetched requests
-        
+                
         if user_requests.exists():
             serialize_user_requests = RequestFriendSerializer(user_requests, many=True)
+            
             print("\033[1;37m ---> Serialized data : ", serialize_user_requests.data)  # Print serialized data
+            
             return JsonResponse({'status': 'success', 'data': serialize_user_requests.data})
         # If no requests are found
         print("\033[1;37m ---> No requests found")
@@ -139,9 +139,8 @@ def     users_list(request):
     users = User_info.objects.exclude(id = current_user.id)
     print("\033[1;35m ---> current_user : ", current_user)
     serialize_users = ProfileSerializer(users, many=True)
-    print("\033[1;35m ---> current_user : ", serialize_users.data)
+    print("\033[1;35m ---> users : ", serialize_users.data)
     return JsonResponse({'status': 'success', 'data': serialize_users.data})
-
 
 @api_view(['POST'])
 def     send_friend_request(request, receiver_id): 
@@ -153,7 +152,6 @@ def     send_friend_request(request, receiver_id):
     if RequestFriend.objects.filter(from_user = from_user, to_user = to_user).exists():
         return JsonResponse({'status' : 'failed', 'error':'the request Already exist'})
     friend_req    = RequestFriend.objects.create(from_user = from_user, to_user = to_user)
-    friend_req = RequestFriend.objects.create(from_user=from_user, to_user=to_user)
     print("\033[1;35m from_user: ", friend_req.from_user)  # Print the from_user
     print("\033[1;35m to_user: ", friend_req.to_user)      # Print the to_user
     friend_req.save()
@@ -161,7 +159,7 @@ def     send_friend_request(request, receiver_id):
     all_req = RequestFriend.objects.all()
     print("\033[1;37m ------------------------------> ", serialize_req.data)
     print("\033[1;37m ------------------------------> ",all_req)
-    return JsonResponse({'status' : 'success'})
+    return JsonResponse({'status' : 'success', 'data' : serialize_req.data})
 
 @api_view(['POST'])
 def     accepte_request(request, receiver_id):

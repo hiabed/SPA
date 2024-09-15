@@ -151,9 +151,9 @@ const suggestionsFunction = async ()=> {
 }
 
 const sendIdToBackend = async (id, action) => {
-    console.log("Enter with id: ", id);
     const token = await get_csrf_token();
     if (action === "add") {
+        console.log("Add with id: ", id);
         const response = await fetch(`/user/send_friend/${id}/`, {
             method: 'POST',
             headers: {
@@ -168,6 +168,15 @@ const sendIdToBackend = async (id, action) => {
                 alert("already sent to the backend");
             }
         }
+    }
+    else if (action === "accept") {
+        console.log("Accpet with id: ", id);
+        const response = await fetch(`/user/accepte_request/${id}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': token,
+            },
+        });
     }
     // else {
     //     waiting for backend in case of delete.
@@ -244,7 +253,7 @@ const createRequestCards = (name, image) => {
 
     const addBtn = document.createElement("button");
     addBtn.innerHTML = "Accept";
-    addBtn.classList.add("btn", "btn-lg");
+    addBtn.classList.add("btn", "btn-lg", "accept");
     addBtnDiv.append(addBtn);
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "Refuse";
@@ -262,7 +271,12 @@ const requestsFunction = async ()=> {
             console.log(jsonResponse.data);
             document.querySelector("#requests").innerHTML = "";
             for (let i = 0; i < jsonResponse.data.length; i++) {
-                createRequestCards(jsonResponse.data[i].from_user, null);
+                createRequestCards(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
+            }
+            const acceptBtnsListen = document.querySelectorAll(".add .accept");
+            for(let i = 0; i < acceptBtnsListen.length; i++) {
+                // listen for add-friend button click event to send the id for the backend;
+                acceptBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "accept"));
             }
         }
         // else if (jsonResponse.status === "failed") {
@@ -343,16 +357,16 @@ const createFriendCards = (name, image) => {
 }
 
 const friendsFunction = async() => {
-    const response = await fetch("https://dattebayo-api.onrender.com/characters");
+    const response = await fetch("/user/get_user_friends/");
     if (response.ok) {
-        document.querySelector("#my-friends").innerHTML = "";
+        document.querySelector("#my-friends").innerHTML = ""; // main parent.
         const jsonResponse = await response.json();
-        // if (jsonResponse.status === "success") {
-        // console.log(jsonResponse.characters);
-        for (let i = 0; i < jsonResponse.characters.length; i++) {
-            createFriendCards(jsonResponse.characters[i].name, jsonResponse.characters[i].images[0]);
+        if (jsonResponse.status === "success") {
+            // console.log(jsonResponse.characters);
+            // for (let i = 0; i < jsonResponse.data.length; i++) {
+            //     createFriendCards(jsonResponse.data[i].name, jsonResponse.data[i].images[0]);
+            // }
         }
-        // }
     }
 }
 
