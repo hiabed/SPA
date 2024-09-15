@@ -8,7 +8,7 @@ import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
 export const chatFunction = () => {
-    document.querySelector("#online-friends").style.display = "none";
+    // document.querySelector("#online-friends").style.display = "none";
     profileId.style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";

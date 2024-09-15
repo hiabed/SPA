@@ -32,7 +32,7 @@ import { singIn_function } from "./login.js";
 export const showLogin = ()=> {
     document.querySelector("#login-parent").style.display = "flex";
     singIn_function();
-    document.querySelector("#online-friends").style.display = "none";
+    // document.querySelector("#online-friends").style.display = "none";
     document.querySelector("#nav").style.display = "none";
     document.querySelector("#main").style.display = "none";
     document.querySelector("#profile-part").style.display = "none";

@@ -55,7 +55,6 @@ visibility */
 } */
 
 @media (min-width: 0px) and (max-width: 575px) {
-    /* Your CSS styles for Extra Small devices */
     #main {
         width: 277px;
         margin: auto;
@@ -73,7 +72,7 @@ visibility */
         display: none;
     }
     #main-img {
-      display: none;
+        box-shadow: 0 0 6px black;
     }
     #logout {
         display: none;
@@ -118,7 +117,6 @@ visibility */
         height: 7vh !important;
         max-width: 100% !important;
         justify-content: center;
-        /* align-items: center; */
     }
     #description {
         margin-top: 3% !important;
@@ -129,16 +127,39 @@ visibility */
     p {
         font-size: 12px !important;
     }
-    #games {
+    /* #games {
         height: 75% !important;
         position: relative;
         bottom: 50px;
-    }
+    } */
 }
 
 @media (min-width:576px) and (max-width:767px) {
-    /* Your CSS styles for small devices */
+    #description {
+        margin: auto 10px !important;
+    }
     #main {
+        width: 80% !important;
+        margin: auto;
+    }
+    #main-img {
+        min-width: 0px !important;
+        width: 62% !important;
+        height: 65% !important;
+    }
+    #design {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    #home-navbar {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #games {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    /* #main {
         width: 293px;
         margin: 25px auto;
         height: 50vh;
@@ -150,12 +171,12 @@ visibility */
     #design {
         margin-top: 10px;
         height: 40% !important;
-    }
+    } */
+    /* #main-img {
+        box-shadow: 0 0 6px black;
+    } */
     #play-block {
         display: none;
-    }
-    #main-img {
-      display: none;
     }
     .ll h3 {
         display: none !important;
@@ -184,49 +205,58 @@ visibility */
     p {
         font-size: 12px !important;
     }
-    #games {
-        height: 80% !important;
-    }
+    /* #img1, #img2 {
+        height: 100% !important;
+        width: 240px !important;
+        margin-bottom: 0 !important;
+    } */
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    /* Your CSS styles for medium devices */
     #description {
-        width: 100%;
-        margin-top: 5%;
+        margin: auto 10px !important;
     }
     #main-img {
-        display: none; /* Example adjustment for readability on tablets */
+        min-width: 0px !important;
+        width: 62% !important;
+        height: 65% !important;
     }
-    #ping-pong, #XO {
+    #design {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    #main {
+        width: 80% !important;
+        margin: auto;
+    }
+    #home-navbar {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #games {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    /* #ping-pong, #XO {
         margin-left: 0px;
         height: 170px !important;
         width: 250px !important;
         margin-right: 4%;
-    }
-    #play-block {
+    } */
+    /* #play-block {
         display: none;
-    }
-    #games {
+    } */
+    /* #games {
         position: relative;
         bottom: 30%;
         height: 30% !important;
         width: fit-content;
-    }
-    #img1, #img2 {
-        position: relative;
-        right: 11px;
+    } */
+    /* #img1, #img2 {
         height: 100% !important;
         width: 240px !important;
         margin-bottom: 0 !important;
-        box-shadow: 0px 0px 10px 0px violet;
-        border-radius: 10%;
-    }
-    #main {
-        width: 72%;
-        margin: 3% auto;
-    }
-
+    } */
     .ll h3 {
         display: none !important;
     }
@@ -256,30 +286,18 @@ visibility */
     font-size: 20px;
 }
 
-/* #linkk {
-    font-size: 100px;
-} */
-
 ::selection { /* pseudo element */
     background-color: rgb(136, 67, 136);
     color: rgb(214, 214, 236);
 }
 
-/* overflow: hidden; */ /* auto is better than scroll option, and there is x and y */
 body {
     margin: 0;
     background-color: rgb(0, 21, 52);
 }
 
-/* #contain {
-    position: relative;
-    top: 20%;
-} */
-
 i {
     color: whitesmoke;
-    /* font-size: 1.5vw; */
-    /* filter: drop-shadow(-4px 3px 5px blueviolet); */
 }
 
 h1 {
@@ -316,13 +334,12 @@ h1 {
     justify-content: space-around;
     align-items: center;
     width: calc(100% - 215px);
-    gap: 20px;
     height: 100vh;
     background-color: rgb(0, 21, 52);
     transition: all 0.5s;
 }
 
-#online-friends {
+/* #online-friends {
     background-color: rgb(10 19 57);
     border: 2px solid white;
     border-radius: 20px;
@@ -334,7 +351,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+} */
 
 #full-container {
     width: 100%;
@@ -342,13 +359,13 @@ h1 {
     display: flex;
 }
 
-#online-container {
+/* #online-container {
     overflow-y: auto;
     width: 95%;
     height: 90%;
     border: 2px solid white;
     border-radius: 10px;
-}
+} */
 
 #icon > img {
     height: 100px;
@@ -356,9 +373,6 @@ h1 {
     border: 2px solid #9477fa;      /* border can be modified in every side; */
     box-shadow: 0px 0px 10px #9477fa;
     border-radius: 50%;
-    /* margin: auto; */
-    /* keep if good */
-    /* animation: logo 3s infinite;  */
 }
 
 .unclick {
@@ -384,7 +398,7 @@ h1 {
     display: flex;
     align-items: center;
     height: 10%;
-    width: 95%;
+    width: 85%;
     min-width: 600px;
     justify-content: space-evenly;
 }
@@ -456,7 +470,7 @@ h1 {
     display: flex;
     position: relative;
     height: 50%;
-    width: 95%;
+    width: 85%;
     background-color: rgb(10 19 57);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
@@ -469,7 +483,6 @@ h1 {
     background-image: url(images/design3.png);
     background-size: cover;
     margin: auto;
-    /* filter: drop-shadow(0px 0px 5px black); */
 }
 
 #ping-pong, #XO {
@@ -477,9 +490,27 @@ h1 {
     margin-left: 0;
     height: 170px;
     width: 250px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 0px #000000;
+    border-radius: 10%;
+    transition: all 0.2s;
+    opacity: 1;
+}
+/* /images/PingPong.webp */
+/* /images/xo.png */
+#ping-pong {
+    background-image: url(./images/PingPong.webp);
+    background-size: cover;
 }
 
-#img1, #img2 {
+#XO {
+    background-image: url(./images/xo.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* #img1, #img2 {
     height: 170px;
     width: 250px;
     margin-bottom: 20px;
@@ -487,12 +518,10 @@ h1 {
     border-radius: 10%;
     transition: all 0.2s;
     opacity: 1;
-}
+} */
 
-#img1:hover, #img2:hover {
+#ping-pong:hover, #XO:hover {
     border: 1px solid white !important;
-    /* width: 255px;
-    height: 175px; */
     opacity: 0.7;
 }
 
@@ -602,7 +631,7 @@ a, button {
 .btn {
     border: none;
 }
-/*hover effect for buttons without 'link' */
+
 .btn:not(.link, .accept, .refuse):hover {
     background-color: rgba(83, 83, 83, 0.473);
     box-shadow: 0px 0px 8px 2px rgba(83, 83, 83, 0.473);
@@ -610,7 +639,6 @@ a, button {
 
 .ll {
     display: flex;
-    /* justify-content: center; */
     gap: 6%;
 }
 
@@ -618,11 +646,6 @@ a, button {
     font-size: 20px;
     color: white;
 }
-
-/* .btn {
-    color: whitesmoke;
-    border: none;
-} */
 
 .link {
     background-color: #6d349c8a;

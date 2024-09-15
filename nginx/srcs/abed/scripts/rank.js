@@ -14,7 +14,7 @@ export const rankFunct = () => {
     profileId.style.display = "none";
     friendsPart.style.display = "none";
     rankPart.style.display = "flex";
-    document.querySelector("#online-friends").style.display = "none";
+    // document.querySelector("#online-friends").style.display = "none";
 }
 
 // rankBtn.addEventListener("click", rankFunct);

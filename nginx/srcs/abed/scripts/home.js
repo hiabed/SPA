@@ -15,7 +15,7 @@ export const mainFunction = () => {
     friendsPart.style.display = "none";
     main.style.display = "flex";
     document.querySelector("#full-container").style.display = "flex";
-    document.querySelector("#online-friends").style.display = "flex";
+    // document.querySelector("#online-friends").style.display = "flex";
 }
 
 // homeButton.addEventListener("click", mainFunction);
