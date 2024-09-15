@@ -7,7 +7,7 @@ import {settingPage} from "./setting.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-export const chatFunction = (dataObj) => {
+export const chatFunction = () => {
     document.querySelector("#online-friends").style.display = "none";
     profileId.style.display = "none";
     main.style.display = "none";

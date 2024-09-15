@@ -7,7 +7,7 @@ import { chatPage } from "./chat.js";
 import { rankPart } from "./rank.js";
 import { friendsPart } from "./friends.js";
 
-export const mainFunction = (dataObj) => {
+export const mainFunction = () => {
     profileId.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";

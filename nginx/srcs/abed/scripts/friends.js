@@ -8,7 +8,7 @@ import { profileId } from "./profile.js";
 import { rankPart } from "./rank.js";
 import { get_csrf_token } from "./register.js";
 
-export const friendsFunc = (dataObj) => {
+export const friendsFunc = () => {
     document.querySelector("#online-friends").style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
@@ -16,6 +16,7 @@ export const friendsFunc = (dataObj) => {
     profileId.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "block";
+    friendsFunction();
 }
 
 // friendsBtn.addEventListener("click", friendsFunc);
@@ -356,16 +357,16 @@ const createFriendCards = (name, image) => {
     document.querySelector("#my-friends").append(element);
 }
 
-const friendsFunction = async() => {
+export const friendsFunction = async() => {
     const response = await fetch("/user/get_user_friends/");
     if (response.ok) {
-        document.querySelector("#my-friends").innerHTML = ""; // main parent.
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
-            // console.log(jsonResponse.characters);
-            // for (let i = 0; i < jsonResponse.data.length; i++) {
-            //     createFriendCards(jsonResponse.data[i].name, jsonResponse.data[i].images[0]);
-            // }
+            document.querySelector("#my-friends").innerHTML = ""; // main parent.
+            console.log(jsonResponse.data);
+            for (let i = 0; i < jsonResponse.data.length; i++) {
+                createFriendCards(jsonResponse.data[i].username, jsonResponse.data[i].imageProfile);
+            }
         }
     }
 }

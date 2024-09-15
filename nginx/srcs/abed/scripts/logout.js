@@ -2,32 +2,30 @@ import { get_csrf_token } from "./register.js";
 
 export const logoutBtn = document.querySelector("#logout");
 
-// document.addEventListener('DOMContentLoaded', function() {
-    const logoutFuntion = async (event) => {
-        event.preventDefault();
-        try {
-            const token = await get_csrf_token();
-            const response = await fetch('/logout/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': token, // Include the CSRF token
-                },
-            });
-            if (response.ok) {
-                const jsonResponse = await response.json();
-                if (jsonResponse.status === "success") {
-                    showLogin();
-                    localStorage.removeItem('isLoggedIn');
-                }
-                return jsonResponse;
+const logoutFuntion = async (event) => {
+    event.preventDefault();
+    try {
+        const token = await get_csrf_token();
+        const response = await fetch('/logout/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': token, // Include the CSRF token
+            },
+        });
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            if (jsonResponse.status === "success") {
+                showLogin();
+                localStorage.removeItem('isLoggedIn');
             }
-        }
-        catch(err) {
-            console.error(err);
+            return jsonResponse;
         }
     }
-    logoutBtn.addEventListener("click", logoutFuntion);
-// });
+    catch(err) {
+        console.error(err);
+    }
+}
+logoutBtn.addEventListener("click", logoutFuntion);
 
 import { singIn_function } from "./login.js";
 

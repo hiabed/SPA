@@ -94,9 +94,11 @@ def update_user(request):
 
     update_serializer = UpdateUserSerializers(user, data=data, partial=True)
 
-    update_serializer.is_valid()
-    print ('data === ', update_serializer.errors)
-    update_serializer.save()
+    if update_serializer.is_valid():
+        update_serializer.save()
+        print('Updated data === ', update_serializer.data)
+    else:
+        print('Errors === ', update_serializer.errors)
     print ('data === ', update_serializer.data)
     return JsonResponse({'status': 'success', 'data': update_serializer.data})
     # else:
@@ -170,8 +172,8 @@ def     accepte_request(request, receiver_id):
         print(f"ID: {request.id}, From: {request.from_user.username}, To: {request.to_user.username}, Accepted: {request.accepted}")
     try:
         friend_request = RequestFriend.objects.get(id=receiver_id)
-        print ('************************************************************************ff')
         if friend_request.accepted:
+            print ('************************************************************************ff')
             return JsonResponse ({'staus':'success', 'data' : 'this request already accepted'})
         friend_request.accepted = "True"
         friend_request.save()
