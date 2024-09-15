@@ -85,6 +85,7 @@
     max-width: 1200px;
     min-width: 480px;
     height: 70vh;
+    min-height: 385px;
     border-radius: 10px;
     margin: auto;
     background: rgb(37,46,71);

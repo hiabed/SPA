@@ -55,24 +55,52 @@ visibility */
 } */
 
 @media (min-width: 0px) and (max-width: 575px) {
+    #play-block {
+        width: 100% !important;
+    }
+    #play-button {
+        font-size: 14px !important;
+    }
+    #play-icon {
+        font-size: 22px !important;
+    }
+    #description {
+        margin: auto 10px !important;
+    }
+    #speech h3 {
+        font-size: 16px !important;
+    }
+    .search-icons div {
+        width: 35px !important;
+        height: 35px !important;
+    }
+    #home-navbar i:not(#search-bar i) {
+        font-size: 18px !important;
+    }
     #main {
-        width: 277px;
+        width: 100% !important;
         margin: auto;
         height: 90vh;
     }
-    #profile-img {
-        width: 46px !important;
-        height: 46px !important;
-    }
-    #design {
-        margin-top: 10px;
-        height: 40% !important;
-    }
-    #play-block {
-        display: none;
+    #full-container {
+        flex-direction: column;
     }
     #main-img {
-        box-shadow: 0 0 6px black;
+        min-width: 0px !important;
+        width: 62% !important;
+        height: 65% !important;
+    }
+    #design {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    #home-navbar {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #games {
+        min-width: 0 !important;
+        width: 100% !important;
     }
     #logout {
         display: none;
@@ -127,11 +155,14 @@ visibility */
     p {
         font-size: 12px !important;
     }
-    /* #games {
-        height: 75% !important;
-        position: relative;
-        bottom: 50px;
-    } */
+    #ping-pong, #XO {
+        width: 150px !important;
+        height: 120px !important;
+    }
+    #img1, #img2 {
+        width: 150px !important;
+        height: 120px !important;
+    }
 }
 
 @media (min-width:576px) and (max-width:767px) {
@@ -159,22 +190,6 @@ visibility */
         min-width: 0 !important;
         width: 100% !important;
     }
-    /* #main {
-        width: 293px;
-        margin: 25px auto;
-        height: 50vh;
-    }
-    #description {
-        margin-top: 3% !important;
-        width: 100%;
-    }
-    #design {
-        margin-top: 10px;
-        height: 40% !important;
-    } */
-    /* #main-img {
-        box-shadow: 0 0 6px black;
-    } */
     #play-block {
         display: none;
     }
@@ -205,11 +220,12 @@ visibility */
     p {
         font-size: 12px !important;
     }
-    /* #img1, #img2 {
-        height: 100% !important;
-        width: 240px !important;
-        margin-bottom: 0 !important;
-    } */
+    #ping-pong, #XO {
+        width: 200px !important;
+    }
+    #img1, #img2 {
+        width: 200px !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -237,26 +253,12 @@ visibility */
         min-width: 0 !important;
         width: 100% !important;
     }
-    /* #ping-pong, #XO {
-        margin-left: 0px;
-        height: 170px !important;
-        width: 250px !important;
-        margin-right: 4%;
-    } */
-    /* #play-block {
-        display: none;
-    } */
-    /* #games {
-        position: relative;
-        bottom: 30%;
-        height: 30% !important;
-        width: fit-content;
-    } */
-    /* #img1, #img2 {
-        height: 100% !important;
-        width: 240px !important;
-        margin-bottom: 0 !important;
-    } */
+    #ping-pong, #XO {
+        width: 200px !important;
+    }
+    #img1, #img2 {
+        width: 200px !important;
+    }
     .ll h3 {
         display: none !important;
     }
@@ -329,12 +331,14 @@ h1 {
 }
 
 #main {
+    /* overflow-y: auto; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: calc(100% - 215px);
     height: 100vh;
+    min-height: 700px;
     background-color: rgb(0, 21, 52);
     transition: all 0.5s;
 }
@@ -398,7 +402,7 @@ h1 {
     display: flex;
     align-items: center;
     height: 10%;
-    width: 85%;
+    width: 90%;
     min-width: 600px;
     justify-content: space-evenly;
 }
@@ -470,7 +474,7 @@ h1 {
     display: flex;
     position: relative;
     height: 50%;
-    width: 85%;
+    width: 90%;
     background-color: rgb(10 19 57);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
@@ -490,37 +494,21 @@ h1 {
     margin-left: 0;
     height: 170px;
     width: 250px;
-    margin-bottom: 20px;
-    box-shadow: 0px 0px 10px 0px #000000;
-    border-radius: 10%;
-    transition: all 0.2s;
-    opacity: 1;
 }
-/* /images/PingPong.webp */
-/* /images/xo.png */
+
 #ping-pong {
-    background-image: url(./images/PingPong.webp);
-    background-size: cover;
+
 }
 
-#XO {
-    background-image: url(./images/xo.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* #img1, #img2 {
+#img1, #img2 {
     height: 170px;
     width: 250px;
-    margin-bottom: 20px;
-    box-shadow: 0px 0px 10px 0px violet;
+    box-shadow: 0px 0px 10px 0px black;
     border-radius: 10%;
     transition: all 0.2s;
-    opacity: 1;
-} */
+}
 
-#ping-pong:hover, #XO:hover {
+#img1:hover, #img2:hover {
     border: 1px solid white !important;
     opacity: 0.7;
 }
@@ -534,9 +522,10 @@ h1 {
     width: 75%;
     margin: 0;
     min-width: 700px;
-    background-color: rgb(10 19 57);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, rgb(20 17 54) 0%, rgb(21 29 63) 35%, rgb(28 49 142) 100%);
     border-radius: 20px;
-    box-shadow: 0 0 2px black;
+    box-shadow: 0 0 4px black;
 }
 
 #games-cont {
@@ -555,8 +544,6 @@ h1 {
 }
 
 #games h1 {
-    color: whitesmoke;
-    margin-left: 55px;
     text-align: center;
 }
 
