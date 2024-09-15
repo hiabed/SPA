@@ -161,7 +161,7 @@ def     send_friend_request(request, receiver_id):
     all_req = RequestFriend.objects.all()
     print("\033[1;37m ------------------------------> ", serialize_req.data)
     print("\033[1;37m ------------------------------> ",all_req)
-    return JsonResponse({'status' : 'success', 'data' : serialize_req.data})
+    return JsonResponse({'status' : 'success'})
 
 @api_view(['POST'])
 def     accepte_request(request, receiver_id):

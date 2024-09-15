@@ -140,17 +140,17 @@ const suggestionsFunction = async ()=> {
                 addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "add"));
             }
     
-            const deleteBtnsListen = document.querySelectorAll(".delete .btn");
-            for(let i = 0; i < deleteBtnsListen.length; i++) {
-                deleteBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "delete"));
-            }
+            // const deleteBtnsListen = document.querySelectorAll(".delete .btn");
+            // for(let i = 0; i < deleteBtnsListen.length; i++) {
+            //     deleteBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "delete"));
+            // }
         }
         return jsonResponse.data;
     }
 }
 
 const sendIdToBackend = async (id, action) => {
-    console.log(id);
+    console.log("Enter with id: ", id);
     const token = await get_csrf_token();
     if (action === "add") {
         const response = await fetch(`/user/send_friend/${id}/`, {
@@ -162,9 +162,9 @@ const sendIdToBackend = async (id, action) => {
         if (response.ok) {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
-                console.log("success response...");
+                alert("succesfully sent to the backend");
             } else {
-                console.log("failed response...");
+                alert("already sent to the backend");
             }
         }
     }
@@ -173,7 +173,9 @@ const sendIdToBackend = async (id, action) => {
     // }
 }
 
-document.addEventListener("DOMContentLoaded", suggestionsFunction);
+const sugBtn = document.querySelector("#suggestion-btn");
+
+sugBtn.addEventListener("click", suggestionsFunction);
 
 
 
@@ -252,19 +254,22 @@ const createRequestCards = (name, image) => {
 }
 
 const requestsFunction = async ()=> {
-    const response = await fetch("https://dattebayo-api.onrender.com/characters");
+    const response = await fetch("/user/get_requests/");
     if (response.ok) {
         const jsonResponse = await response.json();
-        // if (jsonResponse.status === "success") {
-        // console.log(jsonResponse.characters);
-        for (let i = 0; i <jsonResponse.characters.length; i++) {
-            createRequestCards(jsonResponse.characters[i].name, jsonResponse.characters[i].images[0]);
+        if (jsonResponse.status === "success") {
+            console.log(jsonResponse.data);
+            // for (let i = 0; i < jsonResponse.data.length; i++) {
+            //     createRequestCards(jsonResponse.data[i].username, jsonResponse.data[i].images[0]);
+            // }
         }
+        // else if (jsonResponse.status === "failed") {
+        //     alert("you already sent a request to this user.");
         // }
     }
 }
-
-document.addEventListener("DOMContentLoaded", requestsFunction);
+const reqBtn = document.querySelector("#requests-btn");
+reqBtn.addEventListener("click", requestsFunction);
 
 // -------------- Display Friends --------------------
 
@@ -348,7 +353,9 @@ const friendsFunction = async() => {
     }
 }
 
-document.addEventListener("DOMContentLoaded", friendsFunction);
+const friendBtn = document.querySelector("#friend-btn");
+
+friendBtn.addEventListener("click", friendsFunction);
 
 
 
