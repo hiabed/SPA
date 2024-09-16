@@ -280,6 +280,12 @@
 
 }
 
+#update-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 @media (min-width: 0px) and (max-width: 575px) {
     #setting-part {
         width: 100% !important;
@@ -336,11 +342,6 @@
     }
     #profile-setting {
         height: fit-content !important;
-    }
-    #update-form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
     }
 }
 
