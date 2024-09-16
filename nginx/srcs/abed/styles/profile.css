@@ -7,9 +7,9 @@
         --uInfo_height: 40vh;
     }
     #profile-part {
-        margin-top: 10px !important;
-        width: 100vw !important;
+        width: 100% !important;
         height: 920px !important;
+        min-height: 1000px !important;
     }
     #profile-container {
         height: 900px !important;

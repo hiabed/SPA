@@ -55,8 +55,20 @@ visibility */
 } */
 
 @media (min-width: 0px) and (max-width: 575px) {
+    .search-icons {
+        width: 100px !important;
+    }
+    #search-bar input {
+        width: 76% !important;
+    }
+    #search-bar {
+        gap: 5px !important;
+        width: 60% !important;
+        height: 50% !important;
+    }
     #play-block {
-        width: 100% !important;
+        width: 80% !important;
+        height: fit-content !important;
     }
     #play-button {
         font-size: 14px !important;
@@ -65,10 +77,9 @@ visibility */
         font-size: 22px !important;
     }
     #description {
-        margin: auto 10px !important;
-    }
-    #speech h3 {
-        font-size: 16px !important;
+        justify-content: space-evenly !important;
+        gap: 0 !important;
+        margin: auto 5px !important;
     }
     .search-icons div {
         width: 35px !important;
@@ -79,19 +90,22 @@ visibility */
     }
     #main {
         width: 100% !important;
-        margin: auto;
+        /* margin: auto; */
         height: 90vh;
     }
     #full-container {
         flex-direction: column;
+        /* min-height: 1000px;
+        gap: 15px; */
     }
     #main-img {
         min-width: 0px !important;
         width: 62% !important;
-        height: 65% !important;
+        height: 60% !important;
     }
     #design {
-        width: 100% !important;
+        height: 35% !important;
+        width: 100vw !important;
         min-width: 0 !important;
     }
     #home-navbar {
@@ -146,9 +160,6 @@ visibility */
         max-width: 100% !important;
         justify-content: center;
     }
-    #description {
-        margin-top: 3% !important;
-    }
     h1 {
         font-size: 22px !important;
     }
@@ -163,11 +174,26 @@ visibility */
         width: 150px !important;
         height: 120px !important;
     }
+    #speech h3 {
+        font-size: 14px !important;
+    }
 }
 
 @media (min-width:576px) and (max-width:767px) {
     #description {
         margin: auto 10px !important;
+    }
+    #play-button {
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #ffffff00;
+    }
+    #play-block {
+        height: 37px !important;
+        width: 160px !important;
+    }
+    #play-icon {
+        font-size: 33px !important;
     }
     #main {
         width: 80% !important;
@@ -176,10 +202,11 @@ visibility */
     #main-img {
         min-width: 0px !important;
         width: 62% !important;
-        height: 65% !important;
+        height: 70% !important;
     }
     #design {
         width: 100% !important;
+        height: 40% !important;
         min-width: 0 !important;
     }
     #home-navbar {
@@ -210,9 +237,8 @@ visibility */
         max-width: 16.66666667% !important;
     }
     #icon > img {
-        height: 80px !important;
-        width: 100px !important;
-        margin-bottom: 30% !important;
+        height: 70px !important;
+        width: 80px !important;
     }
     h1 {
         font-size: 25px !important;
@@ -226,19 +252,38 @@ visibility */
     #img1, #img2 {
         width: 200px !important;
     }
+    #speech h3 {
+        font-size: 20px !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+    #play-block {
+        height: 37px !important;
+        width: 160px !important;
+    }
+    #play-icon {
+        font-size: 33px !important;
+    }
+    #play-button {
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #ffffff00;
+    }
     #description {
         margin: auto 10px !important;
     }
     #main-img {
         min-width: 0px !important;
         width: 62% !important;
-        height: 65% !important;
+        height: 70% !important;
+    }
+    #search-bar {
+        height: 52% !important;
     }
     #design {
         width: 100% !important;
+        height: 40% !important;
         min-width: 0 !important;
     }
     #main {
@@ -277,10 +322,26 @@ visibility */
     #icon > img {
         height: 80px !important;
         width: 100px !important;
-        margin-bottom: 30% !important;
     }
     h1 {
         font-size: 3.5vw;
+    }
+    #speech h3 {
+        font-size: 25px !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    #design {
+        height: 40% !important;
+        width: 95% !important;
+    }
+    #home-navbar {
+        height: 9% !important;
+        width: 95% !important;
+    }
+    #speech h3 {
+        font-size: 25px !important;
     }
 }
 
@@ -426,11 +487,11 @@ h1 {
     justify-content: center;
     gap: 10px;
     align-items: center;
-    background-color: white;
-    width: 67%;
+    width: 65%;
     height: 60%;
     box-shadow: 0 0 3px white;
     border-radius: 10px;
+    border: 1px solid gray;
 }
 
 #search-bar input {
