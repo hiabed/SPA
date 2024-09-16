@@ -167,6 +167,7 @@ const sendIdToBackend = async (id, action) => {
                 'X-CSRFToken': token,
             },
         });
+        suggestionsFunction();
         if (response.ok) {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
@@ -184,6 +185,7 @@ const sendIdToBackend = async (id, action) => {
                 'X-CSRFToken': token,
             },
         });
+        requestsFunction();
     }
     // else {
     //     waiting for backend in case of delete.
