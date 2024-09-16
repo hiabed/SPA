@@ -94,9 +94,8 @@ visibility */
         height: 90vh;
     }
     #full-container {
+        min-height: 700px;
         flex-direction: column;
-        /* min-height: 1000px;
-        gap: 15px; */
     }
     #main-img {
         min-width: 0px !important;
@@ -156,7 +155,7 @@ visibility */
     }
     #nav {
         flex-direction: row !important;
-        height: 7vh !important;
+        height: 10vh !important;
         max-width: 100% !important;
         justify-content: center;
     }

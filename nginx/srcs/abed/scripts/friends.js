@@ -15,7 +15,7 @@ export const friendsFunc = () => {
     chatPage.style.display = "none";
     profileId.style.display = "none";
     rankPart.style.display = "none";
-    friendsPart.style.display = "block";
+    friendsPart.style.display = "flex";
     friendsFunction();
 }
 

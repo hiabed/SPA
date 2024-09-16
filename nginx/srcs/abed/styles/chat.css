@@ -3,7 +3,7 @@
         width: 100%;
     }
     #chat-part {
-        margin-top: 60px !important;
+        margin: 20px 0 0 0 !important;
         width: 100% !important;
         min-width: 320px !important;
     }
