@@ -8,6 +8,7 @@ import { profileId } from "./profile.js";
 import { rankPart } from "./rank.js";
 import { get_csrf_token } from "./register.js";
 
+const frdNavBtns = document.querySelectorAll(".frd-nav-btn");
 export const friendsFunc = () => {
     // document.querySelector("#online-friends").style.display = "none";
     main.style.display = "none";
@@ -16,13 +17,18 @@ export const friendsFunc = () => {
     profileId.style.display = "none";
     rankPart.style.display = "none";
     friendsPart.style.display = "flex";
+    document.querySelector("#suggestions").style.display = "none";
+    document.querySelector("#requests").style.display = "none";
+    document.querySelector("#my-friends").style.display = "flex";
+    frdNavBtns[1].classList.remove('styled-nav-btn');
+    frdNavBtns[2].classList.remove('styled-nav-btn');
+    frdNavBtns[0].classList.add('styled-nav-btn');
     friendsFunction();
 }
 
 // friendsBtn.addEventListener("click", friendsFunc);
 
 // nav manipulation style.
-const frdNavBtns = document.querySelectorAll(".frd-nav-btn");
 frdNavBtns[0].classList.add('styled-nav-btn');
 
 frdNavBtns.forEach ((frdNavBtn)=> {
