@@ -6,6 +6,12 @@
     :root {
         --uInfo_height: 40vh;
     }
+    .par {
+        width: 90% !important;
+    }
+    .progress {
+        width: 90% !important;
+    }
     #profile-part {
         width: 100% !important;
         height: 920px !important;
@@ -13,7 +19,7 @@
     }
     #profile-container {
         height: 900px !important;
-        width: 100vw !important;
+        width: 95% !important;
     }
     #profile-part #statistics {
         margin-top: 20px;

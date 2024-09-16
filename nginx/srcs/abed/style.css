@@ -67,7 +67,7 @@ visibility */
         height: 50% !important;
     }
     #play-block {
-        width: 80% !important;
+        width: fit-content !important;
         height: fit-content !important;
     }
     #play-button {
@@ -90,8 +90,7 @@ visibility */
     }
     #main {
         width: 100% !important;
-        /* margin: auto; */
-        height: 90vh;
+        min-height: 640px !important;
     }
     #full-container {
         min-height: 700px;
@@ -155,7 +154,7 @@ visibility */
     }
     #nav {
         flex-direction: row !important;
-        height: 10vh !important;
+        height: 60px !important;
         max-width: 100% !important;
         justify-content: center;
     }
@@ -353,6 +352,23 @@ visibility */
     color: rgb(214, 214, 236);
 }
 
+.row {
+    --bs-gutter-x: 0;
+    --bs-gutter-y: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.container-fluid {
+    --bs-gutter-x: 0;
+    --bs-gutter-y: 0;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
 body {
     margin: 0;
     background-color: rgb(0, 21, 52);
@@ -380,8 +396,9 @@ h1 {
     margin-top: 0;
     background-color: rgb(10 19 57);
     color: whitesmoke !important;
-    box-shadow: inset 0 0 3px 0px whitesmoke;
+    /* box-shadow: 0 0 3px 0px whitesmoke; */
     height: 100vh;
+    border: 1px solid #f5f5f58c;
     max-width: 215px;
 }
 
@@ -535,7 +552,8 @@ h1 {
     position: relative;
     height: 50%;
     width: 90%;
-    background-color: rgb(10 19 57);
+    background: rgb(10, 19, 57);
+    background: linear-gradient(90deg, rgba(10, 19, 57, 1) 0%, rgba(10, 19, 57, 1) 35%, rgb(80 95 158 / 70%) 100%);
     border-radius: 20px;
     box-shadow: 0 0 6px black;
 }

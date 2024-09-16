@@ -1,8 +1,7 @@
 @media (min-width: 0px) and (max-width: 575px) {
     #friends-part {
         display: flex;
-        /* flex-direction: column;
-        justify-content: space-evenly; */
+        justify-content: space-evenly !important;
         width: 100% !important;
     }
     #nav-bar {
@@ -23,7 +22,7 @@
 #friends-part {
     display: none;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 100vh;
     width: calc(100% - 215px);
     min-width: calc(100% - 16.66666667%);
