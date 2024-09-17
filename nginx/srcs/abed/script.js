@@ -11,7 +11,7 @@ import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
 import { dataObject } from "./scripts/login.js";
 
-const newDataFunc = async ()=> {
+export const newDataFunc = async ()=> {
     const response = await fetch('/user/get_user_info/');
     if (response.ok) {
         const jsonResponse = await response.json();

@@ -133,7 +133,7 @@ const createSuggestionCard = (jsonObject, i) => {
     document.querySelector("#suggestions").append(element);
 }
 
-const suggestionsFunction = async ()=> {
+export const suggestionsFunction = async ()=> {
     const response = await fetch("/user/list/");
     if (response.ok) {
         const jsonResponse = await response.json();
@@ -371,11 +371,12 @@ export const friendsFunction = async() => {
         const jsonResponse = await response.json();
         if (jsonResponse.status === "success") {
             document.querySelector("#my-friends").innerHTML = ""; // main parent.
-            console.log(jsonResponse.data);
+            // console.log(jsonResponse.data);
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 createFriendCards(jsonResponse.data[i].username, jsonResponse.data[i].imageProfile);
             }
         }
+        return jsonResponse.data;
     }
 }
 
