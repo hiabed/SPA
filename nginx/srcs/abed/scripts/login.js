@@ -63,6 +63,8 @@ const loginFunction = async (event) => {
         if (response.ok) {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
+                const sideBtns = document.querySelectorAll(".nav-button");
+                sideBtns[0].classList.add('link');
                 showHome(jsonResponse.data);
                 localStorage.setItem('isLoggedIn', 'true');
             }

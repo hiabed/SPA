@@ -172,13 +172,7 @@
     height: 64px;
     border-radius: 50%;
     border: 2px solid aqua;
-    /* position: relative;
-    top: 10%;
-    left: 3%; */
-    background-image: url(../images/me.jpg);
     background-size: cover;
-    /* background-position-x: -10px; */
-    /* background-position-y: 0px; */
 }
 
 
