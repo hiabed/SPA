@@ -104,8 +104,8 @@ def update_user(request):
     if update_serializer.is_valid():
         update_serializer.save()
         print('Updated data === ', update_serializer.data)
-    else:
-        print('Errors === ', update_serializer.errors)
+    # else:
+    #     print('Errors === ', update_serializer.errors)
     print ('data === ', update_serializer.data)
     return JsonResponse({'status': 'success', 'data': update_serializer.data})
     

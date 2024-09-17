@@ -55,6 +55,9 @@ visibility */
 } */
 
 @media (min-width: 0px) and (max-width: 575px) {
+    .main_Xo {
+        width: 90% !important;
+    }
     .search-icons {
         width: 100px !important;
     }
