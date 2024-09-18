@@ -366,7 +366,7 @@ visibility */
     left: 5%;
     z-index: 1;
     width: 280px;
-    background-color: #177e68cf;
+    background-color: rgb(31 42 87 / 80%);
     height: fit-content;
     max-height: 120px;
     padding: 10px;
@@ -384,10 +384,16 @@ visibility */
     font-family: sans-serif;
     color: gray;
     gap: 10px;
-    /* border: 1px solid gray; */
     font-size: 20px;
     height: 60px;
     align-items: center;
+    padding: 10px;
+}
+
+.match-element:hover {
+    opacity: 0.9;
+    border-radius: 10px;
+    background-color: rgb(10, 19, 57, 27%);
 }
 
 .btn i {

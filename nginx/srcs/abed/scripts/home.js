@@ -5,11 +5,11 @@ import { profileId } from "./profile.js";
 import {settingPage} from "./setting.js";
 import { chatPage } from "./chat.js";
 import { rankPart } from "./rank.js";
-import { friendsPart, friendsFunction } from "./friends.js";
+import { friendsPart, friendsFunction, suggestionsFunction } from "./friends.js";
 
 let friendsArray;
 export const mainFunction = async () => {
-    friendsArray = await friendsFunction();
+    friendsArray = await suggestionsFunction();
     profileId.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";
