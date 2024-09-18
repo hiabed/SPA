@@ -55,6 +55,10 @@ visibility */
 } */
 
 @media (min-width: 0px) and (max-width: 575px) {
+    .match-block {
+        left: 1% !important;
+        top: 15vh !important;
+    }
     .main_Xo {
         width: 90% !important;
     }
@@ -333,6 +337,9 @@ visibility */
     #speech h3 {
         font-size: 25px !important;
     }
+    .match-block {
+        left: 0 !important;
+    }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -347,20 +354,24 @@ visibility */
     #speech h3 {
         font-size: 25px !important;
     }
+    .match-block {
+        left: 3% !important;
+    }
 }
 
 .match-block {
     position: absolute;
-    top: 120px;
-    left: 254px;
+    gap: 12px;
+    top: 14vh !important;
+    left: 5%;
     z-index: 1;
     width: 280px;
-    background-color: #06063930;
+    background-color: #177e68cf;
     height: fit-content;
-    max-height: 100px;
+    max-height: 120px;
     padding: 10px;
     overflow-y: auto;
-    border: white solid 1px;
+    box-shadow: 0 0 5px black;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -368,12 +379,15 @@ visibility */
 }
 
 .match-element {
+    display: flex;
     cursor: pointer;
     font-family: sans-serif;
-    font-weight: bold;
-    border: 1px solid gray;
+    color: gray;
+    gap: 10px;
+    /* border: 1px solid gray; */
     font-size: 20px;
-    height: 50px;
+    height: 60px;
+    align-items: center;
 }
 
 .btn i {
@@ -441,6 +455,7 @@ h1 {
 }
 
 #main {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -713,9 +728,9 @@ p {
 
 /* end of button */
 
-span {
+/* span {
     color: blueviolet;
-}
+} */
 
 a, button {
     text-decoration: none;
