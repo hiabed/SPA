@@ -339,6 +339,11 @@ const createFriendCards = (name, image) => {
     sugInfos.classList.add("frd-sug-infos");
     secondElement.append(imageElement, sugInfos);
 
+    // online symbole;
+    const online_icon = document.createElement("i");
+    online_icon.innerHTML = `<i class="fa-solid fa-circle"></i>`;
+    imageElement.append(online_icon);
+
     const wins = document.createElement("div");
     wins.classList.add("wins");
     const loses = document.createElement("div");
