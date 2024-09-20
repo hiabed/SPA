@@ -98,8 +98,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    color: green;
-    filter: drop-shadow(0 0 5px green);
+    color: red;
+    filter: drop-shadow(0 0 1px red);
 }
 
 .friend-infos, .frd-sug-infos, .frd-req-infos {

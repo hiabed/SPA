@@ -339,7 +339,7 @@ const createFriendCards = (name, image) => {
     sugInfos.classList.add("frd-sug-infos");
     secondElement.append(imageElement, sugInfos);
 
-    // online symbole;
+    // online symbole, change the color to green in case of online;
     const online_icon = document.createElement("i");
     online_icon.innerHTML = `<i class="fa-solid fa-circle"></i>`;
     imageElement.append(online_icon);
