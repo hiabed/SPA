@@ -95,11 +95,9 @@ def update_user(request):
     print ('email 1 : ', user.email)
     print ('email 2 : ', request.data['email'])
     
-    update_serializer = UpdateUserSerializers(user, data=data, partial=True)
-
-
     if user.email == request.data['email']:
-        return JsonResponse({'status': 'failed', 'data': 'must to change email'})
+        return JsonResponse({'status': 'failed', 'data': 'must to change email'}, status=400)
+    update_serializer = UpdateUserSerializers(user, data=data, partial=True)
 
     if update_serializer.is_valid():
         update_serializer.save()
@@ -107,7 +105,7 @@ def update_user(request):
     # else:
     #     print('Errors === ', update_serializer.errors)
     print ('data === ', update_serializer.data)
-    return JsonResponse({'status': 'success', 'data': update_serializer.data})
+    return JsonResponse({'status': 'success', 'data': update_serializer.data}, status=200)
     
 @api_view(['GET'])
 def get_request(request):
