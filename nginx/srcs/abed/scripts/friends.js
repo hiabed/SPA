@@ -187,9 +187,27 @@ const sendIdToBackend = async (id, action) => {
         });
         requestsFunction();
     }
-    // else {
-    //     waiting for backend in case of delete.
-    // }
+    else if (action === "refuse") {
+        console.log("Refuse with id: ", id);
+        const response = await fetch(`/user/reject_request/${id}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': token,
+            },
+        });
+        requestsFunction();
+    }
+    //unfriend;
+    else {
+        console.log("Unfiend with id: ", id);
+        const response = await fetch(`/user/unfriend/${id}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': token,
+            },
+        });
+    }
+    // delete if handled in backend.
 }
 
 const sugBtn = document.querySelector("#suggestion-btn");
@@ -266,7 +284,7 @@ const createRequestCards = (name, image) => {
     addBtnDiv.append(addBtn);
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "Refuse";
-    deleteBtn.classList.add("btn", "btn-lg");
+    deleteBtn.classList.add("btn", "btn-lg", "refuse");
     deleteBtnDiv.append(deleteBtn);
     userName.innerHTML = name;
     document.querySelector("#requests").append(element);
@@ -286,6 +304,11 @@ const requestsFunction = async ()=> {
             for(let i = 0; i < acceptBtnsListen.length; i++) {
                 // listen for add-friend button click event to send the id for the backend;
                 acceptBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "accept"));
+            }
+            const refuseBtnsListen = document.querySelectorAll(".delete .refuse");
+            for(let i = 0; i < refuseBtnsListen.length; i++) {
+                // listen for add-friend button click event to send the id for the backend;
+                refuseBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "refuse"));
             }
         }
         // else if (jsonResponse.status === "failed") {
@@ -359,7 +382,7 @@ const createFriendCards = (name, image) => {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "Unfriend";
-    deleteBtn.classList.add("btn", "btn-lg");
+    deleteBtn.classList.add("btn", "btn-lg", "unfriendd");
     deleteBtnDiv.append(deleteBtn);
     userName.innerHTML = name;
     document.querySelector("#my-friends").append(element);
@@ -374,6 +397,11 @@ export const friendsFunction = async() => {
             // console.log(jsonResponse.data);
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 createFriendCards(jsonResponse.data[i].username, jsonResponse.data[i].imageProfile);
+            }
+            const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
+            for(let i = 0; i < unfriendBtns.length; i++) {
+                // listen for add-friend button click event to send the id for the backend;
+                unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "unfriend"));
             }
         }
         return jsonResponse.data;

@@ -107,33 +107,13 @@ def update_user(request):
         update_serializer.save()
         print("\033[1;38m ----------> done Saved \n")
     print('Updated data === ', update_serializer.data)
-    return JsonResponse({'status': 'success', 'data': update_serializer.data}, status=200)
-
-    
-# @api_view(['POST'])
-# def     unfirend(request, received_id):
-#     current_user   = User_info.objects.get(id=request.id)
-#     friend_removed = User_info.objects.get(id=received_id)
-
-#     if current_user.friend.filter(friend_removed).exists():
-#         current_user.friend.remove(friend_removed)
-#         friend_removed.friend.remove(current_user)
-
-#         # i think should remove request also .
-
-#         # RequestFriend.objects.filter(
-#         #         from_user=current_user, to_user=friend_to_remove, accepted=True
-#         #     ).delete()
-#         #     RequestFriend.objects.filter(
-#         #         from_user=friend_to_remove, to_user=current_user, accepted=True
-#         #     ).delete()
-#         return JsonResponse({'status': 'success', 'data': f'{friend_removed} is not your friend anymore'}, status=200)
-#     return JsonResponse({'status': 'failed', 'data': f'{friend_removed} is not exist in your friends db'}, status=400)    
+    return JsonResponse({'status': 'success', 'data': update_serializer.data}, status=200) 
 
 from django.db.models import Q  # Add this import
 
 @api_view(['POST'])
 def         unfriend(request, received_id):
+    print("enter here....")
     current_user   = request.user
     friend_removed = User_info.objects.get(id = received_id)
     if current_user.is_authenticated:
@@ -258,12 +238,12 @@ def reject_request(request, receiver_id):
         friend_request = RequestFriend.objects.get(id=receiver_id)
         # Check if the request is already accepted
         if friend_request.accepted:
-            return JsonResponse({'status': 'failed', 'data': 'This request is already accepted and cannot be rejected'})
+            return JsonResponse({'status': 'failed', 'data': 'This request is already accepted and cannot be rejected'}, status=400)
         # Delete the friend request
         friend_request.delete()
-        return JsonResponse({'status': 'success', 'data': 'The request has been rejected'})
+        return JsonResponse({'status': 'success', 'data': 'The request has been rejected'}, status=200)
     except RequestFriend.DoesNotExist:
-        return JsonResponse({'status': 'failed', 'data': f'Friend request with ID {receiver_id} does not exist'}, status=404)
+        return JsonResponse({'status': 'failed', 'data': f'Friend request with ID {receiver_id} does not exist'}, status=400)
     
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Ensure the user is logged in
