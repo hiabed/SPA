@@ -8,6 +8,9 @@ export const profileAlert = (status, jsonData)=> {
     if (status === "success") {
         reloadFunction(jsonData);
         document.querySelector("#update-alert").style.display = "none";
+    }
+    else if (status === "image") {
+
     } else {
         document.querySelector("#update-alert-failed").style.display = "none";
     }
@@ -23,9 +26,15 @@ const clearInputs = () => {
 const updateForm = document.querySelector("#update-form");
 
 export const update = async (event)=> {
+    const notImage = document.querySelector(".img-err");
     event.preventDefault();
-    const fileInput = document.querySelector("#file-input");
+    // const fileInput = document.querySelector("#file-input");
     const formData = new FormData(updateForm);
+    console.log("type: ", Object.fromEntries(formData).imageProfile.type);
+    if (!Object.fromEntries(formData).imageProfile.type.includes("image")) {
+        notImage.style.display = "block";
+        return 0;
+    }
     // formData.append("imageProfile", fileInput.files[0]);
     const token = await get_csrf_token();
     const response = await fetch('/user/update/', {
