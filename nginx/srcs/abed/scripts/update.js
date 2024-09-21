@@ -25,8 +25,9 @@ const clearInputs = () => {
 
 const updateForm = document.querySelector("#update-form");
 
+const notImage = document.querySelector(".img-err");
 export const update = async (event)=> {
-    const notImage = document.querySelector(".img-err");
+    notImage.style.display = "none";
     event.preventDefault();
     // const fileInput = document.querySelector("#file-input");
     const formData = new FormData(updateForm);

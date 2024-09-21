@@ -81,14 +81,14 @@ const frontChat = (event)=> {
             const msg = document.createElement("div");
             msg.classList.add("my-msg");
             document.querySelector("#msgs").appendChild(msg);
-            msg.innerHTML = `${sendMsg.value}`;
+            msg.innerText = `${sendMsg.value}`;
             sendMsg.value = "";
             scrollToBottom();
         } else {
             const msg = document.createElement("div");
             document.querySelector("#msgs").appendChild(msg);
             msg.classList.add("friend-msg");
-            msg.innerHTML = `${sendMsg.value}`;
+            msg.innerText = `${sendMsg.value}`;
             sendMsg.value = "";
             scrollToBottom();
         }
@@ -101,14 +101,14 @@ const frontChat2 = (event)=> {
             const msg = document.createElement("div");
             msg.classList.add("my-msg");
             document.querySelector("#msgs").appendChild(msg);
-            msg.innerHTML = `${sendMsg.value}`;
+            msg.innerText = `${sendMsg.value}`;
             sendMsg.value = "";
             scrollToBottom();
         } else {
             const msg = document.createElement("div");
             document.querySelector("#msgs").appendChild(msg);
             msg.classList.add("friend-msg");
-            msg.innerHTML = `${sendMsg.value}`;
+            msg.innerText = `${sendMsg.value}`;
             sendMsg.value = "";
             scrollToBottom();
         }
