@@ -54,6 +54,12 @@ visibility */
     background: rgb(80, 55, 80);
 } */
 
+.quick-add .btn {
+    width: 50px !important;
+    height: 28px !important;
+    font-weight: bold;
+}
+
 @media (min-width: 0px) and (max-width: 575px) {
     .match-block {
         left: 1% !important;
@@ -449,7 +455,6 @@ h1 {
     margin-top: 0;
     background-color: rgb(10 19 57);
     color: whitesmoke !important;
-    /* box-shadow: 0 0 3px 0px whitesmoke; */
     height: 100vh;
     border: 1px solid #f5f5f58c;
     max-width: 215px;

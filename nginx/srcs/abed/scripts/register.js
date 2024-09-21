@@ -46,7 +46,13 @@ const registrationFunction = async (event) => {
 }
 registerForm.addEventListener("submit", registrationFunction);
 
-export const showHome = (dataObj)=> {
+import { suggestionsFunction } from "./friends.js";
+import { mainFunction } from "./home.js";
+
+export let friendsArray;
+
+export const showHome = async (dataObj)=> {
+    mainFunction();
     // localStorage.setItem(dataObj.username);
     document.querySelector("#full-container").style.display = "flex";
     // document.querySelector("#online-friends").style.display = "flex";
