@@ -22,7 +22,6 @@ export const newDataFunc = async ()=> {
 }
 
 const loginBtn = document.querySelector(".login-btn");
-
 const errorPage = document.querySelector("#error")
 
 const showError = ()=> {
@@ -112,14 +111,3 @@ loginBtn.addEventListener("click", ()=> {
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => navigateTo("current"));
-
-// add styled class to the clicked button (.nav-button) in #nav
-
-// sideBtns[0].classList.add('link');
-
-// sideBtns.forEach ((sideBtn)=> {
-//     sideBtn.addEventListener("click", (event)=> {
-//         sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
-//         sideBtn.classList.add('link');
-//     })
-// });
