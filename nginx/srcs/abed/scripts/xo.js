@@ -332,3 +332,40 @@ function generateRoomCode() {
     document.querySelector("#play-again").addEventListener("click", playAgain);
 });
 /********  new    ********* */
+
+const app = document.querySelector("#app");
+const freeze = document.querySelector("#freeze");
+
+const displayXoFunction = () => {
+    freeze.classList.add("unclick");
+    app.style.display = "block";
+    const design = document.querySelector("#design");
+    design.style.filter = "blur(3px)";
+    const games = document.querySelector("#games");
+    games.style.filter = "blur(3px)";
+    const nav = document.querySelector("#nav");
+    nav.style.filter = "blur(3px)";
+}
+
+const xoImgBtn = document.querySelector("#XO");
+xoImgBtn.addEventListener("click", displayXoFunction);
+
+const closeGame = () => {
+    freeze.classList.remove("unclick");
+    // playAgain();
+    app.style.display = "none";
+    document.querySelector("#design").style.filter = "blur(0px)";
+    document.querySelector("#games").style.filter = "blur(0px)";
+    document.querySelector("#nav").style.filter = "blur(0px)";
+}
+
+const escapeFunction = (event)=> {
+    if (event.key === "Escape") {
+        closeGame();
+    }
+}
+
+document.addEventListener("keyup", escapeFunction);
+
+const closeBtn = document.querySelector(".btn-close");
+closeBtn.addEventListener("click", closeGame);
