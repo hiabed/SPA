@@ -17,7 +17,7 @@ services:
     restart: on-failure  # Ensures container restarts if it fails
     
   postgreDB:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgreDB
     environment:
       POSTGRES_DB: users_42
@@ -37,6 +37,14 @@ services:
       - remote_auth
     volumes:
       - front_volume:/var/www/front  # Front-end files volume
+    networks:
+      - nw
+  xo_gmae:
+    build: ./Xo_Game/xo_game/
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgreDB
     networks:
       - nw
 volumes:
