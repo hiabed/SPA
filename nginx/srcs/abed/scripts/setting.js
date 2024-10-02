@@ -18,13 +18,13 @@ export const settingFunction = (dataObj) => {
     // alert(dataObj);
     if (dataObj != undefined)
     {
-        document.querySelector("#first-container h5").innerText = `${dataObj.firstname} ${dataObj.lastname}`;
+        document.querySelector("#first-container h5").innerHTML = `${dataObj.firstname} ${dataObj.lastname}`;
         if (dataObj.imageProfile != undefined) {
             document.querySelector("#setting-pic").style.backgroundImage = `url(${dataObj.imageProfile})`;
         }
         if (dataObj.email != undefined) {
             // alert("dont enter.");
-            document.querySelector("#first-container p").innerText = `${dataObj.email}`;
+            document.querySelector("#first-container p").innerHTML = `${dataObj.email}`;
         }
     }
 }

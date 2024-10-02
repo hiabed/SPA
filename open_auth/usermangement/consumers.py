@@ -2,48 +2,94 @@
 import json
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
-from your_app_name.models import User_info  # Import User_info model
+from oauth.models        import User_info
 
-class StatusConsumer(WebsocketConsumer):
-    # When the user connects to WebSocket (e.g., opens the page)
+class FriendRequestConsumer(WebsocketConsumer):
+
     def connect(self):
-        self.user = self.scope["user"]  # Get the user making the connection
-        
-        if self.user.is_authenticated:  # Check if the user is logged in
-            # Update the user status to online
-            self.update_user_status(online=True)
-            # Join the user to a group (to notify other users)
-            async_to_sync(self.channel_layer.group_add)("user_status", self.channel_name)
-            self.accept()  # Accept the WebSocket connection
+        self.user = self.scope["user"]
+        print(f"Connected user: {self.user}")
+        if self.user.is_authenticated and isinstance(self.user, User_info):
+            self.group_name = f'user_{self.user.id}'
+            async_to_sync(self.channel_layer.group_add)(self.group_name, self.channel_name)
+            self.update_user_status(True)
+            self.accept()
+        else:
+            print("Anonymous user connected")
+            self.close()
 
-    # When the user disconnects (e.g., closes the page)
     def disconnect(self, close_code):
-        if self.user.is_authenticated:
-            # Update the user status to offline
-            self.update_user_status(online=False)
-            # Remove the user from the group
-            async_to_sync(self.channel_layer.group_discard)("user_status", self.channel_name)
+        print ('\033[1;32m Disconnect it \n')
+        self.update_user_status(False)
+        async_to_sync(self.channel_layer.group_discard)(self.group_name, self.channel_name)
 
-    # Helper function to update the user status
-    def update_user_status(self, online):
-        user_info = User_info.objects.get(username=self.user.username)
-        user_info.is_online = online  # Set their online status
-        user_info.save()
+    def update_user_status(self, user_status):
+        # channel_layer = get_channel_layer()
+        print ('\033[1;32m ready to notify them \n')
+        print ('\033[1;32m status_user : \n', self.user.is_authenticated)
+        print ('\033[1;32m notify all your friends \n')
+        friends = self.user.friends.all()
+        i = 0
+        for friend in friends :
+            print ('\033[1;22m count friend = ', i + 1)
+            async_to_sync(self.channel_layer.group_send)(
+                f'user_{friend.id}',
+                {
+                    'type'           : 'notify_user_status',
+                    'username'       : self.user.username,
+                    'online_status'  : user_status 
+                }
+            )
 
-        # Notify all clients in the group about the status change
-        async_to_sync(self.channel_layer.group_send)(
-            "user_status",
-            {
-                "type": "user_status_update",
-                "username": user_info.username,
-                "is_online": user_info.is_online,
-            }
-        )
+    def notify_user_status(self, event):
+        # Send a message to the WebSocket client
+        print ('0 : notify_user_status\n')
+        self.send(text_data=json.dumps({
+            'status'       : 'success',
+            'option'       : 'is_online',
+            'username'     : event['username'],
+            'online_status': event['online_status']
+        }))
 
     # Handle receiving status updates (broadcast to clients)
-    def user_status_update(self, event):
+    def notify_receive_id(self, event):
         # Send a message to the WebSocket client
-        self.send(text_data=json.dumps({ # Converts this dictionary into a JSON string 
-            "username": event["username"],
-            "is_online": event["is_online"]
+        print ('1 : notify_receive_id-----------------------')
+        self.send(text_data=json.dumps({
+            'status': 'success',
+            'option' : 'receive_frd_req',
+            'data': event['data']
+        }))
+    def  notify_refuse_id(self, event):
+        # Send a message to the WebSocket client
+        print ('2 : notify_refuse_id')
+        print ('2222222222222222222222222222222222222222222222222222222222222222\n')
+        self.send(text_data=json.dumps({
+            'status': 'success',
+            'option' : 'refuse_frd_req',
+            'data': event['data']
+        }))
+    def notify_unfriend_id(self, event):
+        # Send a message to the WebSocket client
+        print ('3 : notify_unfriend_id')
+        self.send(text_data=json.dumps({
+            'status': 'success',
+            'option' : 'unfriend',
+            'data': event['data']
+        }))
+    def Notify_UserIsAccepted(self, event):
+        # Send a message to the WebSocket client
+        print ('4 : Notify_friend_state')
+        self.send(text_data=json.dumps({
+            'status': 'success',
+            'option' : 'accepte_request',
+            'data': event['data']
+        }))
+    def notify_canelfriend(self, event):
+        # Send a message to the WebSocket client
+        print ('5 : notify_canelfriend')
+        self.send(text_data=json.dumps({
+            'status': 'success',
+            'option' : 'canel',
+            'data': event['data']
         }))

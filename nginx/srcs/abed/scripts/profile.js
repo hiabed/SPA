@@ -18,12 +18,12 @@ export const profileFunction = (dataObj) => {
     if (dataObj != undefined)
     {
         if (dataObj.username != undefined) {
-            document.querySelector("#us h3").innerText = `${dataObj.username}`;
+            document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
         }
         if (dataObj.imageProfile != undefined) {
             document.querySelector("#user-picture").style.backgroundImage = `url(${dataObj.imageProfile})`;
         }
-        document.querySelector("#welcome > h1").innerText = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
+        document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
     }
 }
 

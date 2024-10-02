@@ -16,6 +16,7 @@ services:
       - postgreDB
     restart: on-failure  # Ensures container restarts if it fails
     
+
   postgreDB:
     image: postgres:16
     container_name: postgreDB
@@ -39,12 +40,11 @@ services:
       - front_volume:/var/www/front  # Front-end files volume
     networks:
       - nw
-  xo_gmae:
-    build: ./Xo_Game/xo_game/
+  redis:
+    image: redis:latest
+    container_name: redis
     ports:
-      - 8001:8001
-    depends_on:
-      - postgreDB
+      - 6379:6379
     networks:
       - nw
 volumes:
