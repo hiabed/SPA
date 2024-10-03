@@ -88,8 +88,8 @@
     position: relative;
     width:64px;
     height: 64px;
-    background-position: center;
     border-radius: 50%;
+    background-position: center;
     border: 2px white solid;
     /* background-image: url(../images/me.jpg); */
     background-size: cover;
