@@ -48,7 +48,7 @@ const registrationFunction = async (event) => {
 registerForm.addEventListener("submit", registrationFunction);
 
 export const showHome = (dataObj)=> {
-    const socket = new WebSocket('ws://localhost:8000/ws/friend_requests/');
+    const socket = new WebSocket('wss://localhost/wss/friend_requests/');
     socket.onopen = function() {
         console.log('WebSocket connection established');
         };

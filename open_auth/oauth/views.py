@@ -27,7 +27,7 @@ import os
 
 client_id       = "u-s4t2ud-fa7692872a0200db78dfe687567cc55dd2a444234c7720f33c53e0a4286a7301"
 client_secret   = "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"
-redirect_url    = "http://localhost/"
+redirect_url    = "https://localhost/"
 authorization_url = "https://api.intra.42.fr/oauth/authorize"
 token_url = "https://api.intra.42.fr/oauth/token"
 grant_type = "authorization_code"
@@ -125,8 +125,8 @@ def get_csrf_token(request):
 
 import json, os
 # @csrf_exempt
-@api_view(['POST', 'GET'])
-@permission_classes([AllowAny])
+# @api_view(['POST', 'GET'])
+# @permission_classes([AllowAny])
 
 def callback(request):
     print ('============================ callback is called ============================\n')

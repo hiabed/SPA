@@ -33,6 +33,7 @@ services:
     build: ./nginx  # Ensure this points to your Nginx directory with the Dockerfile and nginx.conf
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - remote_auth
     volumes:
