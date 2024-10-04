@@ -322,7 +322,7 @@ reqBtn.addEventListener("click", requestsFunction);
 
 // -------------- Display Friends --------------------
 
-export const online_icon = document.createElement("i");
+export let online_icon;
 
 export const createFriendCards = (name, image) => {
     const element = document.createElement("div");
@@ -343,7 +343,7 @@ export const createFriendCards = (name, image) => {
     secondElement.append(imageElement, sugInfos);
 
     // online symbole, change the color to green in case of online;
-    // const online_icon = document.createElement("i");
+    online_icon = document.createElement("i");
     online_icon.classList.add(`fa-solid`, `fa-circle`);
     imageElement.append(online_icon);
 

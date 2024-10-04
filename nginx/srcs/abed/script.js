@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         // alert('cho halto maskin kidayra111111111111111111')
                         console.log('data dyal online : ', data.data.online_status);
                         online_icon.style.color = "green";
+                        online_icon.style.filter = "drop-shadow(0 0 1px green)";
                     }
                     else if (online_icon && !data.data.online_status) {
                         alert("gone");
