@@ -2,7 +2,7 @@ import { get_csrf_token } from "./register.js";
 
 export const logoutBtn = document.querySelector("#logout");
 
-const logoutFuntion = async (event) => {
+export const logoutFuntion = async (event) => {
     event.preventDefault();
     try {
         const token = await get_csrf_token();
