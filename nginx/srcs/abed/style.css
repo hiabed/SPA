@@ -55,7 +55,7 @@ visibility */
 } */
 
 .quick-add .btn {
-    position: absolute;
+    /* position: absolute; */
     top: 70px;
     right: 33px;
     border: 1px white solid !important;
@@ -68,6 +68,7 @@ visibility */
         align-items: center;
         top: 14vh;
         right: 2.5vw;
+        cursor: pointer;
     }
     .match-block {
         left: 1% !important;
@@ -394,7 +395,7 @@ visibility */
     cursor: pointer;
     font-family: sans-serif;
     color: gray;
-    gap: 10px;
+    gap: 15px;
     font-size: 20px;
     height: 60px;
     align-items: center;
