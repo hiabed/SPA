@@ -1,3 +1,3 @@
-logout for mobile.
-when logout the login page become bad.
+<!-- logout for mobile. --> done.
+<!-- when logout the login page become bad. --> done.
 need to handle canel after.

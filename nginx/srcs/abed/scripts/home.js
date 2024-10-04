@@ -69,7 +69,6 @@ const lookForUsers = ()=> {
             matchBlock.append(matchElement);
         }
     });
-    // console.log(data);
 }
 
 searchInput.addEventListener("input", lookForUsers);
