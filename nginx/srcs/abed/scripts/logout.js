@@ -33,12 +33,4 @@ export const showLogin = ()=> {
     document.querySelector("#login-parent").style.display = "flex";
     document.querySelector("#full-container").style.display = "none";
     singIn_function();
-    // document.querySelector("#online-friends").style.display = "none";
-    // document.querySelector("#nav").style.display = "none";
-    // document.querySelector("#main").style.display = "none";
-    // document.querySelector("#profile-part").style.display = "none";
-    // document.querySelector("#chat-part").style.display = "none";
-    // document.querySelector("#setting-part").style.display = "none";
-    // document.querySelector("#friends-part").style.display = "none";
-    // document.querySelector("#rank-part").style.display = "none";
 }

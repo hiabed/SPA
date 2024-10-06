@@ -1,7 +1,7 @@
 // export let dataObjectt = null;
 
 import { showLogin } from "./logout.js";
-import { createRequestCards, createSuggestionCard, createFriendCards, friendsFunction,  sendIdToBackend, online_icon } from "./friends.js";
+import { createRequestCards, createSuggestionCard, createFriendCards, friendsFunction,  sendIdToBackend } from "./friends.js";
 
 export const get_csrf_token = async () => {
     const response = await fetch('/get_csrf_token/');
@@ -47,10 +47,6 @@ const registrationFunction = async (event) => {
 }
 registerForm.addEventListener("submit", registrationFunction);
 
-// document.addEventListener("DOMContentLoaded", ()=> {
-//     console.log('000000000000', online_icon);
-// })
-
 export const showHome = (dataObj)=> {
     const socket = new WebSocket('wss://localhost/wss/friend_requests/');
     socket.onopen = function() {
@@ -82,7 +78,6 @@ export const showHome = (dataObj)=> {
             }
             if (data.option === 'accepte_request'){
                 // alert('accepte request \'{+_+}\'')
-                // ------------------- wrong data here -------------------
                 console.log('data : ', data.data)
                 createFriendCards(data.data.username, data.data.imageProfile);
                 const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
@@ -113,25 +108,24 @@ export const showHome = (dataObj)=> {
                 // console.log('online_status : ', data.online_status)
             }
             if (data.option === 'is_online') {
-                console.log("is online: ", data.data.online_status);
-                console.log("online_icon newxwww: ", online_icon);
-                if (online_icon && data.data.online_status) {
-                    // alert('cho halto maskin kidayra111111111111111111')
-                    console.log('data dyal online : ', data.data.online_status);
-                    online_icon.style.color = "green";
-                }
-                else if (online_icon && !data.data.online_status) {
-                    alert("gone");
-                    online_icon.style.color = "red";
-                }
+                setTimeout(() => {
+                    const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
+                    if (onlineIcon && data.data.online_status) {
+                        alert("connected");
+                        onlineIcon.style.color = "green";
+                        onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
+                    } else if (onlineIcon && !data.data.online_status) {
+                        alert("disconnected");
+                        onlineIcon.style.color = "red";
+                    }
+                }, 1000); // 1000ms delay to allow the DOM to render
             }
         }
     };
-
     // When the socket connection is closed
     socket.onclose = function() {
         console.log('WebSocket connection closed');
-    };
+    }
     // localStorage.setItem(dataObj.username);
     document.querySelector("#full-container").style.display = "flex";
     // document.querySelector("#online-friends").style.display = "flex";
