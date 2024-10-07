@@ -157,6 +157,8 @@ export const suggestionsFunction = async ()=> {
     }
 }
 
+import { flag, socketFunction } from "./socket.js";
+
 export const sendIdToBackend = async (id, action) => {
     const token = await get_csrf_token();
     if (action === "add") {
@@ -178,6 +180,10 @@ export const sendIdToBackend = async (id, action) => {
         }
     }
     else if (action === "accept") {
+        // friendsFunction();
+        // if (!flag) {
+        //     socketFunction();
+        // }
         console.log("Accpet with id: ", id);
         const response = await fetch(`/user/accepte_request/${id}/`, {
             method: 'POST',

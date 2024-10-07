@@ -1,4 +1,4 @@
-import { friendsFunction } from "./friends.js";
+import { friendsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 
 export let flag = 0;
 
