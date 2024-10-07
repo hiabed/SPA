@@ -80,44 +80,6 @@ export const navigateTo = (path) => {
     document.querySelector("#nav").style.display = "flex";
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {
-        reloadFunction();
-    } else {
-        showLogin();
-    }
-}
-
-homeButton.addEventListener("click", () => {
-    navigateTo("/home");
-});
-profileButton.addEventListener("click", () => {
-    navigateTo("/profile");
-});
-friendsBtn.addEventListener("click", () => {
-    navigateTo("/friends");
-});
-rankBtn.addEventListener("click", () => {
-    navigateTo("/rank");
-});
-chatButton.addEventListener("click", () => {
-    navigateTo("/chat");
-});
-settingButton.addEventListener("click", () => {
-    navigateTo("/setting");
-});
-logoutBtn.addEventListener("click", ()=> {
-    navigateTo("/");
-});
-loginBtn.addEventListener("click", ()=> {
-    navigateTo("/home");
-});
-
-// const onlineColor = document.querySelector(".frd-sug-img i");
-
-window.addEventListener('popstate', ()=> navigateTo("forback"));
-document.addEventListener("DOMContentLoaded", async () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    if (isLoggedIn) {
-        // await friendsFunction();
         const socket = new WebSocket('wss://localhost/wss/friend_requests/');
         socket.onopen = function() {
                 console.log('WebSocket connection established');
@@ -166,13 +128,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (data.option === 'is_online') {
                     setTimeout(() => {
                         const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                        console.log("online icon: ", onlineIcon);
+                        console.log(`online icon for ${data.data.username}: `, onlineIcon);
                         if (onlineIcon && data.data.online_status) {
-                            alert("connected");
+                            alert(`${data.data.username} is online.`);
                             onlineIcon.style.color = "green";
                             onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
                         } else if (onlineIcon && !data.data.online_status) {
-                            alert("disconnected");
+                            alert(`${data.data.username} is offline.`);
                             onlineIcon.style.color = "red";
                         }
                     }, 1000); // 100ms delay to allow the DOM to render
@@ -182,7 +144,41 @@ document.addEventListener("DOMContentLoaded", async () => {
         socket.onclose = function() {
             console.log('WebSocket connection closed');
         };
+        reloadFunction();
+    } else {
+        showLogin();
     }
+}
+
+homeButton.addEventListener("click", () => {
+    navigateTo("/home");
+});
+profileButton.addEventListener("click", () => {
+    navigateTo("/profile");
+});
+friendsBtn.addEventListener("click", () => {
+    navigateTo("/friends");
+});
+rankBtn.addEventListener("click", () => {
+    navigateTo("/rank");
+});
+chatButton.addEventListener("click", () => {
+    navigateTo("/chat");
+});
+settingButton.addEventListener("click", () => {
+    navigateTo("/setting");
+});
+logoutBtn.addEventListener("click", ()=> {
+    navigateTo("/");
+});
+loginBtn.addEventListener("click", ()=> {
+    navigateTo("/home");
+});
+
+// const onlineColor = document.querySelector(".frd-sug-img i");
+
+window.addEventListener('popstate', ()=> navigateTo("forback"));
+document.addEventListener("DOMContentLoaded", () => {
     navigateTo("current")
 });
 

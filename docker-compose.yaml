@@ -9,7 +9,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     ports:
-      - "8000:8000"
+      - "8080:8000" #host port changed to 8080
     networks:
       - nw
     depends_on:
