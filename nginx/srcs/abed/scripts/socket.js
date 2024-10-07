@@ -1,8 +1,11 @@
+import { friendsFunction } from "./friends.js";
+
 export let flag = 0;
 
 export const socketFunction = () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (isLoggedIn && !flag) {
+        friendsFunction();
         const socket = new WebSocket('wss://localhost/wss/friend_requests/');
         socket.onopen = function() {
                 console.log('WebSocket connection established');
@@ -50,7 +53,7 @@ export const socketFunction = () => {
                 }
                 if (data.option === 'is_online') {
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                    const status = localStorage.getItem(`online_status_${data.data.id}`);
+                    // const status = localStorage.getItem(`online_status_${data.data.id}`);
                     console.log(`online icon for ${data.data.username}: `, onlineIcon);
                     if (onlineIcon && data.data.online_status) {
                         alert(`${data.data.username} is online.`);

@@ -117,10 +117,10 @@ import { flag, socketFunction } from "./scripts/socket.js";
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => {
+    navigateTo("current")
     if (!flag) {
         socketFunction();
     }
-    navigateTo("current")
 });
 
 // add styled class to the clicked button (.nav-button) in #nav
