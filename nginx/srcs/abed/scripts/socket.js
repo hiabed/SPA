@@ -49,22 +49,20 @@ export const socketFunction = () => {
                     }
                 }
                 if (data.option === 'is_online') {
-                    setTimeout(() => {
-                        const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                        const status = localStorage.getItem(`online_status_${data.data.id}`);
-                        console.log(`online icon for ${data.data.username}: `, onlineIcon);
-                        if (onlineIcon && data.data.online_status) {
-                            alert(`${data.data.username} is online.`);
-                            onlineIcon.style.color = "green";
-                            onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
-                            localStorage.setItem(`online_status_${data.data.id}`, 'online');  // Store online status
-                        } else if (onlineIcon && !data.data.online_status) {
-                            alert(`${data.data.username} is offline.`);
-                            onlineIcon.style.color = "red";
-                            onlineIcon.style.filter = "drop-shadow(0 0 1px red)";
-                            localStorage.setItem(`online_status_${data.data.id}`, 'offline');  // Store offline status
-                        }
-                    }, 5000); // 100ms delay to allow the DOM to render
+                    const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
+                    const status = localStorage.getItem(`online_status_${data.data.id}`);
+                    console.log(`online icon for ${data.data.username}: `, onlineIcon);
+                    if (onlineIcon && data.data.online_status) {
+                        alert(`${data.data.username} is online.`);
+                        onlineIcon.style.color = "green";
+                        onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
+                        localStorage.setItem(`online_status_${data.data.id}`, 'online');  // Store online status
+                    } else if (onlineIcon && !data.data.online_status) {
+                        alert(`${data.data.username} is offline.`);
+                        onlineIcon.style.color = "red";
+                        onlineIcon.style.filter = "drop-shadow(0 0 1px red)";
+                        localStorage.setItem(`online_status_${data.data.id}`, 'offline');  // Store offline status
+                    }
                 }
             }
         };

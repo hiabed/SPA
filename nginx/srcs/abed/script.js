@@ -113,8 +113,13 @@ loginBtn.addEventListener("click", ()=> {
 
 // const onlineColor = document.querySelector(".frd-sug-img i");
 
+import { flag, socketFunction } from "./scripts/socket.js";
+
 window.addEventListener('popstate', ()=> navigateTo("forback"));
 document.addEventListener("DOMContentLoaded", () => {
+    if (!flag) {
+        socketFunction();
+    }
     navigateTo("current")
 });
 
