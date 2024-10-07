@@ -48,10 +48,12 @@ const registrationFunction = async (event) => {
 }
 registerForm.addEventListener("submit", registrationFunction);
 
-const onlineStatFunc = async () => {
-    
-}
-
 export const showHome = async (dataObj)=> {
-    navigateTo("current");
+    // navigateTo("current");
+    document.querySelector("#full-container").style.display = "flex";
+    document.querySelector("#login-parent").style.display = "none";
+    document.querySelector("#nav").style.display = "flex";
+    document.querySelector("#main").style.display = "flex";
+    document.querySelector("#us h3").innerHTML = `${dataObj.username}`;
+    document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
 }

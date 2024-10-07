@@ -37,6 +37,9 @@ const oauthCallback = async ()=> {
                 const sideBtns = document.querySelectorAll(".nav-button");
                 sideBtns[0].classList.add('link');
                 showHome(jsonResponse.data);
+                if (!flag) {
+                    socketFunction();
+                }
                 localStorage.setItem('isLoggedIn', 'true');
             }
         }

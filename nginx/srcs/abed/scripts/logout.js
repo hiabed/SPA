@@ -16,7 +16,8 @@ export const logoutFuntion = async (event) => {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
                 showLogin();
-                localStorage.removeItem('isLoggedIn');
+                // localStorage.removeItem('isLoggedIn');
+                localStorage.clear();
             }
             return jsonResponse;
         }

@@ -344,8 +344,15 @@ export const createFriendCards = (name, image, userId) => {
     const online_icon = document.createElement("i");
     online_icon.classList.add(`fa-solid`, `fa-circle`);
     online_icon.id = `online-icon-${userId}`;
+    const status = localStorage.getItem(`online_status_${userId}`);
+    if (status === "online") {
+        online_icon.style.color = "green";
+        online_icon.style.filter = "drop-shadow(0 0 1px green)";
+    } else {
+        online_icon.style.color = "red";
+        online_icon.style.filter = "drop-shadow(0 0 1px red)";
+    }
     imageElement.append(online_icon);
-
     const wins = document.createElement("div");
     wins.classList.add("wins");
     const loses = document.createElement("div");
