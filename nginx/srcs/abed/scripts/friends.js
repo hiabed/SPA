@@ -394,7 +394,7 @@ export const createFriendCards = (name, image, userId) => {
     userName.innerHTML = name;
     document.querySelector("#my-friends").append(element);
 }
-
+let friendsLoaded = 0;
 export const friendsFunction = async() => {
     const response = await fetch("/user/get_user_friends/");
     if (response.ok) {
@@ -411,9 +411,12 @@ export const friendsFunction = async() => {
                 unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "unfriend"));
             }
         }
+        friendsLoaded = 1;
         return jsonResponse.data;
     }
 }
+
+export {friendsLoaded};
 
 const friendBtn = document.querySelector("#friend-btn");
 

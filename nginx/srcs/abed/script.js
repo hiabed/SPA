@@ -114,9 +114,10 @@ loginBtn.addEventListener("click", ()=> {
 // const onlineColor = document.querySelector(".frd-sug-img i");
 
 window.addEventListener('popstate', ()=> navigateTo("forback"));
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (isLoggedIn) {
+        // await friendsFunction();
         const socket = new WebSocket('wss://localhost/wss/friend_requests/');
         socket.onopen = function() {
                 console.log('WebSocket connection established');
@@ -125,59 +126,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(' ---| WEBSOCKET IS NOT CONNECTE |----------', error);
                 console.error('WebSocket error:', error);
         };
-        // When a message is received
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
-                    // alert("receive");
-                    // console.log("received data infos: ", data.data.from_user);
                     createRequestCards(data.data.from_user.username, data.data.from_user.imageProfile)
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
                     for(let i = 0; i < acceptBtnsListen.length; i++) {
-                        // listen for add-friend button click event to send the id for the backend;
                         acceptBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "accept"));
                     }
                     const refuseBtnsListen = document.querySelectorAll(".delete .refuse");
                     for(let i = 0; i < refuseBtnsListen.length; i++) {
-                        // listen for add-friend button click event to send the id for the backend;
                         refuseBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "refuse"));
                     }
                 }
                 if (data.option === 'accepte_request'){
-                    // alert('accepte request \'{+_+}\'')
                     console.log('data : ', data.data)
                     createFriendCards(data.data.username, data.data.imageProfile);
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {
-                        // listen for add-friend button click event to send the id for the backend;
                         unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "unfriend"));
                     }
                 }
                 if (data.option === 'refuse_frd_req'){
-                    // alert("refuse");
-                    // console.log("refused data infos: ", data.data);
                     createSuggestionCard(data.data.username, data.data.imageProfile);
                     const addBtnsListen = document.querySelectorAll(".add .btn");
                     for(let i = 0; i < addBtnsListen.length; i++) {
-                        // listen for add-friend button click event to send the id for the backend;
                         addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.from_user_id, "add"));
                     }
                 }
                 if (data.option === 'unfriend'){
                     friendsFunction();
-                    // alert('remove the friendship with you')
                     console.log('data222 : ', data.data)
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {
-                        // listen for add-friend button click event to send the id for the backend;
                         unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "unfriend"));
                     }
-                    // console.log('online_status : ', data.online_status)
                 }
                 if (data.option === 'is_online') {
                     setTimeout(() => {
                         const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
+                        console.log("online icon: ", onlineIcon);
                         if (onlineIcon && data.data.online_status) {
                             alert("connected");
                             onlineIcon.style.color = "green";
