@@ -66,6 +66,7 @@ const loginFunction = async (event) => {
                 sideBtns[0].classList.add('link');
                 showHome(jsonResponse.data);
                 localStorage.setItem('isLoggedIn', 'true');
+                console.log("flag: ", flag);
                 if (!flag) {
                     socketFunction();
                 }

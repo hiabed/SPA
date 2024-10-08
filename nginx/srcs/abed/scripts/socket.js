@@ -1,14 +1,17 @@
 import { friendsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 
 export let flag = 0;
+export let socket = null;
 
-export const socketFunction = () => {
+export const socketFunction = async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    console.log(flag);
     if (isLoggedIn && !flag) {
-        friendsFunction();
-        const socket = new WebSocket('wss://localhost/wss/friend_requests/');
+        await friendsFunction(); // create friends cards first.
+        socket = new WebSocket('wss://localhost/wss/friend_requests/');
         socket.onopen = function() {
                 console.log('WebSocket connection established');
+                flag++;
             };
             socket.onerror = function(error) {
                 console.log(' ---| WEBSOCKET IS NOT CONNECTE |----------', error);
@@ -29,8 +32,8 @@ export const socketFunction = () => {
                     }
                 }
                 if (data.option === 'accepte_request'){
-                    console.log('data : ', data.data)
-                    createFriendCards(data.data.username, data.data.imageProfile);
+                    console.log('accepted frd request : ', data.data)
+                    createFriendCards(data.data.username, data.data.imageProfile, data.data.id);
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {
                         unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "unfriend"));
@@ -53,8 +56,8 @@ export const socketFunction = () => {
                 }
                 if (data.option === 'is_online') {
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                    // const status = localStorage.getItem(`online_status_${data.data.id}`);
                     console.log(`online icon for ${data.data.username}: `, onlineIcon);
+                    console.log("frd accepted: ", data.data);
                     if (onlineIcon && data.data.online_status) {
                         alert(`${data.data.username} is online.`);
                         onlineIcon.style.color = "green";
@@ -71,7 +74,7 @@ export const socketFunction = () => {
         };
         socket.onclose = function() {
             console.log('WebSocket connection closed');
+            flag = 0;
         };
-        flag++;
     }
 }

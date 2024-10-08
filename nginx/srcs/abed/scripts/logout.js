@@ -1,4 +1,6 @@
 import { get_csrf_token } from "./register.js";
+import { socket, flag } from "./socket.js";
+export let isLogOut = 0;
 
 export const logoutBtn = document.querySelector("#logout");
 
@@ -16,7 +18,9 @@ export const logoutFuntion = async (event) => {
             const jsonResponse = await response.json();
             if (jsonResponse.status === "success") {
                 showLogin();
-                // localStorage.removeItem('isLoggedIn');
+                if (flag) {
+                    socket.close();
+                }
                 localStorage.clear();
             }
             return jsonResponse;

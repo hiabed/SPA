@@ -39,7 +39,7 @@ const registrationFunction = async (event) => {
             return jsonResponse;
         }
         else {
-            alert("error happened");
+            console.log("error happened");
         }
     }
     catch(err) {

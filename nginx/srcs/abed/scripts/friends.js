@@ -170,20 +170,16 @@ export const sendIdToBackend = async (id, action) => {
             },
         });
         suggestionsFunction();
-        if (response.ok) {
-            const jsonResponse = await response.json();
-            if (jsonResponse.status === "success") {
-                alert("succesfully sent to the backend");
-            } else {
-                alert("already sent to the backend");
-            }
-        }
+        // if (response.ok) {
+        //     const jsonResponse = await response.json();
+        //     if (jsonResponse.status === "success") {
+        //         alert("succesfully sent to the backend");
+        //     } else {
+        //         alert("already sent to the backend");
+        //     }
+        // }
     }
     else if (action === "accept") {
-        // friendsFunction();
-        // if (!flag) {
-        //     socketFunction();
-        // }
         console.log("Accpet with id: ", id);
         const response = await fetch(`/user/accepte_request/${id}/`, {
             method: 'POST',
@@ -351,10 +347,15 @@ export const createFriendCards = (name, image, userId) => {
     online_icon.classList.add(`fa-solid`, `fa-circle`);
     online_icon.id = `online-icon-${userId}`;
     const status = localStorage.getItem(`online_status_${userId}`);
+    console.log("user id", userId);
+    console.log(`${name} is ${status}`);
+    // console.log("status: ", status);
     if (status === "online") {
+        // alert('green');
         online_icon.style.color = "green";
         online_icon.style.filter = "drop-shadow(0 0 1px green)";
     } else {
+        // alert('red');
         online_icon.style.color = "red";
         online_icon.style.filter = "drop-shadow(0 0 1px red)";
     }
