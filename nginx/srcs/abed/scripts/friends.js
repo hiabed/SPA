@@ -170,14 +170,6 @@ export const sendIdToBackend = async (id, action) => {
             },
         });
         suggestionsFunction();
-        // if (response.ok) {
-        //     const jsonResponse = await response.json();
-        //     if (jsonResponse.status === "success") {
-        //         alert("succesfully sent to the backend");
-        //     } else {
-        //         alert("already sent to the backend");
-        //     }
-        // }
     }
     else if (action === "accept") {
         console.log("Accpet with id: ", id);
