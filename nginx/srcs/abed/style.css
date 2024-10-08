@@ -156,13 +156,13 @@ visibility */
         min-height: 640px !important;
     }
     #full-container {
-        min-height: 700px;
         flex-direction: column;
     }
     #main-img {
         min-width: 0px !important;
         width: 62% !important;
         height: 60% !important;
+        min-height: 180px !important;
     }
     #design {
         height: 35% !important;
@@ -226,6 +226,7 @@ visibility */
         min-height: 0 !important;
         border-right: none !important;
         border-bottom: 1px solid gray;
+        /* margin-top: 15px !important; */
     }
     h1 {
         font-size: 22px !important;
