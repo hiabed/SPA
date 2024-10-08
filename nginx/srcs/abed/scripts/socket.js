@@ -3,13 +3,13 @@ import { friendsFunction, createRequestCards, createFriendCards, createSuggestio
 export let flag = 0;
 export let socket = null;
 
-function createToast(message, timeAgo) {
+export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
     let toastHTML = `
       <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
         <div class="toast-header">
           <i class="fa-solid fa-circle" id="online-icon-1" style="color: green; filter: drop-shadow(green 0px 0px 1px);"></i>
-          <strong class="me-auto">${message}</strong>
+          <strong class="me-auto" style="margin-left: 8px;">${message}</strong>
           <small>${timeAgo}</small>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>

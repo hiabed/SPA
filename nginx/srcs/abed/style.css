@@ -78,7 +78,7 @@ visibility */
 
 .toast-header {
     display: flex;
-    gap: 8px;
+    /* gap: 8px; */
     color: rgb(172 183 199);
     background-color: #0b1230;
 }
@@ -86,6 +86,7 @@ visibility */
 .toast-header .btn-close {
     position: relative;
     top: 0;
+    right: 0;
     /* background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat; */
 }
 
@@ -504,6 +505,7 @@ h1 {
     background-color: rgb(10 19 57);
     color: whitesmoke !important;
     height: 100vh;
+    min-height: 600px;
     border-right: 1px solid #9f9f9f8c;
     max-width: 215px;
 }
@@ -668,6 +670,7 @@ h1 {
     min-width: 463px;
     width: 65%;
     height: 100%;
+    min-height: 237px;
     background-image: url(images/design3.png);
     background-size: cover;
     margin: auto;
