@@ -151,7 +151,8 @@ visibility */
         font-size: 18px !important;
     }
     #main {
-        width: 100% !important;
+        width: 96% !important;
+        margin: auto;
         min-height: 640px !important;
     }
     #full-container {
@@ -165,7 +166,7 @@ visibility */
     }
     #design {
         height: 35% !important;
-        width: 100vw !important;
+        width: 100% !important;
         min-width: 0 !important;
     }
     #home-navbar {
@@ -222,6 +223,9 @@ visibility */
         height: 60px !important;
         max-width: 100% !important;
         justify-content: center;
+        min-height: 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid gray;
     }
     h1 {
         font-size: 22px !important;
@@ -822,7 +826,7 @@ a, button {
 .link {
     background-color: #6d349c8a;
     border: none;
-    box-shadow: 0px 0px 8px 2px #6d349c;
+    box-shadow: 0px 0px 5px #6d349c;
     margin: 0 auto;
     transition-duration: 0.5s;
     height: 100% !important;
