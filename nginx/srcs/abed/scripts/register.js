@@ -17,20 +17,18 @@ const registerForm = document.querySelector("#register-form");
 const registrationFunction = async (event) => {
     event.preventDefault();
     const token =  await get_csrf_token();
-    // console.log("++++" + token + "+++++");
+    // console.log("++++ ", token, " +++++");
     try {
         const formData = new FormData(registerForm);
         const response = await fetch('/register/', {
             method: 'POST',
             headers: {
-                'X-CSRFToken': token,
-                'Content-Type' : 'application/json'
+                'X-CSRFToken': token
             },
             body: formData
         });
         if (response.ok) {
             const jsonResponse = await response.json();
-            console.log('**********',jsonResponse)
             // console.log("Json response: " + jsonResponse.data.username);
             if (jsonResponse.status === "success") {
                 showLogin();
@@ -41,7 +39,7 @@ const registrationFunction = async (event) => {
             return jsonResponse;
         }
         else {
-            console.log("error happened");
+            console.log("error happened with Register function....");
         }
     }
     catch(err) {
