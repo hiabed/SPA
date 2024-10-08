@@ -56,10 +56,12 @@ export const socketFunction = async () => {
                 }
                 if (data.option === 'is_online') {
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                    console.log(`online icon for ${data.data.username}: `, onlineIcon);
-                    console.log("frd accepted: ", data.data);
+                    // console.log(`online icon for ${data.data.username}: `, onlineIcon);
+                    // console.log("frd accepted: ", data.data);
                     if (onlineIcon && data.data.online_status) {
                         alert(`${data.data.username} is online.`);
+                        var toast = new bootstrap.Toast(document.querySelector('.toast'));
+                        toast.show();
                         onlineIcon.style.color = "green";
                         onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
                         localStorage.setItem(`online_status_${data.data.id}`, 'online');  // Store online status

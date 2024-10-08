@@ -11,7 +11,6 @@ import { settingButton, settingFunction} from "./scripts/setting.js";
 import { logoutBtn, showLogin } from "./scripts/logout.js";
 import { dataObject } from "./scripts/login.js";
 
-
 export const newDataFunc = async ()=> {
     const response = await fetch('/user/get_user_info/');
     if (response.ok) {
@@ -27,7 +26,8 @@ const loginBtn = document.querySelector(".login-btn");
 const errorPage = document.querySelector("#error")
 
 const showError = ()=> {
-    errorPage.style.display = "block";
+    errorPage.style.display = "flex";
+    errorPage.classList.add("error_style");
     document.querySelector("#login-parent").style.display = "none";
     document.querySelector("#nav").style.display = "none";
     document.querySelector("#main").style.display = "none";
@@ -41,6 +41,7 @@ const showError = ()=> {
 const sideBtns = document.querySelectorAll(".nav-button");
 
 export const reloadFunction = async ()=> {
+    errorPage.style.display = "none";
     document.querySelector("#full-container").style.display = "flex";
     sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
     if (location.pathname === "/home" || location.pathname === "/") {

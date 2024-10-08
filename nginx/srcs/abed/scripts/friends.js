@@ -347,7 +347,7 @@ export const createFriendCards = (name, image, userId) => {
     online_icon.classList.add(`fa-solid`, `fa-circle`);
     online_icon.id = `online-icon-${userId}`;
     const status = localStorage.getItem(`online_status_${userId}`);
-    console.log("user id", userId);
+    // console.log("user id", userId);
     console.log(`${name} is ${status}`);
     // console.log("status: ", status);
     if (status === "online") {

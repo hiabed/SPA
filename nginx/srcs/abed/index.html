@@ -23,8 +23,20 @@
     <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
+    <!-- toast to apply later when someone is loggedin -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="my_toast">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
     <div id="freeze"></div>
-    <div id="error" style="display: none;">
+    <div id="error" class="error_style" style="display: none;">
         <h1>Oops Somthing went wrong!</h1>
         <h3>404 Not Found</h3>
     </div>

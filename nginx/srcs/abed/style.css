@@ -54,6 +54,19 @@ visibility */
     background: rgb(80, 55, 80);
 } */
 
+#my_toast {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+.error_style {
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .quick-add .btn {
     /* position: absolute; */
     top: 70px;

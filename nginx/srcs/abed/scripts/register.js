@@ -23,12 +23,14 @@ const registrationFunction = async (event) => {
         const response = await fetch('/register/', {
             method: 'POST',
             headers: {
-                'X-CSRFToken': token, // Include the CSRF token
+                'X-CSRFToken': token,
+                'Content-Type' : 'application/json'
             },
             body: formData
         });
         if (response.ok) {
             const jsonResponse = await response.json();
+            console.log('**********',jsonResponse)
             // console.log("Json response: " + jsonResponse.data.username);
             if (jsonResponse.status === "success") {
                 showLogin();
