@@ -3,6 +3,38 @@ import { friendsFunction, createRequestCards, createFriendCards, createSuggestio
 export let flag = 0;
 export let socket = null;
 
+function createToast(message, timeAgo) {
+    // Create toast HTML structure
+    let toastHTML = `
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast-header">
+          <i class="fa-solid fa-circle" id="online-icon-1" style="color: green; filter: drop-shadow(green 0px 0px 1px);"></i>
+          <strong class="me-auto">${message}</strong>
+          <small>${timeAgo}</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          ${message} is online!
+        </div>
+      </div>
+    `;
+
+    // Convert the HTML string to a DOM element
+    let tempDiv = document.createElement('div');
+    tempDiv.innerHTML = toastHTML.trim();
+
+    // Append the toast to the container
+    let toastElement = tempDiv.firstChild;
+    document.querySelector('body').appendChild(toastElement);
+
+    // Show the toast using Bootstrap's toast class
+    let toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    setTimeout(() => {
+        toastElement.remove();
+    }, 6000);
+}
+
 export const socketFunction = async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     console.log(flag);
@@ -56,17 +88,12 @@ export const socketFunction = async () => {
                 }
                 if (data.option === 'is_online') {
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
-                    // console.log(`online icon for ${data.data.username}: `, onlineIcon);
-                    // console.log("frd accepted: ", data.data);
                     if (onlineIcon && data.data.online_status) {
-                        alert(`${data.data.username} is online.`);
-                        var toast = new bootstrap.Toast(document.querySelector('.toast'));
-                        toast.show();
+                        createToast(data.data.username, 'just now');
                         onlineIcon.style.color = "green";
                         onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
                         localStorage.setItem(`online_status_${data.data.id}`, 'online');  // Store online status
                     } else if (onlineIcon && !data.data.online_status) {
-                        alert(`${data.data.username} is offline.`);
                         onlineIcon.style.color = "red";
                         onlineIcon.style.filter = "drop-shadow(0 0 1px red)";
                         localStorage.setItem(`online_status_${data.data.id}`, 'offline');  // Store offline status

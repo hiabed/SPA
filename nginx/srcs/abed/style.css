@@ -54,12 +54,41 @@ visibility */
     background: rgb(80, 55, 80);
 } */
 
-#my_toast {
+.toast {
+    opacity: 0;
+    animation: toast-frames 6s;
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: 10;
+    background-color: #6c87a5;
 }
+
+@keyframes toast-frames {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+}
+
+.toast-header {
+    display: flex;
+    gap: 8px;
+    color: rgb(172 183 199);
+    background-color: #0b1230;
+}
+
+.toast-header .btn-close {
+    position: relative;
+    top: 0;
+    /* background: transparent var(--bs-btn-close-bg) center / 1em auto no-repeat; */
+}
+
 .error_style {
     min-width: 100vw;
     display: flex;
