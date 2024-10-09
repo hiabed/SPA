@@ -37,8 +37,8 @@ export const createToast = (message, timeAgo) => {
 
 export const socketFunction = async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    console.log(flag);
     if (isLoggedIn && !flag) {
+        console.log("the flag: ", flag);
         await friendsFunction(); // create friends cards first.
         socket = new WebSocket('wss://localhost/wss/friend_requests/');
         socket.onopen = function() {
@@ -53,6 +53,7 @@ export const socketFunction = async () => {
             const data = JSON.parse(event.data);
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
+                    console.log("receive: ", data.data);
                     createRequestCards(data.data.from_user.username, data.data.from_user.imageProfile)
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
                     for(let i = 0; i < acceptBtnsListen.length; i++) {
@@ -87,6 +88,7 @@ export const socketFunction = async () => {
                     }
                 }
                 if (data.option === 'is_online') {
+                    console.log("data data: ", data.data);
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
                     if (onlineIcon && data.data.online_status) {
                         createToast(data.data.username, 'just now');
