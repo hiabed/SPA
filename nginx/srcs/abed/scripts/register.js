@@ -18,7 +18,7 @@ const registrationFunction = async (event) => {
     event.preventDefault();
     const token =  await get_csrf_token();
     // console.log("++++ ", token, " +++++");
-    try {
+    // try {
         const formData = new FormData(registerForm);
         const response = await fetch('/register/', {
             method: 'POST',
@@ -27,24 +27,26 @@ const registrationFunction = async (event) => {
             },
             body: formData
         });
+        const jsonResponse = await response.json();
         if (response.ok) {
-            const jsonResponse = await response.json();
             // console.log("Json response: " + jsonResponse.data.username);
             if (jsonResponse.status === "success") {
                 showLogin();
             }
-            else {
-                console.log(jsonResponse.error);
-            }
+            // else {
+            //     console.log(jsonResponse.error);
+            // }
             return jsonResponse;
         }
         else {
-            console.log("error happened with Register function....");
+            if (response.status === 400) {
+                console.log("error happened with Register function....", jsonResponse.error);
+            }
         }
-    }
-    catch(err) {
-        console.error(err);
-    }
+    // }
+    // catch(err) {
+    //     console.error(err);
+    // }
 }
 registerForm.addEventListener("submit", registrationFunction);
 
