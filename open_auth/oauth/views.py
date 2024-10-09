@@ -191,6 +191,7 @@ def callback(request):
             image_url   = user_data.get('image', {}).get('link', '')
             print ('username : ', username) 
             print ('image_url : ', image_url) 
+            print ("\033[1;35m 1* -----------------------------------------------------------")
             
             # Save or update user info
             user, created       = User_info.objects.get_or_create(username=username)
@@ -201,7 +202,7 @@ def callback(request):
             user.email          = email
             user.access_token   = access_token
 
-            print ("\033[1;35m -----------------------------------------------------------")
+            print ("\033[1;35m 2* -----------------------------------------------------------")
             print ('image_url : ', image_url)
             if image_url:
                 image_name = f'{username}.jpg'
@@ -213,11 +214,13 @@ def callback(request):
                     print ('< ---------------- >status_code  : ',  imageResponse.status_code)
                     if imageResponse.status_code == 200:
                         user.imageProfile.save(image_name, ContentFile(imageResponse.content), save=True)
+                        print ("\033[1;35m    -----------------------------------------------------------")
                     else:
                         print('Image already exists, not downloading again.')
                     
-            print ("\033[1;35m -----------------------------------------------------------")
+            print ("\033[1;35m 6   -----------------------------------------------------------")
             user.save()
+            print ("\033[1;35m 7  -----------------------------------------------------------")
             login(request, user)
             # print("\033[1;39m ---> user = ", user) 
             # Return user data as JSON

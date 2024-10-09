@@ -13,40 +13,61 @@ export const get_csrf_token = async () => {
 }
 
 const registerForm = document.querySelector("#register-form");
+const usernameError = document.getElementById("username-error");
+const passwordError = document.querySelector("#password-error");
+const emailError = document.querySelector("#email-error");
 
 const registrationFunction = async (event) => {
     event.preventDefault();
     const token =  await get_csrf_token();
-    // console.log("++++ ", token, " +++++");
-    // try {
-        const formData = new FormData(registerForm);
-        const response = await fetch('/register/', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': token
-            },
-            body: formData
-        });
-        const jsonResponse = await response.json();
-        if (response.ok) {
-            // console.log("Json response: " + jsonResponse.data.username);
-            if (jsonResponse.status === "success") {
-                showLogin();
-            }
-            // else {
-            //     console.log(jsonResponse.error);
-            // }
-            return jsonResponse;
+    const formData = new FormData(registerForm);
+    const response = await fetch('/register/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': token
+        },
+        body: formData
+    });
+    const jsonResponse = await response.json();
+    if (response.ok) {
+        if (jsonResponse.status === "success") {
+            showLogin();
         }
-        else {
-            if (response.status === 400) {
-                console.log("error happened with Register function....", jsonResponse.error);
+        return jsonResponse;
+    }
+    else {
+        // in case of error.
+        if (response.status === 400) {
+            const existingErrors = document.querySelectorAll(".error");
+            existingErrors.forEach(error => {
+                error.remove();
+            });
+            if (jsonResponse.error.username) {
+                const userError = document.createElement("div");
+                userError.classList.add("error");
+                userError.innerHTML = `${jsonResponse.error.username}`; // Insert the error message
+                userError.style.color = "red";
+                usernameError.insertAdjacentElement("afterend", userError);
             }
+            if (jsonResponse.error.password2) {
+                const userError = document.createElement("div");
+                userError.classList.add("error");
+                jsonResponse.error.password2.forEach(element => {
+                    userError.innerHTML += `${element}<br>`;
+                });
+                userError.style.color = "red";
+                passwordError.insertAdjacentElement("afterend", userError);
+            }
+            if (jsonResponse.error.email) {
+                const userError = document.createElement("div");
+                userError.classList.add("error");
+                userError.innerHTML = `${jsonResponse.error.email}`; // Insert the error message
+                userError.style.color = "red";
+                emailError.insertAdjacentElement("afterend", userError);
+            }
+            console.log("Register Error: ", jsonResponse.error);
         }
-    // }
-    // catch(err) {
-    //     console.error(err);
-    // }
+    }
 }
 registerForm.addEventListener("submit", registrationFunction);
 
