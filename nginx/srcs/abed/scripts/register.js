@@ -1,6 +1,7 @@
 // export let dataObjectt = null;
 
 import { showLogin } from "./logout.js";
+import { displayErrorMsg } from "./login.js";
 import { createRequestCards, createSuggestionCard, createFriendCards, friendsFunction,  sendIdToBackend, friendsLoaded } from "./friends.js";
 import { navigateTo } from "../script.js";
 
@@ -43,27 +44,14 @@ const registrationFunction = async (event) => {
                 error.remove();
             });
             if (jsonResponse.error.username) {
-                const userError = document.createElement("div");
-                userError.classList.add("error");
-                userError.innerHTML = `${jsonResponse.error.username}`; // Insert the error message
-                userError.style.color = "red";
-                usernameError.insertAdjacentElement("afterend", userError);
+                displayErrorMsg(jsonResponse.error.username, usernameError, "")
             }
             if (jsonResponse.error.password2) {
-                const userError = document.createElement("div");
-                userError.classList.add("error");
-                jsonResponse.error.password2.forEach(element => {
-                    userError.innerHTML += `${element}<br>`;
-                });
-                userError.style.color = "red";
-                passwordError.insertAdjacentElement("afterend", userError);
+                displayErrorMsg(jsonResponse.error.password2, passwordError, "array");
             }
             if (jsonResponse.error.email) {
-                const userError = document.createElement("div");
-                userError.classList.add("error");
-                userError.innerHTML = `${jsonResponse.error.email}`; // Insert the error message
-                userError.style.color = "red";
-                emailError.insertAdjacentElement("afterend", userError);
+                console.log(jsonResponse.error.email);
+                displayErrorMsg(jsonResponse.error.email, emailError, "");
             }
             console.log("Register Error: ", jsonResponse.error);
         }
