@@ -88,7 +88,7 @@ export const socketFunction = async () => {
                     }
                 }
                 if (data.option === 'is_online') {
-                    console.log("data data: ", data.data);
+                    createFriendCards(data.data.username, data.data.imageProfile, data.data.id);
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
                     if (onlineIcon && data.data.online_status) {
                         createToast(data.data.username, 'just now');

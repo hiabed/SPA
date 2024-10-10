@@ -283,10 +283,10 @@ def accepte_request(request, receiver_id):
             {
                 'type': 'notify_user_status',
                 'data': {
-                    'id'             : friend_request.from_user.id,
-                    'username'       : friend_request.from_user.username,
-                    'imageProfile'   : friend_request.from_user.imageProfile.url,
-                    'online_status'  :  friend_request.from_user.online_status
+                    'id': from_user.id,
+                    'username': from_user.username,
+                    'imageProfile': from_user.imageProfile.url,
+                    'online_status': from_user.online_status  # Sender's online status
                 }
             }
         )
