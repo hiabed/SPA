@@ -1,4 +1,4 @@
-import { friendsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
+import { friendsFunction, suggestionsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 
 export let flag = 0;
 export let socket = null;
@@ -54,6 +54,7 @@ export const socketFunction = async () => {
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
                     console.log("receive: ", data.data);
+                    suggestionsFunction();
                     createRequestCards(data.data.from_user.username, data.data.from_user.imageProfile)
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
                     for(let i = 0; i < acceptBtnsListen.length; i++) {
@@ -82,6 +83,7 @@ export const socketFunction = async () => {
                 if (data.option === 'unfriend'){
                     friendsFunction();
                     console.log('data222 : ', data.data)
+                    createSuggestionCard(data.data.username, data.data.imageProfile);
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {
                         unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "unfriend"));
