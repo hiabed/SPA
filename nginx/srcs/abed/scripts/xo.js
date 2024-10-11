@@ -377,7 +377,7 @@ function generateRoomCode() {
 
     const closeGame = () => {
         freeze.classList.remove("unclick");
-        disconnect()
+        // disconnect()
         playAgain();
         app.style.display = "none";
         document.querySelector("#design").style.filter = "blur(0px)";

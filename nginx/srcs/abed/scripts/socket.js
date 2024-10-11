@@ -1,5 +1,5 @@
 import { friendsFunction, suggestionsFunction, requestsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
-
+import { mainFunction, lookForUsers } from "./home.js";
 export let flag = 0;
 export let socket = null;
 
@@ -24,8 +24,7 @@ export const createToast = (message, timeAgo) => {
     tempDiv.innerHTML = toastHTML.trim();
     // Append the toast to the container
     let toastElement = tempDiv.firstChild;
-    console.log("toast2222: ", toastElement);
-    document.querySelector('body').appendChild(toastElement);
+    document.querySelector('body').appendChild(toastElement); // append the first div .toast to the body.
 
     // Show the toast using Bootstrap's toast class
     let toast = new bootstrap.Toast(toastElement);
@@ -74,7 +73,11 @@ export const socketFunction = async () => {
                     }
                 }
                 if (data.option === 'refuse_frd_req'){
+                    console.log("refuse: ", data.data);
+                    mainFunction();
+                    lookForUsers();
                     createSuggestionCard(data.data.username, data.data.imageProfile);
+
                     const addBtnsListen = document.querySelectorAll(".add .btn");
                     for(let i = 0; i < addBtnsListen.length; i++) {
                         addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.from_user_id, "add"));
@@ -82,7 +85,7 @@ export const socketFunction = async () => {
                 }
                 if (data.option === 'unfriend'){
                     friendsFunction();
-                    console.log('data222 : ', data.data)
+                    console.log('unfriend : ', data.data)
                     createSuggestionCard(data.data.username, data.data.imageProfile);
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {

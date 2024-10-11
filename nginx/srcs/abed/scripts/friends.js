@@ -147,11 +147,6 @@ export const suggestionsFunction = async ()=> {
                 // listen for add-friend button click event to send the id for the backend;
                 addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "add"));
             }
-    
-            // const deleteBtnsListen = document.querySelectorAll(".delete .btn");
-            // for(let i = 0; i < deleteBtnsListen.length; i++) {
-            //     deleteBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(jsonResponse.data[i].id, "delete"));
-            // }
         }
         return jsonResponse.data;
     }
