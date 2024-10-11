@@ -1,4 +1,4 @@
-import { friendsFunction, suggestionsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
+import { friendsFunction, suggestionsFunction, requestsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 
 export let flag = 0;
 export let socket = null;
@@ -6,7 +6,7 @@ export let socket = null;
 export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
     let toastHTML = `
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
         <div class="toast-header">
           <i class="fa-solid fa-circle" id="online-icon-1" style="color: green; filter: drop-shadow(green 0px 0px 1px);"></i>
           <strong class="me-auto" style="margin-left: 8px;">${message}</strong>
@@ -16,15 +16,15 @@ export const createToast = (message, timeAgo) => {
         <div class="toast-body">
           ${message} is online!
         </div>
-      </div>
-    `;
+      </div>`
+      ;
 
     // Convert the HTML string to a DOM element
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = toastHTML.trim();
-
     // Append the toast to the container
     let toastElement = tempDiv.firstChild;
+    console.log("toast2222: ", toastElement);
     document.querySelector('body').appendChild(toastElement);
 
     // Show the toast using Bootstrap's toast class
@@ -55,7 +55,7 @@ export const socketFunction = async () => {
                 if (data.option === 'receive_frd_req'){
                     console.log("receive: ", data.data);
                     suggestionsFunction();
-                    createRequestCards(data.data.from_user.username, data.data.from_user.imageProfile)
+                    requestsFunction();
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
                     for(let i = 0; i < acceptBtnsListen.length; i++) {
                         acceptBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "accept"));
@@ -90,8 +90,11 @@ export const socketFunction = async () => {
                     }
                 }
                 if (data.option === 'is_online') {
-                    createFriendCards(data.data.username, data.data.imageProfile, data.data.id);
+                    if (document.querySelector(`#online-icon-${data.data.id}`) === null) {
+                        createFriendCards(data.data.username, data.data.imageProfile, data.data.id);
+                    }
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
+                    console.log("the icon: ", onlineIcon);
                     if (onlineIcon && data.data.online_status) {
                         createToast(data.data.username, 'just now');
                         onlineIcon.style.color = "green";
