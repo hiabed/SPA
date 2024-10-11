@@ -7,6 +7,7 @@ import { chatPage } from "./chat.js";
 import { profileId } from "./profile.js"; 
 import { rankPart } from "./rank.js";
 import { get_csrf_token } from "./register.js";
+import { notificationFunction } from "./notification.js";
 
 const frdNavBtns = document.querySelectorAll(".frd-nav-btn");
 export const friendsFunc = () => {
@@ -287,7 +288,11 @@ export const requestsFunction = async ()=> {
         if (jsonResponse.status === "success") {
             // console.log(jsonResponse.data);
             document.querySelector("#requests").innerHTML = "";
+            if (jsonResponse.data.length === 0) {
+                notificationFunction();
+            }
             for (let i = 0; i < jsonResponse.data.length; i++) {
+                notificationFunction(jsonResponse.data[i].from_user.username, "hide", jsonResponse.data[i].from_user.imageProfile, "request");
                 createRequestCards(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
             }
             const acceptBtnsListen = document.querySelectorAll(".add .accept");

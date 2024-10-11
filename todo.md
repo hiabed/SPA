@@ -4,3 +4,10 @@
 <!-- the user that accept the request didnt get notified is he is online or not (unless he reload); -->
 
 register should not check if the first name or last name are already exists.
+
+
+todo next:
+
+create a div when click on notif id;
+add to it actions like if someone send you a friend request or if someone accept your frined request;
+

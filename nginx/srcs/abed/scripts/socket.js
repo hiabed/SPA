@@ -1,5 +1,7 @@
 import { friendsFunction, suggestionsFunction, requestsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 import { mainFunction, lookForUsers } from "./home.js";
+import { notificationFunction } from "./notification.js";
+
 export let flag = 0;
 export let socket = null;
 
@@ -52,6 +54,7 @@ export const socketFunction = async () => {
             const data = JSON.parse(event.data);
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
+                    notificationFunction(data.data.from_user.username, "hide", data.data.from_user.imageProfile, "request");
                     console.log("receive: ", data.data);
                     suggestionsFunction();
                     requestsFunction();
@@ -67,6 +70,7 @@ export const socketFunction = async () => {
                 if (data.option === 'accepte_request'){
                     console.log('accepted frd request : ', data.data)
                     createFriendCards(data.data.username, data.data.imageProfile, data.data.id);
+                    notificationFunction(data.data.username, data.data.id, data.data.imageProfile, "accpet");
                     const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
                     for(let i = 0; i < unfriendBtns.length; i++) {
                         unfriendBtns[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "unfriend"));
@@ -77,7 +81,6 @@ export const socketFunction = async () => {
                     mainFunction();
                     lookForUsers();
                     createSuggestionCard(data.data.username, data.data.imageProfile);
-
                     const addBtnsListen = document.querySelectorAll(".add .btn");
                     for(let i = 0; i < addBtnsListen.length; i++) {
                         addBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.from_user_id, "add"));
