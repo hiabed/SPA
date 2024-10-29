@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="styles/setting.css">
     <link rel="stylesheet" href="styles/login.css">
     <link rel="stylesheet" href="styles/notification.css">
+    <link rel="stylesheet" href="styles/game.css">
 </head>
 <body>
     <!-- toast to apply later when someone is loggedin -->
@@ -32,6 +33,28 @@
     </div>
     <div class="container-fluid">
         <div class="row">
+            <div id="pingpong-game">
+                <div id="game-container1">
+                    <h1 class="pongScore align" id="player1Score">0</h1>
+                    <h1 class="pongScore align"  id="player2Score">0</h1>
+                    <canvas id ="canvas" class="game"></canvas>
+                </div>
+                </div>
+                <div id="main_counter">
+                    <div class="counter">
+                        <div class="nums">
+                            <span class="in">3</span>
+                            <span>2</span>
+                            <span>1</span>
+                            <span>0</span>
+                        </div>
+                        <h4>Get Ready</h4>
+                    </div>
+                </div>
+                <div id="game_over">
+                    <h1 id="result1">You Win</h1>
+                </div>
+            </div>
             <!-- login part -->
             <div class="col-12" id="login-parent">
                 <div class="col-12 col-md-12 col-lg-6" id="one">
@@ -858,5 +881,6 @@
         <script type="module" src="scripts/password.js"></script>
         <script type="module" src="scripts/socket.js"></script>
         <script type="module" src="scripts/notification.js"></script>
+        <script type="module" src="scripts/game.js"></script>
 </body>
 </html>

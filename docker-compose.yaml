@@ -26,7 +26,7 @@ services:
     volumes:
       - /home/ayoub/data/db:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5433:5432
     networks:
       - nw
   nginx:
@@ -51,6 +51,14 @@ services:
     build: ./Xo_Game/xo_game/
     ports:
       - 8001:8001
+    depends_on:
+      - postgreDB
+    networks:
+      - nw
+  PingPong:
+    build: ./PingPong/pinpong/pinpong/
+    ports:
+      - 8002:8002
     depends_on:
       - postgreDB
     networks:
