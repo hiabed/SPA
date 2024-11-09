@@ -55,7 +55,7 @@ services:
       - postgreDB
     networks:
       - nw
-  PingPong:
+  pingpong:
     build: ./PingPong/pinpong/pinpong/
     ports:
       - 8002:8002
