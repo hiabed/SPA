@@ -313,6 +313,13 @@ document.addEventListener("DOMContentLoaded", () =>  {
 		parent.append(header, container);
 		bodyElement.append(parent);
 		parent.style.display = "flex";
+		const handleRemoteGame = () => {
+			container.style.display = "none";
+			header.style.display = "none";
+			parent.append(app);
+			app.style.display = "flex";
+		}
+		remote.addEventListener("click", handleRemoteGame);
 	}
 
 	const play_button = document.querySelector("#play-button");

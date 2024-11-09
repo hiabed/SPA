@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: ayylaaba
       POSTGRES_PASSWORD: password
     volumes:
-      - /home/ayoub/data/db:/var/lib/postgresql/data
+      - /workspaces/codespaces-react/ayoub/data/db:/var/lib/postgresql/data
     ports:
       - 5433:5432
     networks:
