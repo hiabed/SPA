@@ -96,7 +96,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    /* height: 80vh; */
 }
 
 .loading-text {
@@ -221,6 +221,8 @@ body {
 }
 
 #app {
+    justify-content: center;
+    align-items: center;
     width: 500px;
     height: 610px;
     border: 1px solid white;
