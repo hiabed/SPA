@@ -139,12 +139,13 @@ class PingPongConsumer(AsyncWebsocketConsumer):
         if len(connected_players[self.room_group_name]) >= 2:
             await self.close()
             return
-        pad_num = len(connected_players[self.room_group_name])  # Assign 0 or 1 based on player order
+        pad_num = len(connected_players[self.room_group_name])
         connected_players[self.room_group_name].append({
             'channel': self.channel_name,
             'pad_num': pad_num
         })
         await self.accept()
+        print("working ", flush=True)
         await self.send(text_data=json.dumps({
             'type': 'ASSIGN_PAD_NUM',
             'pad_num': pad_num

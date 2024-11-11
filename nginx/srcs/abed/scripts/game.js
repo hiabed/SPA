@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () =>  {
 
 	let roomCode;
 	let room_is_created = false;
+	let pad_num;
 
 	startContainer.innerHTML = `
 	<h1>Welcome to PONG</h1>
@@ -122,10 +123,10 @@ document.addEventListener("DOMContentLoaded", () =>  {
 
 		socket.onopen = function() {
 			console.log('WebSocket connection established.');
-			socket.send(JSON.stringify({
-				"type": "START",
-				"message": ""
-			}));
+			// socket.send(JSON.stringify({
+			// 	"type": "START",
+			// 	"message": ""
+			// }));
 		};
 		socket.onmessage = function(event) {
 			const data = JSON.parse(event.data);
@@ -147,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () =>  {
 				renderGame();
 			}
 			else if (data.type === 'ASSIGN_PAD_NUM') {
+				console.log("in PadNum");
 				pad_num = data.pad_num;
 				console.log("pad num is ", pad_num)
 			}

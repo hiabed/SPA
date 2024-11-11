@@ -278,6 +278,7 @@ def accepte_request(request, receiver_id):
                 }
             }
         )
+        # Notify the acceptor (to_user) with the sender's online status
         async_to_sync(channel_layer.group_send)(
             f'user_{to_user.id}',
             {

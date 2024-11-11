@@ -6,12 +6,15 @@ from .models import Room
 connected_players = {}
 turn_tracker = {}
 game_states = {}
+global user1
+global user2
 
+user1, user2 = None, None
 class TicTacToeConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print("in game", flush=True)
         self.room_code = self.scope['url_route']['kwargs']['room_code']
         self.room_group_name = f'room_{self.room_code}'
-
         if self.room_group_name not in game_states:
             game_states[self.room_group_name] = {
                 'board': ['', '', '', '', '', '', '', '', ''],  
@@ -19,7 +22,6 @@ class TicTacToeConsumer(AsyncWebsocketConsumer):
         if self.room_group_name not in connected_players:
             connected_players[self.room_group_name] = []
             turn_tracker[self.room_group_name] = 'X'
-        
         if len(connected_players[self.room_group_name]) >= 2:
             await self.close()
             return
@@ -35,7 +37,7 @@ class TicTacToeConsumer(AsyncWebsocketConsumer):
 
         if len(connected_players[self.room_group_name]) == 2:
             turn_tracker[self.room_group_name] = 'X'
-            print("the actual value is ", turn_tracker[self.room_group_name])
+            print("GAME Start", flush=True)
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {'type': 'send_message', 'message': 'Game is ready to start!', 'event': 'START'}
@@ -76,17 +78,26 @@ class TicTacToeConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         event = data['event']
         message = data['message']
+        global user1
+        global user2
         is_game_over = False
 
+        #delte 
+        print("In recive", flush=True)
+        print("user1 ", user1, flush=True)
+        print("user2", user2,flush=True)
         if event == 'START':
-            TicTacToeConsumer.connect
+            if not user1:
+                user1 = message
+            elif not user2:
+                user2 = message
+        print("before Move", flush=True)
         if event == 'MOVE':
             print('in Move', data)
             current_turn = turn_tracker[self.room_group_name]
             index = message['index']
             player = message['player']
             board = game_states[self.room_group_name]['board']
-            print("player is ", player, " index is ", index, "it is ", board[index] == '' , "current turn ", current_turn, "it is ", turn_tracker[self.room_group_name])
             if board[index] == '' and player == current_turn:
                 board[index] = player
                 print('cuurent is ', current_turn)
@@ -131,6 +142,27 @@ class TicTacToeConsumer(AsyncWebsocketConsumer):
                 turn_tracker[self.room_group_name] = 'O'
             elif turn_tracker[self.room_group_name] == 'O' and is_game_over == False:
                 turn_tracker[self.room_group_name] = 'X'
+        if event == "DUSER":
+            if user1 == user2:
+                await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'send_message',
+                    'message': 'Suser',
+                    'event': 'USERS'
+                }
+            )
+            else:
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'send_message',
+                        'message': {'user1': user1, 'user2': user2},
+                        'event': 'USERS'
+                    }
+                )
+                print("Out", flush=True)
+        
 
 
     async def send_message(self, message):
