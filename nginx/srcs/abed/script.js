@@ -2,7 +2,7 @@
 // let defaultName = username || 'Stranger';
 // console.log(defaultName); // Prints: Stranger
 
-import { friendsBtn, friendsFunc, createRequestCards, createSuggestionCard, createFriendCards, friendsFunction,  sendIdToBackend, requestsFunction, suggestionsFunction } from "./scripts/friends.js";
+import { friendsBtn, friendsFunc, createRequestCards, createSuggestionCard, createFriendCards, friendsFunction,  sendIdToBackend } from "./scripts/friends.js";
 import { homeButton, mainFunction } from "./scripts/home.js";
 import { profileButton, profileFunction } from "./scripts/profile.js";
 import { rankBtn, rankFunct } from "./scripts/rank.js";
@@ -55,11 +55,6 @@ export const reloadFunction = async ()=> {
     } else if (location.pathname === "/friends") {
         sideBtns[2].classList.add('link');
         friendsFunc();
-    }
-    else if (location.pathname === "/friends/requests") {
-        requestsFunction();
-    } else if (location.pathname === "/friends/suggestions") {
-        suggestionsFunction();
     } else if (location.pathname === "/rank") {
         sideBtns[3].classList.add('link');
         rankFunct();
@@ -79,7 +74,6 @@ export const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (path != "forback" && path != "current")
     {
-        // alert("should not enter if i refresh");
         history.pushState(null, null, path);
     } else {
         console.log("enter here please..");
@@ -122,7 +116,7 @@ loginBtn.addEventListener("click", ()=> {
 
 import { flag, socketFunction } from "./scripts/socket.js";
 
-window.addEventListener('popstate', () => navigateTo("forback")); // this is to check navigation backward or forward;
+window.addEventListener('popstate', ()=> navigateTo("forback")); // this is to check navigation backward or forward;
 
 document.addEventListener("DOMContentLoaded", () => { // this is on reload page (refresh);
     navigateTo("current");

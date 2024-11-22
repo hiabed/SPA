@@ -8,7 +8,6 @@ import { profileId } from "./profile.js";
 import { rankPart } from "./rank.js";
 import { get_csrf_token } from "./register.js";
 import { notificationFunction } from "./notification.js";
-import { navigateTo } from "../script.js";
 
 const frdNavBtns = document.querySelectorAll(".frd-nav-btn");
 export const friendsFunc = () => {
@@ -204,9 +203,7 @@ export const sendIdToBackend = async (id, action) => {
 
 const sugBtn = document.querySelector("#suggestion-btn");
 
-sugBtn.addEventListener("click", () => {
-    navigateTo("/friends/suggestions");
-});
+sugBtn.addEventListener("click", suggestionsFunction);
 
 
 
@@ -326,9 +323,7 @@ export const requestsFunction = async ()=> {
     }
 }
 const reqBtn = document.querySelector("#requests-btn");
-reqBtn.addEventListener("click", () => {
-    navigateTo("/friends/requests");
-});
+reqBtn.addEventListener("click", requestsFunction);
 
 // -------------- Display Friends --------------------
 
