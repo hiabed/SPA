@@ -104,6 +104,10 @@ def     logout_vu(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_vu(request):
+    print ("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    print ("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    print ("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    print ("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     print("\033[1;35m This login_vu  \n")
     print(f"Form Data: {request.data}")
 
@@ -246,14 +250,18 @@ def     get_user_info_api(access_token):
 
 @api_view(["GET"])
 def users_rank(request):
-    print ("\n Rank Of The Users \n")
+    print ("\n Rank Of The Users ------------------------------------------------\n")
     user = request.user
+    print ("is authenticated : ")
+    print (user.is_authenticated)
     if user.is_authenticated:
         # Order users by `scoor` in descending order
-        users = User_info.objects.all().order_by('-score')
+
+        users = User_info.objects.all().exclude(is_superuser=True).order_by('-score')
 
         # Serialize the ordered users
         users_serialized = ProfileSerializer(users, many=True)
+        print ("users : ", users_serialized.data)
 
         return JsonResponse({'status': 'success', 'data': users_serialized.data})
     else:

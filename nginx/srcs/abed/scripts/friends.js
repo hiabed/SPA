@@ -138,6 +138,7 @@ export const suggestionsFunction = async ()=> {
     const response = await fetch("/user/list/");
     if (response.ok) {
         const jsonResponse = await response.json();
+        console.log("sugg response: ", jsonResponse);
         if (jsonResponse.status === "success") {
             document.querySelector("#suggestions").innerHTML = "";
             for (let i = 0; i < jsonResponse.data.length; i++) {

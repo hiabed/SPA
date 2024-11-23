@@ -31,6 +31,7 @@ const recordGame = (matchData) => {
 };
 
 export const profileFunction = async (dataObj) => {
+    console.log("pro data: ", dataObj)
     main.style.display = "none";
     settingPage.style.display = "none";
     chatPage.style.display = "none";
