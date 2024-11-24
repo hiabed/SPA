@@ -207,6 +207,14 @@
     align-items: center;
 }
 
+.profile-chat-image {
+    width: 128px;
+    height: 128px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
 /* ------------------ end modification ----------------------*/
 
 #chat-part h2 {
@@ -288,6 +296,7 @@
     border-radius: 50%;
     border: 2px solid aqua;
     background-size: cover;
+    background-position: center;
 }
 
 

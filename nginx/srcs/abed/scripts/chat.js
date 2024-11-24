@@ -9,6 +9,20 @@ import { friendsPart, friendsFunction } from "./friends.js";
 import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
 
+const bodyElement = document.querySelector("body");
+bodyElement.addEventListener("click", ()=> {
+    const blockStyle = document.querySelector(".block-style");
+    if (blockStyle) {
+        blockStyle.remove();
+    }
+    // const profileCard = document.querySelectorAll(".profile-card");
+    // if (profileCard) {
+    //     profileCard.forEach(element => {
+    //         element.remove();
+    //     })
+    // }
+})
+
 export const chatFunction = () => {
     profileId.style.display = "none";
     main.style.display = "none";
@@ -188,80 +202,73 @@ const data_characters = async () => {
         const handleDots = async () => {
             room_id = await getRoomName(character.username, thisCurrUser.username);
             check = await is_user_blockes(room_id);
-            const existingBlock = document.querySelector(".block-style");
-            if (existingBlock)
-                existingBlock.remove();
-            else {
-                let blockEtat = "Block";
-                let visitId = character.username;
-                const blockContainer = `
-                    <button id="play-${character.username}" class="block-child">Play</button>
-                    <button id="visit-${visitId}" class="block-child">Visit Profile</button>
-                    <button id="dropdown-${character.username}" class="block-child">${blockEtat}</button>
+            let blockEtat = "Block";
+            let visitId = character.username;
+            const blockContainer = `
+                <button id="play-${character.username}" class="block-child">Play</button>
+                <button id="visit-${visitId}" class="block-child">Visit Profile</button>
+                <button id="dropdown-${character.username}" class="block-child">${blockEtat}</button>
+            `;
+            const blockElement = document.createElement("div");
+            blockElement.classList.add("block-style"); // style in css
+            if (check.etat === false)
+                blockEtat = "Block";
+            else
+                blockEtat = "Unblock";
+            blockElement.innerHTML = blockContainer.trim();
+            user.appendChild(blockElement);
+
+            // ------------------ visit profile modification from Abed ------------------------- //
+            const visitButton = document.querySelector(`#visit-${visitId}`);
+            const handleVisit = () => {
+                // console.log(character);
+                const strElement = `
+                    <div style="background-image: url(${character.imageProfile});" class="profile-chat-image"></div>
+                    <h3>@${character.username}</h3>
+                    <h3>level: ${character.level}</h3>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h3>Score: ${character.score}</h3>
+                    <div style="display: flex; justify-content: space-evenly; width: 100%;">
+                        <h3>Wins: ${character.win}</h3>
+                        <h3>Loses: ${character.loss}</h3>
+                    </div>
                 `;
-                const blockElement = document.createElement("div");
-                blockElement.classList.add("block-style"); // style in css
-                if (check.etat === false)
-                    blockEtat = "Block";
-                else
-                    blockEtat = "Unblock";
-                blockElement.innerHTML = blockContainer.trim();
-                user.appendChild(blockElement);
-
-
-                // ------------------ visit profile modification from Abed ------------------------- //
-                const visitButton = document.querySelector(`#visit-${visitId}`);
-                const handleVisit = () => {
-                    // console.log(character);
-                    const strElement = `
-                        <img src="${character.imageProfile}" alt="${character.username} image" style="border-radius: 50%" width="128px" height="128px">
-                        <h3>@${character.username}</h3>
-                        <h3>level: ${character.level}</h3>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h3>Score: ${character.score}</h3>
-                        <div style="display: flex; justify-content: space-evenly; width: 100%;">
-                            <h3>Wins: ${character.win}</h3>
-                            <h3>Loses: ${character.loss}</h3>
-                        </div>
-                    `;
-                    const chatPageRow = document.querySelector("#chat-part .row");
-                    const cardDiv = document.createElement("div");
-                    cardDiv.classList.add("profile-card"); // style in css;
-                    cardDiv.innerHTML = strElement.trim();
-                    chatPageRow.append(cardDiv);
-                }
-                visitButton.addEventListener("click", handleVisit);
-                // ------------------- end modification ----------------------- //
-
-
-                // on click play buuton
-                document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {
-                   
-                    chatSocket.send(JSON.stringify({
-                        'type': 'requestFriend',
-                        'recipient': character.username,
-                        'sender': thisCurrUser.username
-                    }));
-                });
-
-                // on click block buuton 
-                document.getElementById(`dropdown-${character.username}`).addEventListener('click', async function(e) {
-                    if (check.etat === false) {
-                        console.log(`room id in block ${user}`);
-                        block_user(character.username, room_id, thisCurrUser.username);
-                        alert(`you block ${character.username}`);
-                        blockTag.innerHTML = "Unblock";
-                    }
-                    else {
-                        unblockUser(room_id);
-                        alert(`you unblock ${character.username}`);
-                        blockTag.innerHTML = "Block";
-                    }
-                });
+                const chatPageRow = document.querySelector("#chat-part .row");
+                const cardDiv = document.createElement("div");
+                cardDiv.classList.add("profile-card"); // style in css;
+                cardDiv.innerHTML = strElement.trim();
+                chatPageRow.append(cardDiv);
             }
+            visitButton.addEventListener("click", handleVisit);
+            // ------------------- end modification ----------------------- //
 
+
+            // on click play buuton
+            document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {
+                
+                chatSocket.send(JSON.stringify({
+                    'type': 'requestFriend',
+                    'recipient': character.username,
+                    'sender': thisCurrUser.username
+                }));
+            });
+
+            // on click block buuton 
+            document.getElementById(`dropdown-${character.username}`).addEventListener('click', async function(e) {
+                if (check.etat === false) {
+                    console.log(`room id in block ${user}`);
+                    block_user(character.username, room_id, thisCurrUser.username);
+                    alert(`you block ${character.username}`);
+                    blockTag.innerHTML = "Unblock";
+                }
+                else {
+                    unblockUser(room_id);
+                    alert(`you unblock ${character.username}`);
+                    blockTag.innerHTML = "Block";
+                }
+            });
         }
 
         const dots = user.querySelector(".user-dots button");
