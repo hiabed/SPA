@@ -25,7 +25,22 @@ def         store_match(request):
     print("The result is ", request.data.get('result'), flush=True)
     print("The opponent is ", request.data.get('opponent'), flush=True)
     print("The Type is ", request.data.get('Type'), flush=True)
+    print("user_db.win", user_db.win, flush=True)
+    print("user_db.loss", user_db.loss, flush=True)
+
+    if request.data.get('result') == 'won':
+        user_db.win = user_db.win + 1
+    elif request.data.get('result') == 'loss':
+        user_db.loss = user_db.loss + 1
+    elif request.data.get('result') == 'draw':
+        user_db.draw = user_db.draw + 1
+
+    print("user_db.win", user_db.win, flush=True)
+
     user_db.save()
+
+    print(" ---- after ---- user_db.level", user_db.level, flush=True)
+
     print("use is save", flush=True)
     print ("error ", match_serialize.is_valid())
     if match_serialize.is_valid():
@@ -49,7 +64,7 @@ def get_match_history(request):
             "user": {
                 "id": match.user.id,
                 "username": match.user.username,
-                "imageProfile": match.user.imageProfile.url
+                "imageProfile": match.user.imageProfile.url,
             },
             "opponent": {
                 "id": match.opponent.id,

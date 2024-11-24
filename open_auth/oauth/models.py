@@ -26,6 +26,7 @@ class User_info(AbstractUser):
     score    = models.IntegerField(default=0)
     win     = models.IntegerField(default=0)
     loss    = models.IntegerField(default=0)
+    draw    = models.IntegerField(default=0)
 
     # understand this #
     groups = models.ManyToManyField(

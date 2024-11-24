@@ -74,7 +74,6 @@ async function getRoomName(recipient, sender) {
         return data.room_id;
     }
     else {
-        
         console.log("no");
     }
 }
