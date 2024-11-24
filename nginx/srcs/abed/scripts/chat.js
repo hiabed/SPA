@@ -207,11 +207,34 @@ const data_characters = async () => {
                     blockEtat = "Unblock";
                 blockElement.innerHTML = blockContainer.trim();
                 user.appendChild(blockElement);
+                
+
+                // ------------------ visit profile modification from Abed ------------------------- //
                 const visitButton = document.querySelector(`#visit-${visitId}`);
                 const handleVisit = () => {
-                    console.log(character);
+                    // console.log(character);
+                    const strElement = `
+                        <img src="${character.imageProfile}" alt="${character.username} image" style="border-radius: 50%" width="64px" height="64px">
+                        <h3>@${character.username}</h3>
+                        <h3>level: ${character.level}</h3>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h3>Score: ${character.score}</h3>
+                        <div style="display: flex; justify-content: space-evenly; width: 100%;">
+                            <h3>Wins: ${character.win}</h3>
+                            <h3>Loses: ${character.loss}</h3>
+                        </div>
+                    `;
+                    const chatPageRow = document.querySelector("#chat-part .row");
+                    const cardDiv = document.createElement("div");
+                    cardDiv.classList.add("profile-card"); // style in css;
+                    cardDiv.innerHTML = strElement.trim();
+                    chatPageRow.append(cardDiv);
                 }
                 visitButton.addEventListener("click", handleVisit);
+                // ------------------- end modification ----------------------- //
+
 
                 // on click play buuton
                 document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {

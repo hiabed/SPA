@@ -185,6 +185,30 @@
     background-size: cover;
 }
 
+/* ------------------ add by Abed ---------------------- */
+
+#chat-part .row {
+    position: relative;
+}
+
+.profile-card {
+    position: absolute;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    min-height: fit-content;
+    height: 330px;
+    top: 16%;
+    right: 32%;
+    z-index: 1000;
+    background-color: #001534;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* ------------------ end modification ----------------------*/
+
 #chat-part h2 {
     color: whitesmoke;
     text-align: center;
