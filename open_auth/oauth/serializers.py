@@ -28,14 +28,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         # Ensure that the passwords match
+        fist_name = data["firstname"].replace(" ","")
+        last_name  = data["lastname"].replace(" ","")
         if data['password1'] != data['password2']:
             raise serializers.ValidationError({"password": "Passwords must match."})
         if len(data["username"]) > 8:
             raise serializers.ValidationError({"username": "username holds  more than 8 characters."})
-        if  not data["firstname"].isalpha():
+        if  not fist_name.isalpha():
             raise serializers.ValidationError({"firstname": "Firstname should only contain alphabetic characters."})
-        if  not data["lastname"].isalpha():
-            raise serializers.ValidationError({"firstname": "Firstname should only contain alphabetic characters."})
+        if  not last_name.isalpha():
+            raise serializers.ValidationError({"lastname": "Lastname should only contain alphabetic characters."})
         return data
 
     def create(self, validated_data):
