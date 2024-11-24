@@ -196,9 +196,9 @@
     border: 2px solid white;
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 330px;
     min-height: fit-content;
-    height: 330px;
+    height: 370px;
     top: 16%;
     right: 32%;
     z-index: 1000;

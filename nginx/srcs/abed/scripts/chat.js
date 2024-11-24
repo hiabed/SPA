@@ -207,14 +207,14 @@ const data_characters = async () => {
                     blockEtat = "Unblock";
                 blockElement.innerHTML = blockContainer.trim();
                 user.appendChild(blockElement);
-                
+
 
                 // ------------------ visit profile modification from Abed ------------------------- //
                 const visitButton = document.querySelector(`#visit-${visitId}`);
                 const handleVisit = () => {
                     // console.log(character);
                     const strElement = `
-                        <img src="${character.imageProfile}" alt="${character.username} image" style="border-radius: 50%" width="64px" height="64px">
+                        <img src="${character.imageProfile}" alt="${character.username} image" style="border-radius: 50%" width="128px" height="128px">
                         <h3>@${character.username}</h3>
                         <h3>level: ${character.level}</h3>
                         <div class="progress">
