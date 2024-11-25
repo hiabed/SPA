@@ -88,6 +88,10 @@
     display: none;
 }
 
+.player-rank .usernamee {
+    width: 70px;
+}
+
 #rank-part {
     display: none;
     width: 80%;
@@ -253,6 +257,7 @@
 }
 
 #first-col, #second-col {
+    margin-top: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;

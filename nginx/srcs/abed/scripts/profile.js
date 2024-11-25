@@ -58,7 +58,7 @@ export const profileFunction = async (dataObj) => {
         if (dataObj.win != undefined) {
             document.querySelector("#profile-wins").innerHTML = `Wins: ${dataObj.win}`;
         } if (dataObj.loss != undefined) {
-            document.querySelector("#profile-loses").innerHTML = `Loses ${dataObj.loss}`;
+            document.querySelector("#profile-loses").innerHTML = `Loses: ${dataObj.loss}`;
         } if (dataObj.score != undefined) {
             document.querySelector("#profile-score").innerHTML = `${dataObj.score}`;
         }
