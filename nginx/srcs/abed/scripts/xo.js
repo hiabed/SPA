@@ -486,7 +486,11 @@ function startGame() {
                     }
                 }
             }
-            postMatch();
+            if (matchdata.result == 1)
+            {
+                console.log("this new is not ... ");
+                postMatch();
+            }
             disconnect();
         }
     }

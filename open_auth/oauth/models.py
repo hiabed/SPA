@@ -22,11 +22,11 @@ class User_info(AbstractUser):
     email     = models.EmailField(unique=True, null=True, blank=True)
     friends   = models.ManyToManyField('self', blank=True)
     online_status = models.BooleanField(default=False)   
-    level    = models.IntegerField(default=0)
-    score    = models.IntegerField(default=0)
-    win     = models.IntegerField(default=0)
-    loss    = models.IntegerField(default=0)
-    draw    = models.IntegerField(default=0)
+    level    = models.IntegerField()
+    score    = models.IntegerField()
+    win     = models.IntegerField()
+    loss    = models.IntegerField()
+    draw    = models.IntegerField()
 
     # understand this #
     groups = models.ManyToManyField(

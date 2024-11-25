@@ -55,7 +55,13 @@ export const profileFunction = async (dataObj) => {
             document.querySelector("#next-level-id").innerHTML = `${next_level}`;
             document.querySelector("#progress-profile").style.width = `${to_next_level}%`;
         }
-
+        if (dataObj.win != undefined) {
+            document.querySelector("#profile-wins").innerHTML = `Wins: ${dataObj.win}`;
+        } if (dataObj.loss != undefined) {
+            document.querySelector("#profile-loses").innerHTML = `Loses ${dataObj.loss}`;
+        } if (dataObj.score != undefined) {
+            document.querySelector("#profile-score").innerHTML = `${dataObj.score}`;
+        }
         document.querySelector("#welcome > h1").innerHTML = `Welcome ${dataObj.firstname} ${dataObj.lastname}!`;
     }
     const gameContainer = document.querySelector("#games-container");

@@ -222,6 +222,7 @@ const data_characters = async () => {
             const handleVisit = () => {
                 // console.log(character);
                 const strElement = `
+                    <button type="button" class="btn-close" aria-label="Close"></button>
                     <div style="background-image: url(${character.imageProfile});" class="profile-chat-image"></div>
                     <h3>@${character.username}</h3>
                     <h3>level: ${character.level}</h3>
@@ -239,6 +240,11 @@ const data_characters = async () => {
                 cardDiv.classList.add("profile-card"); // style in css;
                 cardDiv.innerHTML = strElement.trim();
                 chatPageRow.append(cardDiv);
+                const closeBtn = document.querySelector(".profile-card .btn-close");
+                const handleClose = ()=> {
+                    cardDiv.remove();
+                }
+                closeBtn.addEventListener("click", handleClose);
             }
             visitButton.addEventListener("click", handleVisit);
             // ------------------- end modification ----------------------- //
