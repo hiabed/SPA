@@ -103,20 +103,23 @@ export const createSuggestionCard = (data) => {
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
-    winsKey.innerHTML = "Wins:";
+    winsKey.innerHTML = "Wins";
+    winsKey.style.width = "60px";
     winsValue.classList.add("pts", "value");
     winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
-    losesKey.innerHTML = "Loses:";
+    losesKey.innerHTML = "Loses";
+    losesKey.style.width = "60px";
     const losesValue = document.createElement("h4");
     losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
-    scoreKey.innerHTML = "Score:";
+    scoreKey.innerHTML = "Score";
+    scoreKey.style.width = "60px";
     const scoreValue = document.createElement("h4");
     scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
@@ -251,20 +254,23 @@ export const createRequestCards = (data) => {
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
-    winsKey.innerHTML = "Wins:";
+    winsKey.innerHTML = "Wins";
+    winsKey.style.width = "60px";
     winsValue.classList.add("pts", "value");
     winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
-    losesKey.innerHTML = "Loses:";
+    losesKey.innerHTML = "Loses";
+    losesKey.style.width = "60px";
     const losesValue = document.createElement("h4");
     losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
-    scoreKey.innerHTML = "Score:";
+    scoreKey.innerHTML = "Score";
+    scoreKey.style.width = "60px";
     const scoreValue = document.createElement("h4");
     scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
@@ -386,20 +392,23 @@ export const createFriendCards = (data, userId) => {
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
-    winsKey.innerHTML = "Wins:";
+    winsKey.innerHTML = "Wins";
+    winsKey.style.width = "60px";
     winsValue.classList.add("pts", "value");
     winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
-    losesKey.innerHTML = "Loses:";
+    losesKey.innerHTML = "Loses";
+    losesKey.style.width = "60px";
     const losesValue = document.createElement("h4");
     losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
-    scoreKey.innerHTML = "Score:";
+    scoreKey.innerHTML = "Score";
+    scoreKey.style.width = "60px";
     const scoreValue = document.createElement("h4");
     scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
