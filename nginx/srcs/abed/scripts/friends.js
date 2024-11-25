@@ -61,7 +61,7 @@ frdNavBtns[2].addEventListener("click", ()=> {
     requestsDiv.style.display = "none";
 })
 
-export const createSuggestionCard = (username, image) => {
+export const createSuggestionCard = (data) => {
     const element = document.createElement("div");
     element.classList.add("friend-suggestion-card");
     const secondElement = document.createElement("div");
@@ -74,7 +74,7 @@ export const createSuggestionCard = (username, image) => {
 
     const imageElement = document.createElement("div");
     imageElement.classList.add("frd-sug-img");
-    imageElement.style.backgroundImage = `url(${image})`;
+    imageElement.style.backgroundImage = `url(${data.imageProfile})`;
     // imageElement.style.backgroundSize= "cover";
 
     const sugInfos = document.createElement("div");
@@ -98,27 +98,27 @@ export const createSuggestionCard = (username, image) => {
     const userName = document.createElement("h4");
     userName.classList.add("user-name");
     const pRank = document.createElement("p");
-    pRank.innerHTML = "rank: 5";
+    pRank.innerHTML = `Level: ${data.level}`;
     sugInfos.append(userName, pRank);
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
     winsKey.innerHTML = "Wins:";
     winsValue.classList.add("pts", "value");
-    winsValue.innerHTML = "42";
+    winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
     losesKey.innerHTML = "Loses:";
     const losesValue = document.createElement("h4");
-    losesValue.innerHTML = "0";
+    losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
     scoreKey.innerHTML = "Score:";
     const scoreValue = document.createElement("h4");
-    scoreValue.innerHTML = "2560";
+    scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
     score.append(scoreKey, scoreValue);
 
@@ -130,7 +130,7 @@ export const createSuggestionCard = (username, image) => {
     deleteBtn.innerHTML = "Delete";
     deleteBtn.classList.add("btn", "btn-lg");
     deleteBtnDiv.append(deleteBtn);
-    userName.innerHTML = username;
+    userName.innerHTML = data.username;
     document.querySelector("#suggestions").append(element);
 }
 
@@ -142,7 +142,7 @@ export const suggestionsFunction = async ()=> {
         if (jsonResponse.status === "success") {
             document.querySelector("#suggestions").innerHTML = "";
             for (let i = 0; i < jsonResponse.data.length; i++) {
-                createSuggestionCard(jsonResponse.data[i].username, jsonResponse.data[i].imageProfile);
+                createSuggestionCard(jsonResponse.data[i]);
             }
             const addBtnsListen = document.querySelectorAll(".add .btn");
             for(let i = 0; i < addBtnsListen.length; i++) {
@@ -211,7 +211,7 @@ sugBtn.addEventListener("click", suggestionsFunction);
 // --------------------- display requests --------------------------//
 
 
-export const createRequestCards = (name, image) => {
+export const createRequestCards = (data) => {
     const element = document.createElement("div");
     element.classList.add("friend-suggestion-card");
     const secondElement = document.createElement("div");
@@ -224,7 +224,7 @@ export const createRequestCards = (name, image) => {
 
     const imageElement = document.createElement("div");
     imageElement.classList.add("frd-sug-img");
-    imageElement.style.backgroundImage = `url(${image})`;
+    imageElement.style.backgroundImage = `url(${data.imageProfile})`;
     const sugInfos = document.createElement("div");
     sugInfos.classList.add("frd-sug-infos");
     secondElement.append(imageElement, sugInfos);
@@ -246,27 +246,27 @@ export const createRequestCards = (name, image) => {
     const userName = document.createElement("h4");
     userName.classList.add("user-name");
     const pRank = document.createElement("p");
-    pRank.innerHTML = "rank: 5";
+    pRank.innerHTML = `Level: ${data.level}`;
     sugInfos.append(userName, pRank);
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
     winsKey.innerHTML = "Wins:";
     winsValue.classList.add("pts", "value");
-    winsValue.innerHTML = "42";
+    winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
     losesKey.innerHTML = "Loses:";
     const losesValue = document.createElement("h4");
-    losesValue.innerHTML = "0";
+    losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
     scoreKey.innerHTML = "Score:";
     const scoreValue = document.createElement("h4");
-    scoreValue.innerHTML = "2560";
+    scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
     score.append(scoreKey, scoreValue);
 
@@ -278,7 +278,7 @@ export const createRequestCards = (name, image) => {
     deleteBtn.innerHTML = "Refuse";
     deleteBtn.classList.add("btn", "btn-lg", "refuse");
     deleteBtnDiv.append(deleteBtn);
-    userName.innerHTML = name;
+    userName.innerHTML = `${data.username}`;
     document.querySelector("#requests").append(element);
 }
 
@@ -294,7 +294,7 @@ export const requestsFunction = async ()=> {
             // }
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 notificationFunction(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
-                createRequestCards(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
+                createRequestCards(jsonResponse.data[i].from_user);
             }
             const acceptBtnsListen = document.querySelectorAll(".add .accept");
             for(let i = 0; i < acceptBtnsListen.length; i++) {
@@ -328,7 +328,7 @@ reqBtn.addEventListener("click", requestsFunction);
 
 // -------------- Display Friends --------------------
 
-export const createFriendCards = (name, image, userId) => {
+export const createFriendCards = (data, userId) => {
     const element = document.createElement("div");
     element.classList.add("friend-suggestion-card");
     const secondElement = document.createElement("div");
@@ -341,7 +341,7 @@ export const createFriendCards = (name, image, userId) => {
 
     const imageElement = document.createElement("div");  /// div .class="frd-sug-img" -> i;
     imageElement.classList.add("frd-sug-img");
-    imageElement.style.backgroundImage = `url(${image})`;
+    imageElement.style.backgroundImage = `url(${data.imageProfile})`;
     const sugInfos = document.createElement("div");
     sugInfos.classList.add("frd-sug-infos");
     secondElement.append(imageElement, sugInfos);
@@ -352,7 +352,7 @@ export const createFriendCards = (name, image, userId) => {
     online_icon.id = `online-icon-${userId}`;
     const status = localStorage.getItem(`online_status_${userId}`);
     // console.log("user id", userId);
-    console.log(`${name} is ${status}`);
+    console.log(`${data.username} is ${status}`);
     // console.log("status: ", status);
     if (status === "online") {
         // alert('green');
@@ -381,27 +381,27 @@ export const createFriendCards = (name, image, userId) => {
     const userName = document.createElement("h4");
     userName.classList.add("user-name");
     const pRank = document.createElement("p");
-    pRank.innerHTML = "rank: 5";
+    pRank.innerHTML = `Level: ${data.level}`;
     sugInfos.append(userName, pRank);
 
     const winsKey = document.createElement("h4");
     const winsValue = document.createElement("h4");
     winsKey.innerHTML = "Wins:";
     winsValue.classList.add("pts", "value");
-    winsValue.innerHTML = "42";
+    winsValue.innerHTML = `${data.win}`;
     wins.append(winsKey, winsValue);
 
     const losesKey = document.createElement("h4");
     losesKey.innerHTML = "Loses:";
     const losesValue = document.createElement("h4");
-    losesValue.innerHTML = "0";
+    losesValue.innerHTML = `${data.loss}`;
     losesValue.classList.add("value");
     loses.append(losesKey, losesValue);
 
     const scoreKey = document.createElement("h4");
     scoreKey.innerHTML = "Score:";
     const scoreValue = document.createElement("h4");
-    scoreValue.innerHTML = "2560";
+    scoreValue.innerHTML = `${data.score}`;
     scoreValue.classList.add("value");
     score.append(scoreKey, scoreValue);
 
@@ -409,7 +409,7 @@ export const createFriendCards = (name, image, userId) => {
     deleteBtn.innerHTML = "Unfriend";
     deleteBtn.classList.add("btn", "btn-lg", "unfriendd");
     deleteBtnDiv.append(deleteBtn);
-    userName.innerHTML = name;
+    userName.innerHTML = `${data.username}`;
     document.querySelector("#my-friends").append(element);
 }
 let friendsLoaded = 0;
@@ -421,7 +421,7 @@ export const friendsFunction = async() => {
             document.querySelector("#my-friends").innerHTML = ""; // main parent.
             // console.log(jsonResponse.data);
             for (let i = 0; i < jsonResponse.data.length; i++) {
-                createFriendCards(jsonResponse.data[i].username, jsonResponse.data[i].imageProfile, jsonResponse.data[i].id);
+                createFriendCards(jsonResponse.data[i], jsonResponse.data[i].id);
             }
             const unfriendBtns = document.querySelectorAll(".delete .unfriendd");
             for(let i = 0; i < unfriendBtns.length; i++) {
