@@ -1,7 +1,7 @@
 export const notifBtn = document.querySelector("#notif");
 let parentDiv = null;
 
-import { requestsFunction, friendsFunction } from "./friends.js";
+import { requestsFunction, friendsFunction, sendIdToBackend } from "./friends.js";
 
 export const notificationFunction = async (username, image) => {
     console.log("username: ", username);
@@ -31,11 +31,27 @@ export const notificationFunction = async (username, image) => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const isNotified = localStorage.getItem("notifications") === "true";
+    if (isNotified)
+    {
+        const bellNotif = document.createElement("div");
+        bellNotif.id = "bell-notif";
+        notifBtn.append(bellNotif);
+    }
     notifBtn.addEventListener("click", async () => {
+        if (isNotified)
+        {
+            localStorage.setItem("notifications", false);
+            const bellNotif = document.querySelector("#bell-notif");
+            if (bellNotif)
+                bellNotif.remove();
+        }
         const requests = await requestsFunction();
         console.log("requests: ", requests);
         if (!requests.length)
+        {
             notificationFunction();
+        }
         for (let i = 0; i < requests.length; i++) {
             notificationFunction(requests[i].from_user.username, requests[i].from_user.imageProfile);
         }
@@ -43,9 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
         for(let i = 0; i < acceptBtnsNotifListen.length; i++) {
             acceptBtnsNotifListen[i].addEventListener("click", ()=> sendIdToBackend(requests[i].id, "accept"));
         }
-        const refuseBtnsListen = document.querySelectorAll(".delete .refuse");
-        for(let i = 0; i < refuseBtnsListen.length; i++) {
-            refuseBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(requests[i].id, "refuse"));
-        }     
+        const refuseBtnsNotifListen = document.querySelectorAll("#notifications .ref-req");
+        for(let i = 0; i < refuseBtnsNotifListen.length; i++) {
+            refuseBtnsNotifListen[i].addEventListener("click", ()=> sendIdToBackend(requests[i].id, "refuse"));
+        }
     });
 })

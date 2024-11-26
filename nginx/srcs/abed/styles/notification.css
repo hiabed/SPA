@@ -3,14 +3,15 @@
     display: none;
     gap: 5px;
     position: absolute;
-    right: 8%;
+    right: 3%;
     z-index: 50;
-    top: 11%;
+    top: 14%;
     height: 200px;
     width: 280px;
     border: 1px solid darkgray;
     overflow-y: auto;
     background-color: #181838fa;
+    display: none;
 }
 
 #notifications img {
@@ -37,8 +38,8 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 12px;
-    height: 12px;
+    width: 12px !important;
+    height: 12px !important;
     border-radius: 50%;
     background-color: red;
 }
