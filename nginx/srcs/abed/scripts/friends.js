@@ -299,7 +299,7 @@ export const requestsFunction = async ()=> {
             //     notificationFunction(); // show the main container even if no request exists;
             // }
             for (let i = 0; i < jsonResponse.data.length; i++) {
-                notificationFunction(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
+                // notificationFunction(jsonResponse.data[i].from_user.username, jsonResponse.data[i].from_user.imageProfile);
                 createRequestCards(jsonResponse.data[i].from_user);
             }
             const acceptBtnsListen = document.querySelectorAll(".add .accept");

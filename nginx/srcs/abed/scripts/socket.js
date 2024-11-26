@@ -1,6 +1,6 @@
 import { friendsFunction, suggestionsFunction, requestsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 import { mainFunction, lookForUsers } from "./home.js";
-import { notificationFunction, notifDiv } from "./notification.js";
+import { notificationFunction, notifBtn } from "./notification.js";
 
 export let flag = 0;
 export let socket = null;
@@ -56,7 +56,7 @@ export const socketFunction = async () => {
                 if (data.option === 'receive_frd_req'){
                     const bellNotif = document.createElement("div");
                     bellNotif.id = "bell-notif";
-                    notifDiv.append(bellNotif);
+                    notifBtn.append(bellNotif);
                     notificationFunction(data.data.from_user.username, data.data.from_user.imageProfile);
                     console.log("receive: ", data.data);
                     suggestionsFunction();
