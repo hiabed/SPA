@@ -30,6 +30,51 @@ class FriendRequestConsumer(WebsocketConsumer):
         self.notify_to_curr_user_form_friends()
         async_to_sync(self.channel_layer.group_discard)(self.group_name, self.channel_name)
 
+    def receive(self, text_data):
+        data = json.loads(text_data)
+
+        print('>>>>>>>> type', data.get('type'))
+
+        if data.get('type') == 'requestFriend':
+
+            recipient_id = data['recipient_id']
+            sender_id = data['sender_id']
+            sender = data['sender']
+            recipient = data['recipient']
+
+            print(f"----->>>>>>>  receive {recipient_id} {recipient} __ {sender_id} {sender}")
+            friends = self.user.friends.all()
+            for friend in friends:
+                if friend.id == recipient_id:
+                    print(f'-------- friend : {friend.id}')
+                    async_to_sync(self.channel_layer.group_send) (
+                    f'user_{friend.id}',
+                    {
+                        'type': 'play_invitation',
+                        'author': sender,
+                        'sender_id': sender_id,
+                        'recipient': recipient
+                    }
+        )
+
+        if data.get('type') == 'response':
+
+            print('-----------------response section')
+            recipient = data['recipient']
+            sender = data['sender']
+            senderId = data['sender_id']
+            confirmation = data.get('confirmation')
+            print(f">>>>>>>>>>>>> recive {recipient} __ {confirmation},,, {senderId}")
+
+            async_to_sync(self.channel_layer.group_send) (
+            f'user_{senderId}',
+            {
+                'type': 'response_invitation',
+                "recipient": recipient,
+                "confirmation": confirmation,
+            },
+        )
+
     def update_user_status(self, user_status):
         # channel_layer = get_channel_layer()
         print ('\033[1;32m ready to notify them \n')
@@ -74,6 +119,28 @@ class FriendRequestConsumer(WebsocketConsumer):
                 }
             }))
 
+    def play_invitation(self, event):
+        author = event["author"]
+        recipient = event["recipient"]
+        sender_id = event['sender_id']
+
+        self.send(text_data=json.dumps ({
+                'type': 'play_invitation',
+                'author': author,
+                'senderId': sender_id,
+                'recipient': recipient
+        }))
+
+    def response_invitation(self, event):
+        # author = event["author"]
+        recipient = event["recipient"]
+        confirmation = event["confirmation"]
+
+        self.send(text_data=json.dumps ({
+                'type': 'response_invitation',
+                'recipient': recipient,
+                'confirmation': confirmation,
+        }))
     
     def notify_user_status(self, event):
         # Send a message to the WebSocket client

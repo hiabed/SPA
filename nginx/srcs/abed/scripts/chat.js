@@ -8,6 +8,7 @@ import { rankPart } from "./rank.js";
 import { friendsPart, friendsFunction } from "./friends.js";
 import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
+import { socketFunction, check_status, msg} from "./socket.js";
 
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", ()=> {
@@ -79,17 +80,11 @@ async function getRoomName(recipient, sender) {
         return data.room_id;
     }
     else {
+        
         console.log("no");
     }
 }
 
-function createRoomContainer(roomName) {
-    const msgContainer = document.getElementById('msgs');
-    const roomTag = document.createElement('div');
-    roomTag.id = `chat-log-${roomName}`;
-    roomTag.style.display = 'none';
-    msgContainer.appendChild(roomTag);
-}
 
 function showRoom(recipient, sender) {
     document.querySelectorAll('.my-msg').forEach(log => {
@@ -99,8 +94,6 @@ function showRoom(recipient, sender) {
         log.style.display = 'none';
     });
     checkBlockStatus(recipient, sender);
-    // const selectedUser = document.getElementById('msgs');
-    // selectedUser.style.display = 'flex';
 }
 
 
@@ -184,9 +177,12 @@ const data_characters = async () => {
     const characters = await friendsFunction();
     const thisCurrUser = await newDataFunc();
     const chats1 = document.querySelector("#chats");
+    const thisSocket = await socketFunction();
     var chatSocket = null;
     var room_id = 0;
     var check = "";
+    let blockEtat = "block";
+
 
     console.log(characters);
     characters.forEach(character => {
@@ -201,84 +197,92 @@ const data_characters = async () => {
         const user = document.createElement("div");
         user.classList.add("user");
         user.innerHTML = userStr.trim();
+        let visitId = character.username;
         chats1.appendChild(user);
         
         const handleDots = async () => {
             room_id = await getRoomName(character.username, thisCurrUser.username);
             check = await is_user_blockes(room_id);
-            let blockEtat = "Block";
-            let visitId = character.username;
-            const blockContainer = `
-                <button id="play-${character.username}" class="block-child">Play</button>
-                <button id="visit-${visitId}" class="block-child">Visit Profile</button>
-                <button id="dropdown-${character.username}" class="block-child">${blockEtat}</button>
-            `;
-            const blockElement = document.createElement("div");
-            blockElement.classList.add("block-style"); // style in css
-            if (check.etat === false)
-                blockEtat = "Block";
-            else
-                blockEtat = "Unblock";
-            blockElement.innerHTML = blockContainer.trim();
-            user.appendChild(blockElement);
-
-            // ------------------ visit profile modification from Abed ------------------------- //
-            const visitButton = document.querySelector(`#visit-${visitId}`);
-            const handleVisit = () => {
-                // console.log(character);
-                const strElement = `
-                    <button type="button" class="btn-close" aria-label="Close"></button>
-                    <div style="background-image: url(${character.imageProfile});" class="profile-chat-image"></div>
-                    <h3>@${character.username}</h3>
-                    <h3>level: ${character.level}</h3>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h3>Score: ${character.score}</h3>
-                    <div style="display: flex; justify-content: space-evenly; width: 100%;">
-                        <h3>Wins: ${character.win}</h3>
-                        <h3>Loses: ${character.loss}</h3>
-                    </div>
+            const existingBlock = document.querySelector(".block-style");
+            if (existingBlock)
+                existingBlock.remove();
+            else {
+                const blockContainer = `
+                    <button id="play-${character.username}" class="block-child">Play</button>
+                    <button id="visit-${visitId}" class="block-child">Visit Profile</button>
+                    <button id="block-${character.username}" class="block-child">${blockEtat}</button>
                 `;
-                const chatPageRow = document.querySelector("#chat-part .row");
-                const cardDiv = document.createElement("div");
-                cardDiv.classList.add("profile-card"); // style in css;
-                cardDiv.innerHTML = strElement.trim();
-                chatPageRow.append(cardDiv);
-                const closeBtn = document.querySelector(".profile-card .btn-close");
-                const handleClose = ()=> {
-                    cardDiv.remove();
-                }
-                closeBtn.addEventListener("click", handleClose);
+                const blockElement = document.createElement("div");
+                blockElement.classList.add("block-style"); // style in css
+                if (check.etat === false)
+                    blockEtat = "Block";
+                else
+                    blockEtat = "Unblock";
+                blockElement.innerHTML = blockContainer.trim();
+                user.appendChild(blockElement);
+
+                // ------------------ visit profile modification from Abed ------------------------- //
+                    const visitButton = document.querySelector(`#visit-${visitId}`);
+                    const handleVisit = () => {
+                        // console.log(character);
+                        const strElement = `
+                            <button type="button" class="btn-close" aria-label="Close"></button>
+                            <div style="background-image: url(${character.imageProfile});" class="profile-chat-image"></div>
+                            <h3>@${character.username}</h3>
+                            <h3>level: ${character.level}</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <h3>Score: ${character.score}</h3>
+                            <div style="display: flex; justify-content: space-evenly; width: 100%;">
+                                <h3>Wins: ${character.win}</h3>
+                                <h3>Loses: ${character.loss}</h3>
+                            </div>
+                        `;
+                        const chatPageRow = document.querySelector("#chat-part .row");
+                        const cardDiv = document.createElement("div");
+                        cardDiv.classList.add("profile-card"); // style in css;
+                        cardDiv.innerHTML = strElement.trim();
+                        chatPageRow.append(cardDiv);
+                        const closeBtn = document.querySelector(".profile-card .btn-close");
+                        const handleClose = ()=> {
+                            cardDiv.remove();
+                        }
+                        closeBtn.addEventListener("click", handleClose);
+                    }
+                    visitButton.addEventListener("click", handleVisit);
+        // ------------------- end modification ----------------------- //
+
+                // on click play buuton
+                document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {
+                   
+                    console.log("---> from chat send cridentials ", character.id, thisCurrUser.id);
+                    thisSocket.send(JSON.stringify({
+                        'type': 'requestFriend',
+                        'recipient_id': character.id,
+                        'sender_id': thisCurrUser.id,
+                        'sender': thisCurrUser.username,
+                        'recipient': character.username
+                    }));
+                });
+
+                // on click block buuton 
+                const blockTag = document.getElementById(`block-${character.username}`);
+                blockTag.addEventListener('click', async function(e) {
+                    if (check.etat === false) {
+                        console.log(`room id in block ${user}`);
+                        block_user(character.username, room_id, thisCurrUser.username);
+                        alert(`you block ${character.username}`);
+                        blockTag.innerHTML = "Unblock";
+                    }
+                    else {
+                        unblockUser(room_id);
+                        blockTag.innerHTML = "Block";
+                        alert(`you unblock ${character.username}`);
+                    }
+                });
             }
-            visitButton.addEventListener("click", handleVisit);
-            // ------------------- end modification ----------------------- //
 
-
-            // on click play buuton
-            document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {
-                
-                chatSocket.send(JSON.stringify({
-                    'type': 'requestFriend',
-                    'recipient': character.username,
-                    'sender': thisCurrUser.username
-                }));
-            });
-
-            // on click block buuton 
-            document.getElementById(`dropdown-${character.username}`).addEventListener('click', async function(e) {
-                if (check.etat === false) {
-                    console.log(`room id in block ${user}`);
-                    block_user(character.username, room_id, thisCurrUser.username);
-                    alert(`you block ${character.username}`);
-                    blockTag.innerHTML = "Unblock";
-                }
-                else {
-                    unblockUser(room_id);
-                    alert(`you unblock ${character.username}`);
-                    blockTag.innerHTML = "Block";
-                }
-            });
         }
 
         const dots = user.querySelector(".user-dots button");
@@ -342,36 +346,21 @@ const data_characters = async () => {
             
             const data = JSON.parse(e.data);
             const message = data['message'];
+            const type = data['type'];
             const messageBlock = data['message_block'];
             const author = data['author'];
             const isBlocked = data['is_blocked'];
-
-            if (data.type === 'play_invitation'){
-
-                const confirm = confirm(`you have been invited to pong match by ${author}`);
-                
-                chatSocket.send(JSON.stringify({
-                    'type': 'response',
-                    'sender' : author,
-                    'recipient': username,
-                    'confirmation': confirm
-                }))
-            }
-            if (data.type === 'response_invitation'){
-
-                const confirm = data.confirmation
-
-            }
+            // console.log('status ', check_status);
     
-                const msgTag = document.createElement('div');
-                msgTag.textContent = message;
-                if (author === thisCurrUser.username) {
-                    msgTag.classList.add('my-msg');
-                }
-                else {
-                    msgTag.classList.add('friend-msg');
-                }
-                document.getElementById('msgs').appendChild(msgTag);
+            const msgTag = document.createElement('div');
+            msgTag.textContent = message;
+            if (author === thisCurrUser.username) {
+                msgTag.classList.add('my-msg');
+            }
+            else {
+                msgTag.classList.add('friend-msg');
+            }
+            document.getElementById('msgs').appendChild(msgTag);
     
         }
     
