@@ -4,6 +4,7 @@ import { notificationFunction, notifBtn } from "./notification.js";
 
 export let flag = 0;
 export let socket = null;
+export let check_status = false;
 
 export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
@@ -52,6 +53,42 @@ export const socketFunction = async () => {
         };
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
+            const recipient = data.recipient;
+            const sender = data['author'];
+            const sender_id = data['senderId'];
+            // msg = data['msg'];
+                
+            if (data.type === 'play_invitation') {
+                
+                console.log("---------->> type", recipient);
+                const _confirm = confirm(`you have been invited to pong match with ${sender}`);
+                console.log("-------------------- confirmationzz", _confirm);
+                
+                socket.send(JSON.stringify ({
+                    'type': 'response',
+                    'sender' : sender,
+                    'sender_id': sender_id,
+                    'recipient': recipient,
+                    'confirmation': _confirm
+                }))
+            }
+            if (data.type === 'response_invitation') {
+
+                const _confirm = data['confirmation'];
+                const recipient = data['recipient'];
+                console.log('----------- hellolooooooooooooooo');
+
+    
+                if (_confirm){
+                    check_status = true;
+                    console.log('check is ', check_status);
+                }
+                else{
+                    check_status = false;
+                    console.log('check is ', check_status);
+                    // alert(`${recipient} has not accept the invitation`);
+                }
+            }
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
                     const bellNotif = document.createElement("div");
@@ -123,4 +160,5 @@ export const socketFunction = async () => {
             flag = 0;
         };
     }
+    return socket;
 }
