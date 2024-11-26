@@ -97,7 +97,10 @@ export const socketFunction = async () => {
                     localStorage.setItem("notifications", true);
                     // notificationFunction(data.data.from_user.username, data.data.from_user.imageProfile);
                     console.log("receive: ", data.data);
-                    notifBtn.addEventListener("click", () => {bellNotif.remove()});
+                    notifBtn.addEventListener("click", () => {
+                        localStorage.setItem("notifications", false);
+                        bellNotif.remove()
+                    });
                     suggestionsFunction();
                     requestsFunction();
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
