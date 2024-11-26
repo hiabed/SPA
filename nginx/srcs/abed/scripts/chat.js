@@ -15,6 +15,11 @@ bodyElement.addEventListener("click", ()=> {
     if (blockStyle) {
         blockStyle.remove();
     }
+    const notifications = document.querySelector("#notifications");
+    if (notifications) {
+        notifications.style.display = "none";
+        notifications.remove();
+    }
     // const profileCard = document.querySelectorAll(".profile-card");
     // if (profileCard) {
     //     profileCard.forEach(element => {
