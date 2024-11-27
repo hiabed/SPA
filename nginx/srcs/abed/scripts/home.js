@@ -90,7 +90,8 @@ const showLogout = ()=> {
         logoutt.classList.add("logout-phone");
         logoutt.innerHTML = `<button class="btn btn-danger" style="color: white">Logout</button>`;
         main.append(logoutt);
-        logoutt.addEventListener("click", logoutFuntion);
+        const buttonLogout = document.querySelector(".logout-phone button");
+        buttonLogout.addEventListener("click", logoutFuntion);
     }
     else {
         logoutPhone.remove();
