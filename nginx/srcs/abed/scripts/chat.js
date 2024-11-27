@@ -18,15 +18,13 @@ bodyElement.addEventListener("click", ()=> {
     }
     const notifications = document.querySelector("#notifications");
     if (notifications) {
-        notifications.style.display = "none";
+        // notifications.style.display = "none";
         notifications.remove();
     }
-    // const profileCard = document.querySelectorAll(".profile-card");
-    // if (profileCard) {
-    //     profileCard.forEach(element => {
-    //         element.remove();
-    //     })
-    // }
+    const logoutPhone = document.querySelector(".logout-phone");
+    if (logoutPhone) {
+        logoutPhone.remove();
+    }
 })
 
 export const chatFunction = () => {

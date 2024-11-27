@@ -1,11 +1,10 @@
 #notifications {
     border-radius: 10px;
-    display: none;
     gap: 5px;
     position: absolute;
-    right: 3%;
+    right: 7%;
     z-index: 50;
-    top: 14%;
+    top: 13%;
     height: 200px;
     width: 280px;
     border: 1px solid darkgray;

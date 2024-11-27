@@ -82,23 +82,22 @@ searchInput.addEventListener("input", lookForUsers);
 import { logoutFuntion } from "./logout.js";
 
 const profilePict = document.querySelector("#profile-pict");
-let clicked = 0;
-let logoutt;
 
 const showLogout = ()=> {
-    if (window.innerWidth <= 575) {
-        if (!clicked) {
-            logoutt = document.createElement("div");
-            logoutt.classList.add("logout-phone");
-            logoutt.innerHTML = `<h3 class="btn btn-danger" style="color: white">Logout</h3>`;
-            main.append(logoutt);
-            clicked++;
-            logoutt.addEventListener("click", logoutFuntion);
-        } else {
-            logoutt.remove();
-            clicked = 0;
-        }
+    const logoutPhone = document.querySelector(".logout-phone");
+    if (!logoutPhone) {
+        const logoutt = document.createElement("div");
+        logoutt.classList.add("logout-phone");
+        logoutt.innerHTML = `<button class="btn btn-danger" style="color: white">Logout</button>`;
+        main.append(logoutt);
+        logoutt.addEventListener("click", logoutFuntion);
+    }
+    else {
+        logoutPhone.remove();
     }
 }
 
-profilePict.addEventListener("click", showLogout);
+profilePict.addEventListener("click",(event) => {
+    event.stopPropagation();
+    showLogout();
+});

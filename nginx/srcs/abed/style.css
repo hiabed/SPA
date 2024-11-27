@@ -411,12 +411,32 @@ visibility */
         height: 9% !important;
         width: 95% !important;
     }
+    .logout-phone {
+        width: 95% !important;
+        top: 12% !important;
+    }
     #speech h3 {
         font-size: 25px !important;
     }
     .match-block {
         left: 3% !important;
     }
+}
+
+.logout-phone {
+    position: absolute;
+    display: flex;
+    width: 90%;
+    align-items: center;
+    top: 11%;
+    cursor: pointer;
+    justify-content: flex-end;
+}
+
+.logout-phone button {
+    color: white;
+    position: relative;
+    right: 6%;
 }
 
 .match-block {
