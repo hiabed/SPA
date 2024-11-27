@@ -7,27 +7,31 @@ export const notificationFunction = async (username, image) => {
     console.log("username: ", username);
     console.log("image: ", image);
     // first thing is to display the parent block which will hold all the notification elementsl;
-    parentDiv = document.createElement("div");
-    parentDiv.id = "notifications";
-    parentDiv.style.display = "flex";
-    const homeNavbar = document.querySelector("#home-navbar");
-    homeNavbar.insertAdjacentElement("afterend", parentDiv);
-    let htmlCode;
-    let trimmedHTML = document.createElement("div");
-    if (username != undefined && image != undefined) {
-        htmlCode = `
-            <img src="${image}" alt="user image" class="request-notif">
-            <h3>${username}</h3>
-            <button class="btn btn-sm acc-req">accept</button>
-            <button class="btn btn-sm ref-req">refuse</button>
-        `;
-        trimmedHTML.classList.add("req-notif"); // style in css;
+    const notifications = document.querySelector("#notifications");
+    if (!notifications) {
+        parentDiv = document.createElement("div");
+        parentDiv.id = "notifications";
+        const homeNavbar = document.querySelector("#home-navbar");
+        homeNavbar.insertAdjacentElement("afterend", parentDiv);
+        let htmlCode;
+        let trimmedHTML = document.createElement("div");
+        if (username != undefined && image != undefined) {
+            htmlCode = `
+                <img src="${image}" alt="user image" class="request-notif">
+                <h3>${username}</h3>
+                <button class="btn btn-sm acc-req">accept</button>
+                <button class="btn btn-sm ref-req">refuse</button>
+            `;
+            trimmedHTML.classList.add("req-notif"); // style in css;
+        } else {
+            htmlCode = `<h3>Notifications are clear</h3>`;
+            trimmedHTML.classList.add("clear-notif"); //style clear notification in css;
+        }
+        trimmedHTML.innerHTML = htmlCode.trim();
+        parentDiv.append(trimmedHTML);
     } else {
-        htmlCode = `<h3>Notifications are clear</h3>`;
-        trimmedHTML.classList.add("clear-notif"); //style clear notification in css;
+        notifications.remove();
     }
-    trimmedHTML.innerHTML = htmlCode.trim();
-    parentDiv.append(trimmedHTML);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -38,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
         bellNotif.id = "bell-notif";
         notifBtn.append(bellNotif);
     }
-    notifBtn.addEventListener("click", async () => {
+    notifBtn.addEventListener("click", async (event) => { // click event listener;
+        event.stopPropagation();
         if (isNotified)
         {
             localStorage.setItem("notifications", false);

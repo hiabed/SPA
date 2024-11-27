@@ -10,7 +10,6 @@
     border: 1px solid darkgray;
     overflow-y: auto;
     background-color: #181838fa;
-    display: none;
 }
 
 #notifications img {

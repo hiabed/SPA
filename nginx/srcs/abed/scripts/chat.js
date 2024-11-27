@@ -18,7 +18,6 @@ bodyElement.addEventListener("click", ()=> {
     }
     const notifications = document.querySelector("#notifications");
     if (notifications) {
-        // notifications.style.display = "none";
         notifications.remove();
     }
     const logoutPhone = document.querySelector(".logout-phone");
