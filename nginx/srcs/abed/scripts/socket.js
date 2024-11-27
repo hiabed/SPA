@@ -61,9 +61,24 @@ export const socketFunction = async () => {
             if (data.type === 'play_invitation') {
                 
                 console.log("---------->> type", recipient);
-                const _confirm = confirm(`you have been invited to pong match with ${sender}`);
-                console.log("-------------------- confirmationzz", _confirm);
-                
+                // const _confirm = confirm(`you have been invited to pong match with ${sender}`);
+                // create card for accept or refuse invitation for pong game;
+                const _confirm = `
+                    <p>You have been invited to pong match with ${sender}</p>
+                    <div id="yesno">
+                        <button style="color: white; border: none; width: 90px; border-radius: 10px; background-color: green; height: 35px;">Yes</button>
+                        <button style="color: white; border: none; width: 90px; border-radius: 10px; background-color: #b32d2d; height: 35px;">NO</button>
+                    </div>
+                `;
+                const cardDiv = document.createElement("div");
+                cardDiv.id = "Pong-invitation";
+                cardDiv.innerHTML = _confirm.trim();
+                const bodyElement = document.querySelector("body");
+                bodyElement.append(cardDiv);
+                setInterval(()=> {
+                    cardDiv.remove();
+                }, 5000);
+                // console.log("-------------------- confirmationzz", _confirm);
                 socket.send(JSON.stringify ({
                     'type': 'response',
                     'sender' : sender,
@@ -101,15 +116,26 @@ export const socketFunction = async () => {
                         localStorage.setItem("notifications", false);
                         bellNotif.remove()
                     });
-                    suggestionsFunction();
-                    requestsFunction();
+                    // suggestionsFunction();
+                    // requestsFunction();
                     const acceptBtnsListen = document.querySelectorAll(".add .accept");
                     for(let i = 0; i < acceptBtnsListen.length; i++) {
+                        console.log("Acceptttttttttt 2222222222222222222");
                         acceptBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "accept"));
                     }
                     const refuseBtnsListen = document.querySelectorAll(".delete .refuse");
                     for(let i = 0; i < refuseBtnsListen.length; i++) {
                         refuseBtnsListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "refuse"));
+                    }
+                    console.log("Before Acceptttttttttt");
+                    const acceptBtnsNotifListen = document.querySelectorAll("#notifications .acc-req");
+                    for(let i = 0; i < acceptBtnsNotifListen.length; i++) {
+                        console.log("Acceptttttttttt");
+                        acceptBtnsNotifListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "accept"));
+                    }
+                    const refuseBtnsNotifListen = document.querySelectorAll("#notifications .ref-req");
+                    for(let i = 0; i < refuseBtnsNotifListen.length; i++) {
+                        refuseBtnsNotifListen[i].addEventListener("click", ()=> sendIdToBackend(data.data.id, "refuse"));
                     }
                 }
                 if (data.option === 'accepte_request'){
@@ -145,12 +171,12 @@ export const socketFunction = async () => {
                     }
                     const onlineIcon = document.querySelector(`#online-icon-${data.data.id}`);
                     console.log("the icon: ", onlineIcon);
-                    if (onlineIcon && data.data.online_status) {
+                    if (data.data.online_status) {
                         createToast(data.data.username, 'just now');
                         onlineIcon.style.color = "green";
                         onlineIcon.style.filter = "drop-shadow(0 0 1px green)";
                         localStorage.setItem(`online_status_${data.data.id}`, 'online');  // Store online status
-                    } else if (onlineIcon && !data.data.online_status) {
+                    } else if (!data.data.online_status) {
                         onlineIcon.style.color = "red";
                         onlineIcon.style.filter = "drop-shadow(0 0 1px red)";
                         localStorage.setItem(`online_status_${data.data.id}`, 'offline');  // Store offline status
