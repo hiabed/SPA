@@ -66,8 +66,8 @@ export const socketFunction = async () => {
                 const _confirm = `
                     <p>You have been invited to pong match with ${sender}</p>
                     <div id="yesno">
-                        <button style="color: white; border: none; width: 90px; border-radius: 10px; background-color: green; height: 35px;">Yes</button>
-                        <button style="color: white; border: none; width: 90px; border-radius: 10px; background-color: #b32d2d; height: 35px;">NO</button>
+                        <button id="yesss" style="color: white; border: none; width: 90px; border-radius: 10px; background-color: green; height: 35px;">Yes</button>
+                        <button id="nooo" style="color: white; border: none; width: 90px; border-radius: 10px; background-color: #b32d2d; height: 35px;">NO</button>
                     </div>
                 `;
                 const cardDiv = document.createElement("div");
@@ -75,6 +75,13 @@ export const socketFunction = async () => {
                 cardDiv.innerHTML = _confirm.trim();
                 const bodyElement = document.querySelector("body");
                 bodyElement.append(cardDiv);
+
+                let boolean = false;
+                const yesss = document.querySelector("#yesss");
+                const nooo = document.querySelector("#nooo");
+                yesss.addEventListener("click", ()=> boolean = true);
+                nooo.addEventListener("click", ()=> boolean = false);
+                
                 setInterval(()=> {
                     cardDiv.remove();
                 }, 5000);
@@ -84,7 +91,7 @@ export const socketFunction = async () => {
                     'sender' : sender,
                     'sender_id': sender_id,
                     'recipient': recipient,
-                    'confirmation': _confirm
+                    'confirmation': boolean
                 }))
             }
             if (data.type === 'response_invitation') {
