@@ -11,7 +11,7 @@ import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
 
 const bodyElement = document.querySelector("body");
-bodyElement.addEventListener("click", ()=> {
+bodyElement.addEventListener("click", (event)=> {
     const blockStyle = document.querySelector(".block-style");
     if (blockStyle) {
         blockStyle.remove();
@@ -197,7 +197,8 @@ const data_characters = async () => {
         let visitId = character.username;
         chats1.appendChild(user);
         
-        const handleDots = async () => {
+        const handleDots = async (event) => {
+            event.stopPropagation();
             room_id = await getRoomName(character.username, thisCurrUser.username);
             check = await is_user_blockes(room_id);
             const existingBlock = document.querySelector(".block-style");
