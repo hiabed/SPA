@@ -79,8 +79,12 @@ export const socketFunction = async () => {
                 let boolean = false;
                 const yesss = document.querySelector("#yesss");
                 const nooo = document.querySelector("#nooo");
-                yesss.addEventListener("click", ()=> boolean = true);
-                nooo.addEventListener("click", ()=> boolean = false);
+                yesss.addEventListener("click", ()=> {
+                    console.log("check yes");
+                });
+                nooo.addEventListener("click", ()=> {
+                    console.log("check no");
+                });
                 
                 setInterval(()=> {
                     cardDiv.remove();
@@ -91,7 +95,7 @@ export const socketFunction = async () => {
                     'sender' : sender,
                     'sender_id': sender_id,
                     'recipient': recipient,
-                    'confirmation': boolean
+                    'confirmation': true
                 }))
             }
             if (data.type === 'response_invitation') {
