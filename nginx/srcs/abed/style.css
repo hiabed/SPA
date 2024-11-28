@@ -670,7 +670,7 @@ h1 {
 }
 
 .search-icons .btn {
-    background-color: #454152e6;
+    background-color: #2f1e65;
     box-shadow: none;
 }
 
@@ -829,7 +829,7 @@ a, button {
 }
 
 .btn:not(.link, .accept, .refuse):hover {
-    background-color: rgba(83, 83, 83, 0.473);
+    /* background-color: rgba(83, 83, 83); */
     box-shadow: 0px 0px 8px 2px rgba(83, 83, 83, 0.473);
 }
 

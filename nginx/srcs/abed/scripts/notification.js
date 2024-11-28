@@ -1,4 +1,5 @@
 export const notifBtn = document.querySelector("#notif");
+const notifButton = document.querySelector(".search-icons .btn")
 let parentDiv = null;
 
 import { requestsFunction, friendsFunction, sendIdToBackend } from "./friends.js";
@@ -11,6 +12,8 @@ export const notificationFunction = async (username, image) => {
     if (!notifications) {
         parentDiv = document.createElement("div");
         parentDiv.id = "notifications";
+        notifButton.style.backgroundColor = "#522d91";
+        // notifBtn.style.boxShadow = "0px 0px 8px 2px rgba(83, 83, 83, 0.473)";
         const homeNavbar = document.querySelector("#home-navbar");
         homeNavbar.insertAdjacentElement("afterend", parentDiv);
         let htmlCode;
@@ -30,6 +33,7 @@ export const notificationFunction = async (username, image) => {
         trimmedHTML.innerHTML = htmlCode.trim();
         parentDiv.append(trimmedHTML);
     } else {
+        notifButton.style.backgroundColor = "#2f1e65";
         notifications.remove();
     }
 }

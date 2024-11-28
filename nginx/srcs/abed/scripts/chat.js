@@ -9,6 +9,7 @@ import { friendsPart, friendsFunction } from "./friends.js";
 import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
+const notifButton = document.querySelector(".search-icons .btn");
 
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", (event)=> {
@@ -18,6 +19,7 @@ bodyElement.addEventListener("click", (event)=> {
     }
     const notifications = document.querySelector("#notifications");
     if (notifications) {
+        notifButton.style.backgroundColor = "#2f1e65";
         notifications.remove();
     }
     const logoutPhone = document.querySelector(".logout-phone");
