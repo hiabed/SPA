@@ -86,6 +86,7 @@ const profilePict = document.querySelector("#profile-pict");
 const showLogout = ()=> {
     const logoutPhone = document.querySelector(".logout-phone");
     if (!logoutPhone) {
+        profilePict.style.backgroundColor = "#522d91";
         const logoutt = document.createElement("div");
         logoutt.classList.add("logout-phone");
         logoutt.innerHTML = `<button class="btn btn-danger" style="color: white">Logout</button>`;
@@ -94,6 +95,7 @@ const showLogout = ()=> {
         buttonLogout.addEventListener("click", logoutFuntion);
     }
     else {
+        profilePict.style.backgroundColor = "#2f1e65";
         logoutPhone.remove();
     }
 }
