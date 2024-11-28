@@ -1,5 +1,5 @@
 export const notifBtn = document.querySelector("#notif");
-const notifButton = document.querySelector(".search-icons .btn")
+const notifButton = document.querySelector("#notif .btn");
 let parentDiv = null;
 
 import { requestsFunction, friendsFunction, sendIdToBackend } from "./friends.js";

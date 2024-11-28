@@ -11,7 +11,9 @@ import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
 
 const notifButton = document.querySelector(".search-icons .btn");
-const profilePict = document.querySelector("#profile-pict");
+// const profilePict = document.querySelector("#profile-pict");
+const profBtn = document.querySelector("#profile-pict .btn");
+
 
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", (event)=> {
@@ -26,7 +28,7 @@ bodyElement.addEventListener("click", (event)=> {
     }
     const logoutPhone = document.querySelector(".logout-phone");
     if (logoutPhone) {
-        profilePict.style.backgroundColor = "#2f1e65";
+        profBtn.style.backgroundColor = "#2f1e65";
         logoutPhone.remove();
     }
 })
