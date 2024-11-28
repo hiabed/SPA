@@ -83,10 +83,16 @@ import { logoutFuntion } from "./logout.js";
 
 const profilePict = document.querySelector("#profile-pict");
 const profBtn = document.querySelector("#profile-pict .btn");
+const notifButton = document.querySelector("#notif .btn");
 
 const showLogout = ()=> {
     const logoutPhone = document.querySelector(".logout-phone");
     if (!logoutPhone) {
+        const notifications = document.querySelector("#notifications");
+        if (notifications) {
+            notifButton.style.backgroundColor = "#2f1e65";
+            notifications.remove();
+        }
         profBtn.style.backgroundColor = "#522d91";
         const logoutt = document.createElement("div");
         logoutt.classList.add("logout-phone");

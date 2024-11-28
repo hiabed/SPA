@@ -4,12 +4,19 @@ let parentDiv = null;
 
 import { requestsFunction, friendsFunction, sendIdToBackend } from "./friends.js";
 
+const profBtn = document.querySelector("#profile-pict .btn");
+
 export const notificationFunction = async (username, image) => {
     console.log("username: ", username);
     console.log("image: ", image);
     // first thing is to display the parent block which will hold all the notification elementsl;
     const notifications = document.querySelector("#notifications");
+    const logoutPhone = document.querySelector(".logout-phone");
     if (!notifications) {
+        if (logoutPhone) {
+            logoutPhone.remove();
+            profBtn.style.backgroundColor = "#2f1e65";
+        }
         parentDiv = document.createElement("div");
         parentDiv.id = "notifications";
         notifButton.style.backgroundColor = "#522d91";
