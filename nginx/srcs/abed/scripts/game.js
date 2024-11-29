@@ -555,11 +555,12 @@ document.addEventListener("DOMContentLoaded", () =>  {
 		}
 		twoPlayers.addEventListener("click", handleLocaleGame);
 		const closeGame = () => {
-			parent.style.display = "none";
+			if (parent)
+				parent.style.display = "none";
 			// playAgain();
 		}
 
-		closeBtn.addEventListener("click", closeGame);
+		// closeBtn.addEventListener("click", closeGame);
 	}
 
 	const play_button = document.querySelector("#play-button");

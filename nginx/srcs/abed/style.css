@@ -106,12 +106,11 @@ visibility */
 
 @media (min-width: 0px) and (max-width: 575px) {
     .logout-phone {
-        position: absolute;
+        /* position: absolute;
         display: flex;
-        align-items: center;
-        top: 14vh;
-        right: 2.5vw;
-        cursor: pointer;
+        align-items: center; */
+        top: 14vh !important;
+        right: 2.5vw !important;
     }
     .match-block {
         left: 1% !important;
