@@ -29,7 +29,8 @@ let flag = 0;
 let matchBlock = document.createElement("div");
 const homeNav = document.querySelector("#home-navbar");
 
-export const lookForUsers = ()=> {
+export const lookForUsers = (event)=> {
+    event.stopPropagation();
     document.querySelectorAll(".match-element").forEach(el => {
         el.remove();
     })
@@ -38,6 +39,7 @@ export const lookForUsers = ()=> {
         flag = 0;
     }
     frdsArr.forEach(element => {
+        matchBlock.style.display = "flex";
         if (element.username.includes(searchInput.value.toLowerCase()) && searchInput.value != "") {
             if (flag === 0) {
                 matchBlock.classList.add("match-block");
@@ -52,6 +54,7 @@ export const lookForUsers = ()=> {
             const usernameImage = document.createElement("div");
             usernameImage.style.backgroundImage = `url(${element.imageProfile})`;
             usernameImage.style.backgroundSize = "cover";
+            usernameImage.style.backgroundPosition = "center";
             usernameImage.style.width = "44px";
             usernameImage.style.height = "44px";
             usernameImage.style.border = "white 1px solid";
@@ -78,6 +81,11 @@ export const lookForUsers = ()=> {
 }
 
 searchInput.addEventListener("input", lookForUsers);
+
+searchInput.addEventListener("click", (e)=> {
+    e.stopPropagation();
+    matchBlock.style.display = "flex";
+});
 
 import { logoutFuntion } from "./logout.js";
 
