@@ -60,7 +60,6 @@ const container = document.querySelector("#msgs");
 
 const scrollToBottom = ()=> {
     container.scrollTop = container.scrollHeight;
-    
 }
 
 async function getRoomName(recipient, sender) {
@@ -75,7 +74,6 @@ async function getRoomName(recipient, sender) {
             'user1':  sender,
             'user2': recipient,
         })
-        
     });
     if (response.ok) {
         // console.log("ok");
@@ -84,7 +82,6 @@ async function getRoomName(recipient, sender) {
         return data.room_id;
     }
     else {
-        
         console.log("no");
     }
 }
@@ -228,7 +225,12 @@ const data_characters = async () => {
 
                 // ------------------ visit profile modification from Abed ------------------------- //
                     const visitButton = document.querySelector(`#visit-${visitId}`);
-                    const handleVisit = () => {
+                    const handleVisit = (event) => {
+                        event.stopPropagation();
+                        const blockStyle = document.querySelector(".block-style");
+                        if (blockStyle) {
+                            blockStyle.remove();
+                        }
                         // console.log(character);
                         const strElement = `
                             <button type="button" class="btn-close" aria-label="Close"></button>

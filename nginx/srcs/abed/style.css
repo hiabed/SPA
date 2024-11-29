@@ -429,13 +429,8 @@ visibility */
     width: 90%;
     align-items: center;
     top: 11%;
+    right: 12%;
     justify-content: flex-end;
-}
-
-.logout-phone button {
-    color: white;
-    position: relative;
-    right: 6%;
 }
 
 .match-block {
