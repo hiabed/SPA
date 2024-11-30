@@ -105,10 +105,10 @@ visibility */
 }
 
 @media (min-width: 0px) and (max-width: 575px) {
-    /* .logout-phone {
-        top: 14vh !important;
-        right: 2.5vw !important;
-    } */
+    .logout-phone {
+        top: 14% !important;
+        /* right: 2.5vw !important; */
+    }
     .match-block {
         left: 1% !important;
         top: 15vh !important;
@@ -656,7 +656,7 @@ h1 {
     align-items: center;
 }
 
-.search-icons .btn {
+#notif, #profile-pict {
     background-color: #2f1e65;
     box-shadow: none;
 }
