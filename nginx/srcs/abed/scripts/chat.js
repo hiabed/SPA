@@ -10,6 +10,9 @@ import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
 
+const notifButton = document.querySelector(".search-icons .btn");
+const profBtn = document.querySelector("#profile-pict .btn");
+
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", (event)=> {
     const blockStyle = document.querySelector(".block-style");

@@ -105,7 +105,7 @@ const showLogout = ()=> {
         const logoutt = document.createElement("div");
         logoutt.classList.add("logout-phone");
         logoutt.innerHTML = `<button class="btn btn-danger" style="color: white">Logout</button>`;
-        main.append(logoutt);
+        profilePict.append(logoutt);
         const buttonLogout = document.querySelector(".logout-phone button");
         buttonLogout.addEventListener("click", logoutFuntion);
     }

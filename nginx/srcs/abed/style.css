@@ -105,13 +105,10 @@ visibility */
 }
 
 @media (min-width: 0px) and (max-width: 575px) {
-    .logout-phone {
-        /* position: absolute;
-        display: flex;
-        align-items: center; */
+    /* .logout-phone {
         top: 14vh !important;
         right: 2.5vw !important;
-    }
+    } */
     .match-block {
         left: 1% !important;
         top: 15vh !important;
@@ -410,10 +407,10 @@ visibility */
         height: 9% !important;
         width: 95% !important;
     }
-    .logout-phone {
+    /* .logout-phone {
         width: 95% !important;
         top: 12% !important;
-    }
+    } */
     #speech h3 {
         font-size: 25px !important;
     }
@@ -424,12 +421,8 @@ visibility */
 
 .logout-phone {
     position: absolute;
-    display: flex;
-    width: 90%;
-    align-items: center;
-    top: 11%;
-    right: 12%;
-    justify-content: flex-end;
+    top: 12%;
+    z-index: 100;
 }
 
 .match-block {
@@ -656,7 +649,7 @@ h1 {
 .search-icons div {
     width: 45px;
     height: 45px;
-    background-color: rgb(96 96 96);;
+    /* background-color: rgb(96 96 96);; */
     border-radius: 50%;
     display: flex;
     justify-content: center;
