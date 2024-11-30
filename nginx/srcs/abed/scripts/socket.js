@@ -121,7 +121,7 @@ export const socketFunction = async () => {
             }
             else if (count == 1)
                 count = 0;
-            if (data.type === 'response_block' && count === 0) {
+            if (data.type === 'response_block') {
 
                 count = 1;
                 const block_id = data['block_id'];
@@ -135,7 +135,6 @@ export const socketFunction = async () => {
                             event.preventDefault();
                         });
                         dots.disabled = true;
-                        document.querySelector('#something').disabled = true;
                     }
                 }
                 else {
@@ -147,8 +146,6 @@ export const socketFunction = async () => {
                     }
                 }
             }
-            else if (count === 1)
-                count = 0;
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
                     const bellNotif = document.createElement("div");

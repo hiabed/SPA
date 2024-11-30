@@ -10,9 +10,6 @@ import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
 
-const notifButton = document.querySelector(".search-icons .btn");
-const profBtn = document.querySelector("#profile-pict .btn");
-
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", (event)=> {
     const blockStyle = document.querySelector(".block-style");
@@ -189,7 +186,6 @@ const data_characters = async () => {
     let chatSocket = null;
     let room_id = 0;
     let check = "";
-    let previousUser = null;
 
     characters.forEach(character => {
         
@@ -350,19 +346,14 @@ const data_characters = async () => {
             console.log(`Room name: ${room_id}`);
             showRoom(character.username, thisCurrUser.username);
             if (check.etat === false && check.blocker !== character.username) {
-                initWebSocket(room_id, character.username);
+                    initWebSocket(room_id, character.username);
             }
             else {
                 const inputChat = document.querySelector('#input-group-chat');
                 inputChat.style.display = "none";
             }
         };
-        user.addEventListener("click", async function () { 
-            if (previousUser !== user) {
-                handleUserClick(user);
-                previousUser = user;
-            }
-        });
+        user.addEventListener("click", async function () { handleUserClick(user);});
     });
 
     for (const character of characters) {
