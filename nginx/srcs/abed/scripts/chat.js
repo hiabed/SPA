@@ -11,22 +11,25 @@ import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
 
 const bodyElement = document.querySelector("body");
-bodyElement.addEventListener("click", ()=> {
+bodyElement.addEventListener("click", (event)=> {
     const blockStyle = document.querySelector(".block-style");
     if (blockStyle) {
         blockStyle.remove();
     }
     const notifications = document.querySelector("#notifications");
     if (notifications) {
-        notifications.style.display = "none";
+        notifButton.style.backgroundColor = "#2f1e65";
         notifications.remove();
     }
-    // const profileCard = document.querySelectorAll(".profile-card");
-    // if (profileCard) {
-    //     profileCard.forEach(element => {
-    //         element.remove();
-    //     })
-    // }
+    const logoutPhone = document.querySelector(".logout-phone");
+    if (logoutPhone) {
+        profBtn.style.backgroundColor = "#2f1e65";
+        logoutPhone.remove();
+    }
+    const matchBlock = document.querySelector(".match-block");
+    if (matchBlock) {
+        matchBlock.style.display = "none";
+    }
 })
 
 export const chatFunction = () => {
@@ -55,8 +58,7 @@ export const chatFunction = () => {
 const container = document.querySelector("#msgs");
 
 const scrollToBottom = ()=> {
-    container.scrollTop = container.scrollHeight;
-    
+    container.scrollTop = container.scrollHeight;    
 }
 
 async function getRoomName(recipient, sender) {
@@ -80,7 +82,6 @@ async function getRoomName(recipient, sender) {
         return data.room_id;
     }
     else {
-        
         console.log("no");
     }
 }
@@ -202,7 +203,8 @@ const data_characters = async () => {
                 let visitId = character.username;
                 chats1.appendChild(user);
                 
-                const handleDots = async () => {
+                const handleDots = async (event) => {
+                    event.stopPropagation();
                     room_id = await getRoomName(character.username, thisCurrUser.username);
                     check = await is_user_blockes(room_id, thisCurrUser.username, character.username);
                     console.log("hello from block check", check.etat, check.blocker);
@@ -231,7 +233,8 @@ const data_characters = async () => {
                         
                         // ------------------ visit profile modification from Abed ------------------------- //
                         const visitButton = document.querySelector(`#visit-${visitId}`);
-                        const handleVisit = () => {
+                        const handleVisit = (event) => {
+                            event.stopPropagation();
                             const strElement = `
                             <button type="button" class="btn-close" aria-label="Close"></button>
                             <div style="background-image: url(${character.imageProfile});" class="profile-chat-image"></div>
@@ -344,6 +347,10 @@ const data_characters = async () => {
             showRoom(character.username, thisCurrUser.username);
             if (check.etat === false && check.blocker !== character.username) {
                 initWebSocket(room_id, character.username);
+            }
+            else {
+                const inputChat = document.querySelector('#input-group-chat');
+                inputChat.style.display = "none";
             }
         };
         user.addEventListener("click", async function () { handleUserClick(user)} );

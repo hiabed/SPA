@@ -135,6 +135,7 @@ export const socketFunction = async () => {
                             event.preventDefault();
                         });
                         dots.disabled = true;
+                        document.querySelector('#something').disabled = true;
                     }
                 }
                 else {
