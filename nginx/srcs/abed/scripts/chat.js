@@ -186,6 +186,7 @@ const data_characters = async () => {
     let chatSocket = null;
     let room_id = 0;
     let check = "";
+    let previousUser = null;
 
     characters.forEach(character => {
         
@@ -353,7 +354,12 @@ const data_characters = async () => {
                 inputChat.style.display = "none";
             }
         };
-        user.addEventListener("click", async function () { handleUserClick(user)} );
+        user.addEventListener("click", async function () { 
+            if (previousUser !== user) {
+                handleUserClick(user);
+                previousUser = user;
+            }
+        });
     });
 
     for (const character of characters) {
