@@ -74,6 +74,26 @@ class FriendRequestConsumer(WebsocketConsumer):
                 "confirmation": confirmation,
             },
         )
+        if data.get('type') == 'request_block':
+
+            recipient_id = data['recipient_id']
+            block_id = data.get('blocked_id')
+            blocker = data.get('blocker')
+            etat = data.get('etat')
+
+            print(">>>>>>>>>> request blocking", recipient_id, block_id)
+            friends = self.user.friends.all()
+            for friend in friends:
+                if friend.id == recipient_id:
+                    async_to_sync(self.channel_layer.group_send) (
+                    f'user_{friend.id}',
+                    {
+                        'type': 'response_block',       
+                        'block_id': block_id,
+                        'blocker': blocker,
+                        'etat': etat
+                    }
+            )
 
     def update_user_status(self, user_status):
         # channel_layer = get_channel_layer()
@@ -118,6 +138,18 @@ class FriendRequestConsumer(WebsocketConsumer):
                     'online_status'    : friend_status
                 }
             }))
+
+    def response_block(self, event):
+        block_id = event['block_id']
+        blocker = event['blocker']
+        etat = event['etat']
+
+        self.send(text_data=json.dumps ({
+            'type': 'response_block',
+            'block_id': block_id,
+            'blocker': blocker,
+            'etat': etat
+        }))
 
     def play_invitation(self, event):
         author = event["author"]

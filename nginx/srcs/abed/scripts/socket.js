@@ -5,6 +5,7 @@ import { notificationFunction, notifBtn } from "./notification.js";
 export let flag = 0;
 export let socket = null;
 export let check_status = false;
+let count = 0;
 
 export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
@@ -56,13 +57,11 @@ export const socketFunction = async () => {
             const recipient = data.recipient;
             const sender = data['author'];
             const sender_id = data['senderId'];
-            // msg = data['msg'];
-                
+            
             if (data.type === 'play_invitation') {
                 
-                console.log("---------->> type", recipient);
-                // const _confirm = confirm(`you have been invited to pong match with ${sender}`);
-                // create card for accept or refuse invitation for pong game;
+                console.log('check yes', count);
+
                 const _confirm = `
                     <p>You have been invited to pong match with ${sender}</p>
                     <div id="yesno">
@@ -76,45 +75,79 @@ export const socketFunction = async () => {
                 const bodyElement = document.querySelector("body");
                 bodyElement.append(cardDiv);
 
-                let boolean = false;
                 const yesss = document.querySelector("#yesss");
                 const nooo = document.querySelector("#nooo");
                 yesss.addEventListener("click", ()=> {
-                    console.log("check yes");
+                    
+                    socket.send(JSON.stringify ({
+                        'type': 'response',
+                        'sender' : sender,
+                        'sender_id': sender_id,
+                        'recipient': recipient,
+                        'confirmation': true
+                    }))
+                    cardDiv.remove();
                 });
-                nooo.addEventListener("click", ()=> {
+                nooo.addEventListener("click", () => {
                     console.log("check no");
+                    count = 0;
+                    socket.send(JSON.stringify ({
+                        'type': 'response',
+                        'sender' : sender,
+                        'sender_id': sender_id,
+                        'recipient': recipient,
+                        'confirmation': false
+                    }))
+                    cardDiv.remove();
                 });
                 
                 setInterval(()=> {
                     cardDiv.remove();
-                }, 5000);
-                // console.log("-------------------- confirmationzz", _confirm);
-                socket.send(JSON.stringify ({
-                    'type': 'response',
-                    'sender' : sender,
-                    'sender_id': sender_id,
-                    'recipient': recipient,
-                    'confirmation': true
-                }))
+                }, 10000);
             }
-            if (data.type === 'response_invitation') {
+            if (data.type === 'response_invitation' && count == 0) {
 
+                count = 1;
                 const _confirm = data['confirmation'];
                 const recipient = data['recipient'];
                 console.log('----------- hellolooooooooooooooo');
-
     
                 if (_confirm){
-                    check_status = true;
-                    console.log('check is ', check_status);
+                    console.log('check is true');
                 }
-                else{
-                    check_status = false;
-                    console.log('check is ', check_status);
-                    // alert(`${recipient} has not accept the invitation`);
+                else {
+                    console.log('check is false');
                 }
             }
+            else if (count == 1)
+                count = 0;
+            if (data.type === 'response_block' && count === 0) {
+
+                count = 1;
+                const block_id = data['block_id'];
+                const etat = data['etat'];
+
+                const dots = document.querySelector(`#user-${block_id}`);
+                
+                if (etat === true) {
+                    if (dots) {
+                        dots.addEventListener('click', function() {
+                            event.preventDefault();
+                        });
+                        dots.disabled = true;
+                    }
+                }
+                else {
+                    if (dots) {
+                        dots.addEventListener('click', function() {
+                            event.preventDefault();
+                        });
+                        dots.disabled = false;
+                    }
+                }
+            }
+            else if (count === 1)
+                count = 0;
             if (data.status === 'success') {
                 if (data.option === 'receive_frd_req'){
                     const bellNotif = document.createElement("div");
