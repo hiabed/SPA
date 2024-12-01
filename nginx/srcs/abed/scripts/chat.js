@@ -1,5 +1,6 @@
 export const chatButton = document.querySelector("#chat");
 export const chatPage = document.querySelector("#chat-part");
+let chatSocket = null;
 
 import { profileId } from "./profile.js";
 import { main } from "./home.js";
@@ -183,12 +184,12 @@ const data_characters = async () => {
     const thisCurrUser = await newDataFunc();
     const chats1 = document.querySelector("#chats");
     const thisSocket = await socketFunction();
-    let chatSocket = null;
     let room_id = 0;
     let check = "";
 
     characters.forEach(character => {
         
+        console.log('------------> ', chatSocket);
         const userStr = `
             <p>${character.username} </p>
             <p class="user-dots">
@@ -213,7 +214,7 @@ const data_characters = async () => {
                         existingBlock.remove();
                     else {
                         const blockContainer = `
-                        <button id="play-${character.username}" class="block-child">Play</button>
+                        <button id="play-${character.id}" class="block-child">Play</button>
                         <button id="visit-${visitId}" class="block-child">Visit Profile</button>
                         `;
                         const blockElement = document.createElement("div");
@@ -264,16 +265,20 @@ const data_characters = async () => {
                         // ------------------- end modification ----------------------- //
                         
                         // on click play buuton
-                        document.getElementById(`play-${character.username}`).addEventListener('click', async function (e) {
+                        document.getElementById(`play-${character.id}`).addEventListener('click', async function (e) {
                             
-                            console.log("---> from chat send cridentials ", character.id, thisCurrUser.id);
-                            thisSocket.send(JSON.stringify({
-                                'type': 'requestFriend',
-                                'recipient_id': character.id,
-                                'sender_id': thisCurrUser.id,
-                                'sender': thisCurrUser.username,
-                                'recipient': character.username
-                            }));
+                            if (check.etat === false) {
+                                thisSocket.send(JSON.stringify({
+                                    'type': 'requestFriend',
+                                    'recipient_id': character.id,
+                                    'sender_id': thisCurrUser.id,
+                                    'sender': thisCurrUser.username,
+                                    'recipient': character.username
+                                }));
+                            }
+                            else{
+                                alert(`You blocked ${character.username}`);
+                            }
                         });
                 
                 // -------------------------------------------- on click block buton ----------------------------------------------------------------------------- 
