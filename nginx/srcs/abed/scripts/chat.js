@@ -36,7 +36,7 @@ bodyElement.addEventListener("click", (event)=> {
     }
 })
 
-export const chatFunction = () => {
+export const chatFunction = async () => {
     profileId.style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
@@ -54,7 +54,7 @@ export const chatFunction = () => {
     if (chats) {
         chats.innerHTML = "";
     }
-    data_characters();
+    await data_characters();
 }
 
 // chatButton.addEventListener("click", chatFunction);

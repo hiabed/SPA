@@ -10,7 +10,7 @@ import { get_csrf_token } from "./register.js";
 import { notificationFunction } from "./notification.js";
 
 const frdNavBtns = document.querySelectorAll(".frd-nav-btn");
-export const friendsFunc = () => {
+export const friendsFunc = async () => {
     // document.querySelector("#online-friends").style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
@@ -24,7 +24,7 @@ export const friendsFunc = () => {
     frdNavBtns[1].classList.remove('styled-nav-btn');
     frdNavBtns[2].classList.remove('styled-nav-btn');
     frdNavBtns[0].classList.add('styled-nav-btn');
-    friendsFunction();
+    await friendsFunction();
 }
 
 // friendsBtn.addEventListener("click", friendsFunc);

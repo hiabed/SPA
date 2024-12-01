@@ -38,36 +38,50 @@ const showError = ()=> {
 }
 
 const sideBtns = document.querySelectorAll(".nav-button");
-let isLoading = true;
+// let isLoading = true;
 
-export const reloadFunction = async ()=> {
-    errorPage.style.display = "none";
-    document.querySelector("#full-container").style.display = "flex";
-    sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
-    if (location.pathname === "/home" || location.pathname === "/") {
-        sideBtns[0].classList.add('link');
-        mainFunction();
-    } else if (location.pathname === "/profile") {
-        const updateDataObj = await newDataFunc();
-        sideBtns[1].classList.add('link');
-        profileFunction(updateDataObj);
-    } else if (location.pathname === "/friends") {
-        sideBtns[2].classList.add('link');
-        friendsFunc();
-    } else if (location.pathname === "/rank") {
-        sideBtns[3].classList.add('link');
-        rankFunct();
-    } else if (location.pathname === "/chat") {
-        sideBtns[4].classList.add('link');
-        chatFunction();
-    } else if (location.pathname === "/setting") {
-        const updateDataObj = await newDataFunc();
-        sideBtns[5].classList.add('link');
-        settingFunction(updateDataObj);
-    } else {
-        showError() // need to implemet better front.
+export const reloadFunction = async () => {
+    const loadingSpinner = document.querySelector("#loading-spinner"); // Get the loading indicator element
+    let isLoading = true; // Set loading state to true
+    loadingSpinner.style.display = "block"; // Show the loading spinner
+
+    try {
+        errorPage.style.display = "none";
+        document.querySelector("#full-container").style.display = "flex";
+        sideBtns.forEach(sideBtn => {
+            sideBtn.classList.remove('link');
+        });
+        if (location.pathname === "/home" || location.pathname === "/") {
+            sideBtns[0].classList.add('link');
+            await mainFunction();
+        } else if (location.pathname === "/profile") {
+            const updateDataObj = await newDataFunc();
+            sideBtns[1].classList.add('link');
+            profileFunction(updateDataObj);
+        } else if (location.pathname === "/friends") {
+            sideBtns[2].classList.add('link');
+            await friendsFunc();
+        } else if (location.pathname === "/rank") {
+            sideBtns[3].classList.add('link');
+            await rankFunct();
+        } else if (location.pathname === "/chat") {
+            sideBtns[4].classList.add('link');
+            await chatFunction();
+        } else if (location.pathname === "/setting") {
+            const updateDataObj = await newDataFunc();
+            sideBtns[5].classList.add('link');
+            settingFunction(updateDataObj);
+        } else {
+            showError(); // Display an error message.
+        }
+    } catch (error) {
+        console.error("Error loading data:", error);
+        showError();
+    } finally {
+        isLoading = false; // Set loading state to false
+        loadingSpinner.style.display = "none"; // Hide the loading spinner
     }
-}
+};
 
 export const navigateTo = (path) => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
