@@ -121,9 +121,9 @@ chatButton.addEventListener("click", () => {
 settingButton.addEventListener("click", () => {
     navigateTo("/setting");
 });
-logoutBtn.addEventListener("click", ()=> {
-    navigateTo("/");
-});
+// logoutBtn.addEventListener("click", ()=> {
+//     navigateTo("/");
+// });
 loginBtn.addEventListener("click", ()=> {
     navigateTo("/home");
 });
