@@ -419,6 +419,28 @@ visibility */
     }
 }
 
+#loading-spinner {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    border: 10px solid rgb(95 95 95);
+    border-top: 10px solid #5e2f8e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .logout-phone {
     position: absolute;
     top: 12%;
