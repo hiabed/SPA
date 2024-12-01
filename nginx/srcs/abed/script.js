@@ -22,7 +22,6 @@ export const newDataFunc = async ()=> {
 }
 
 const loginBtn = document.querySelector(".login-btn");
-
 const errorPage = document.querySelector("#error")
 
 const showError = ()=> {
@@ -39,9 +38,9 @@ const showError = ()=> {
 }
 
 const sideBtns = document.querySelectorAll(".nav-button");
+let isLoading = true;
 
 export const reloadFunction = async ()=> {
-    // alert("reload function");
     errorPage.style.display = "none";
     document.querySelector("#full-container").style.display = "flex";
     sideBtns.forEach (sideBtn => {sideBtn.classList.remove('link')});
