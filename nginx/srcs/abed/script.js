@@ -112,7 +112,7 @@ export const navigateTo = async (path) => {
     document.querySelector("#login-parent").style.display = "none";
     if (isLoggedIn) {
         const loadingSpinner = document.querySelector("#loading-spinner");
-        loadingSpinner.style.display = "block";
+        loadingSpinner.style.display = "flex";
         hideAll();
         showLinkStyle();
         await new Promise(resolve => setTimeout(resolve, 500));
