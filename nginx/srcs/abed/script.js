@@ -69,6 +69,25 @@ export const reloadFunction = async () => {
         showError(); // Display an error message.
     }
 };
+
+export const showLinkStyle = () => {
+    sideBtns.forEach(sideBtn => {
+        sideBtn.classList.remove('link');
+    });
+    if (location.pathname === "/home" || location.pathname === "/") {
+        sideBtns[0].classList.add('link');
+    } else if (location.pathname === "/profile") {
+        sideBtns[1].classList.add('link');
+    } else if (location.pathname === "/friends") {
+        sideBtns[2].classList.add('link');
+    } else if (location.pathname === "/rank") {
+        sideBtns[3].classList.add('link');
+    } else if (location.pathname === "/chat") {
+        sideBtns[4].classList.add('link');
+    } else if (location.pathname === "/setting") {
+        sideBtns[5].classList.add('link');
+    }
+}
 export const main = document.querySelector("#main");
 
 const hideAll = () => {
@@ -95,6 +114,7 @@ export const navigateTo = async (path) => {
         const loadingSpinner = document.querySelector("#loading-spinner");
         loadingSpinner.style.display = "block";
         hideAll();
+        showLinkStyle();
         await new Promise(resolve => setTimeout(resolve, 500));
         await reloadFunction();
         loadingSpinner.style.display = "none";
