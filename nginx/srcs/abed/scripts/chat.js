@@ -354,7 +354,7 @@ const data_characters = async () => {
             console.log(`Room name: ${room_id}`);
             showRoom(character.username, thisCurrUser.username);
             if (check.etat === false && check.blocker !== character.username) {
-                    initWebSocket(room_id, character.username);
+                    initWebSocket(room_id, character.username, character.id);
             }
             else {
                 const inputChat = document.querySelector('#input-group-chat');
@@ -373,7 +373,7 @@ const data_characters = async () => {
         }
     }
 
-    function initWebSocket(roomId, username) {
+    function initWebSocket(roomId, username, userID) {
 
         if (chatSocket !== null) {
             chatSocket.close();
@@ -439,6 +439,10 @@ const data_characters = async () => {
                 }));
                 messageinput.value = '';
                 scrollToBottom();
+                thisSocket.send(JSON.stringify ({
+                    'type': "notif",
+                    'id': userID
+                }));
             }
             else {
                 messageinput.value = '';

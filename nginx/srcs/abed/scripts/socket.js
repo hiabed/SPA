@@ -58,6 +58,10 @@ export const socketFunction = async () => {
             const sender = data['author'];
             const sender_id = data['senderId'];
             
+            if (data.type === 'receive_norif') {
+                alert('yoor');
+                // document.querySelector('#chatIcon').style.color = "red";
+            }
             if (data.type === 'play_invitation') {
                 
                 console.log('check yes', count);
