@@ -4,12 +4,15 @@ let chatSocket = null;
 
 import { profileId } from "./profile.js";
 import { main } from "./home.js";
-import {settingPage} from "./setting.js";
+import { settingPage } from "./setting.js";
 import { rankPart } from "./rank.js";
 import { friendsPart, friendsFunction } from "./friends.js";
 import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
 import { socketFunction } from "./socket.js";
+
+const notifButton = document.querySelector(".search-icons .btn");
+const profBtn = document.querySelector("#profile-pict .btn");
 
 const bodyElement = document.querySelector("body");
 bodyElement.addEventListener("click", (event)=> {
@@ -33,7 +36,7 @@ bodyElement.addEventListener("click", (event)=> {
     }
 })
 
-export const chatFunction = () => {
+export const chatFunction = async () => {
     profileId.style.display = "none";
     main.style.display = "none";
     settingPage.style.display = "none";
@@ -51,7 +54,7 @@ export const chatFunction = () => {
     if (chats) {
         chats.innerHTML = "";
     }
-    data_characters();
+    await data_characters();
 }
 
 // chatButton.addEventListener("click", chatFunction);
@@ -188,8 +191,6 @@ const data_characters = async () => {
     let check = "";
 
     characters.forEach(character => {
-        
-        console.log('------------> ', chatSocket);
         const userStr = `
             <p>${character.username} </p>
             <p class="user-dots">
@@ -351,7 +352,7 @@ const data_characters = async () => {
             console.log(`Room name: ${room_id}`);
             showRoom(character.username, thisCurrUser.username);
             if (check.etat === false && check.blocker !== character.username) {
-                    initWebSocket(room_id, character.username);
+                    initWebSocket(room_id, character.username, character.id);
             }
             else {
                 const inputChat = document.querySelector('#input-group-chat');
@@ -370,7 +371,7 @@ const data_characters = async () => {
         }
     }
 
-    function initWebSocket(roomId, username) {
+    function initWebSocket(roomId, username, userID) {
 
         if (chatSocket !== null) {
             chatSocket.close();
@@ -416,7 +417,8 @@ const data_characters = async () => {
         // chatSocket.onclose = function(e) {
         //     console.log("socket closed unexpectedly", e);
         // }
-    
+
+        
         document.querySelector('#something').onkeyup = function(e) {
             if (e.key === 'Enter') {
                 document.querySelector('#input-group-text-chat').click();
@@ -424,8 +426,8 @@ const data_characters = async () => {
         };
     
         document.querySelector('#input-group-text-chat').onclick = function(e) {
-            var messageinput = document.querySelector('#something');
-            var message = messageinput.value;
+            let messageinput = document.querySelector('#something');
+            let message = messageinput.value;
     
             if (message !== "" && chatSocket.readyState === WebSocket.OPEN) {
                 chatSocket.send(JSON.stringify ({
@@ -436,6 +438,10 @@ const data_characters = async () => {
                 }));
                 messageinput.value = '';
                 scrollToBottom();
+                thisSocket.send(JSON.stringify({
+                    'type': "notif",
+                    'id': userID
+                }));
             }
             else {
                 messageinput.value = '';

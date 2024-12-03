@@ -419,6 +419,21 @@ visibility */
     }
 }
 
+#loading-spinner {
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+}
+
+.spinner-border {
+    --bs-spinner-width: 4rem;
+    --bs-spinner-height: 4rem;
+    --bs-spinner-border-width: 0.45em;
+    border-color: rgb(217 156 236);
+    border-right-color: transparent;
+}
+
 .logout-phone {
     position: absolute;
     top: 12%;
