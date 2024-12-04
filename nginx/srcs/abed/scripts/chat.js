@@ -36,7 +36,7 @@ bodyElement.addEventListener("click", (event)=> {
     }
 })
 
-function popupCard(message) {
+export const popupCard = (message) => {
     const cardDiv = document.createElement("div");
     cardDiv.id = "card-div";
     const bodyElement = document.querySelector("body");
