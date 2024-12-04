@@ -36,6 +36,23 @@ bodyElement.addEventListener("click", (event)=> {
     }
 })
 
+function popupCard(message) {
+    const cardDiv = document.createElement("div");
+    cardDiv.id = "card-div";
+    const bodyElement = document.querySelector("body");
+    const paragraph = document.createElement("p");
+    paragraph.id = "paragraph-id";
+    paragraph.innerHTML = `${message}`;
+    const buttonn = document.querySelector("button");
+    buttonn.id = "pop-btn";
+    buttonn.innerHTML = "Ok";
+    cardDiv.append(paragraph, buttonn);
+    bodyElement.append(cardDiv);
+    setTimeout(()=> {
+        cardDiv.style.display = "none";
+    }, 3000);
+}
+
 export const chatFunction = async () => {
     profileId.style.display = "none";
     main.style.display = "none";
@@ -202,6 +219,7 @@ const data_characters = async () => {
                 </p>
                 `;
                 const user = document.createElement("div");
+                user.id = `user-${character.id}`;
                 user.classList.add("user");
                 user.innerHTML = userStr.trim();
                 let visitId = character.username;
@@ -279,8 +297,9 @@ const data_characters = async () => {
                                     'recipient': character.username
                                 }));
                             }
-                            else{
-                                alert(`You blocked ${character.username}`);
+                            else {
+                                console.log('yooooooooooooooooooooooo');
+                                popupCard(`You blocked ${character.username}`);
                             }
                         });
                 
@@ -340,12 +359,6 @@ const data_characters = async () => {
             const picTag = document.querySelector("#chat-pic");
             picTag.style.backgroundImage = `url("${character.imageProfile}")`;
             document.querySelector("#secondd h3").innerHTML = character.username;
-
-            picTag.addEventListener('click',  () => {
-                chatPage.style.display = "none";
-                profileId.style.display = "flex";
-                
-            });
             // =============== Modify here ==============
 
             console.log("user id ", character.id);
@@ -441,7 +454,8 @@ const data_characters = async () => {
                 scrollToBottom();
                 thisSocket.send(JSON.stringify ({
                     'type': "notif",
-                    'id': userID
+                    'id': userID,
+                    'senderID': thisCurrUser.id
                 }));
             }
             else {

@@ -36,6 +36,8 @@ class FriendRequestConsumer(WebsocketConsumer):
         if (data.get('type') == 'notif'):
 
             recipient_id = data['id']
+            sender_id = data['senderID']
+
             friends = self.user.friends.all()
             for friend in friends:
                 if friend.id == recipient_id:
@@ -43,7 +45,8 @@ class FriendRequestConsumer(WebsocketConsumer):
                     f'user_{friend.id}',
                     {
                         'type': "receive_norif",
-                        'friend': recipient_id
+                        'friend': recipient_id,
+                        'senderID': sender_id
                     }
                 )
         
@@ -153,10 +156,12 @@ class FriendRequestConsumer(WebsocketConsumer):
 
     def receive_norif(self, event):
         _id = event['friend']
+        senderID = event['senderID']
 
         self.send(text_data=json.dumps ({
             'type': 'receive_norif',
-            'recipient_id': _id
+            'recipient_id': _id,
+            'senderID': senderID
         }))
 
     def response_block(self, event):

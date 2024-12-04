@@ -7,6 +7,15 @@ export let socket = null;
 export let check_status = false;
 let count = 0;
 
+function popupCard(message) {
+    const cardDiv = document.createElement("div");
+    cardDiv.id = "card-div"
+    const paragraph = document.createElement("p");
+    paragraph.id = "paragraph-id";
+    paragraph.innerHTML = `${message}`;
+    return paragraph;
+}
+
 export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
     let toastHTML = `
@@ -38,6 +47,17 @@ export const createToast = (message, timeAgo) => {
     }, 6000);
 }
 
+const localStorageTracking = async (str, toRemove, target) => {
+    localStorage.setItem(str, true);
+    target.addEventListener("click", () => {
+        localStorage.setItem(str, false);
+        toRemove.remove();
+    });
+}
+
+const bellNotif = document.createElement("div");
+bellNotif.id = "message-notif";
+
 export const socketFunction = async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (isLoggedIn && !flag) {
@@ -57,10 +77,22 @@ export const socketFunction = async () => {
             const recipient = data.recipient;
             const sender = data['author'];
             const sender_id = data['senderId'];
+            const thisid = data['senderID'];
             
             if (data.type === 'receive_norif') {
-                alert('yoor');
-                // document.querySelector('#chatIcon').style.color = "red";
+                // const messageIcone = document.querySelector(".fa-solid fa-message");
+                const chatIcone = document.querySelector("#chat");
+                // recipient_id
+                // document.querySelector('#chatIcon').style.color = "red"; ----------------------------------------------
+                chatIcone.append(bellNotif);
+                localStorageTracking("messageNotif", bellNotif, chatIcone);
+                // const bellNotifUser = document.createElement("div");
+                // bellNotifUser.classList.add("user-notiff");
+                // console.log(bellNotif);
+                // const user = document.getElementById(`user-${thisid}`);
+                // console.log("res id: ", thisid);
+                // user.append(bellNotifUser);
+                // localStorageTracking("messageUser", bellNotifUser, user);
             }
             if (data.type === 'play_invitation') {
                 
