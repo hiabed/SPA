@@ -1,20 +1,12 @@
 import { friendsFunction, suggestionsFunction, requestsFunction, createRequestCards, createFriendCards, createSuggestionCard, sendIdToBackend } from "./friends.js";
 import { mainFunction, lookForUsers } from "./home.js";
 import { notificationFunction, notifBtn } from "./notification.js";
+import { chatPage } from "./chat.js";
 
 export let flag = 0;
 export let socket = null;
 export let check_status = false;
 let count = 0;
-
-function popupCard(message) {
-    const cardDiv = document.createElement("div");
-    cardDiv.id = "card-div"
-    const paragraph = document.createElement("p");
-    paragraph.id = "paragraph-id";
-    paragraph.innerHTML = `${message}`;
-    return paragraph;
-}
 
 export const createToast = (message, timeAgo) => {
     // Create toast HTML structure
@@ -47,16 +39,18 @@ export const createToast = (message, timeAgo) => {
     }, 6000);
 }
 
-const localStorageTracking = async (str, toRemove, target) => {
-    localStorage.setItem(str, true);
+export const localStorageTracking = async (str, toRemove, target) => {
     target.addEventListener("click", () => {
-        localStorage.setItem(str, false);
+        localStorage.setItem(str, "false");
         toRemove.remove();
     });
 }
 
-const bellNotif = document.createElement("div");
+export const bellNotif = document.createElement("div");
 bellNotif.id = "message-notif";
+
+export const bellNotifUser = document.createElement("div");
+bellNotifUser.classList.add("user-notiff");
 
 export const socketFunction = async () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -80,19 +74,21 @@ export const socketFunction = async () => {
             const thisid = data['senderID'];
             
             if (data.type === 'receive_norif') {
-                // const messageIcone = document.querySelector(".fa-solid fa-message");
-                const chatIcone = document.querySelector("#chat");
-                // recipient_id
-                // document.querySelector('#chatIcon').style.color = "red"; ----------------------------------------------
-                chatIcone.append(bellNotif);
-                localStorageTracking("messageNotif", bellNotif, chatIcone);
-                // const bellNotifUser = document.createElement("div");
-                // bellNotifUser.classList.add("user-notiff");
-                // console.log(bellNotif);
-                // const user = document.getElementById(`user-${thisid}`);
-                // console.log("res id: ", thisid);
-                // user.append(bellNotifUser);
-                // localStorageTracking("messageUser", bellNotifUser, user);
+                const computedStyle = window.getComputedStyle(chatPage);
+                if (computedStyle.display === "none") {
+                    // const messageIcone = document.querySelector(".fa-solid fa-message");
+                    const chatIcone = document.querySelector("#chat");
+                    chatIcone.append(bellNotif);
+                    localStorage.setItem("messageNotif", "true");
+                    localStorageTracking("messageNotif", bellNotif, chatIcone);
+                    console.log("The div has display: none.");
+                }
+                // ----------- second part -------------- //
+                const user = document.getElementById(`user-${thisid}`);
+                console.log("res id: ", thisid);
+                user.append(bellNotifUser);
+                localStorage.setItem(`messageUser-${thisid}`, "true");
+                localStorageTracking(`messageUser-${thisid}`, bellNotifUser, user);
             }
             if (data.type === 'play_invitation') {
                 

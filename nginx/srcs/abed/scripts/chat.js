@@ -9,7 +9,8 @@ import { rankPart } from "./rank.js";
 import { friendsPart, friendsFunction } from "./friends.js";
 import { get_csrf_token } from "./register.js";
 import { newDataFunc } from "../script.js";
-import { socketFunction } from "./socket.js";
+import { socketFunction, localStorageTracking, bellNotifUser, bellNotif } from "./socket.js";
+
 
 const notifButton = document.querySelector(".search-icons .btn");
 const profBtn = document.querySelector("#profile-pict .btn");
@@ -60,6 +61,8 @@ export const chatFunction = async () => {
     rankPart.style.display = "none";
     friendsPart.style.display = "none";
     chatPage.style.display = "block";
+    localStorage.setItem("messageNotif", "false");
+    bellNotif.remove();
     const chats = document.querySelector("#chats");
     document.querySelector('#chat-pic').style.display = 'none';
     document.querySelector('#input-group-chat').style.display = 'none';
@@ -383,6 +386,13 @@ const data_characters = async () => {
         check = await is_user_blockes(room_id, thisCurrUser.username, character.username);
         if (check.blocker === character.username) {
             document.getElementById(`user-${character.id}`).disabled = true;
+        }
+        const messageNotification = localStorage.getItem(`messageUser-${character.id}`); //bellNotifUser
+        if (messageNotification === "true") {
+            const user = document.getElementById(`user-${character.id}`);
+            user.append(bellNotifUser);
+            // const chatIcone = document.querySelector("#chat");
+            localStorageTracking(`messageUser-${character.id}`, bellNotifUser, user);
         }
     }
 
