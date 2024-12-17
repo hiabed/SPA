@@ -8,27 +8,36 @@ from .serializers import ProomSerializer
 class RoomListCreateAPIView(APIView):
     
     def get(self, request):
-        rooms = Proom.objects.filter(players__lt=2)
-        print("it is empty", rooms.exists())
-        print("room size is ", rooms.__sizeof__())
+        rooms = Proom.objects.filter(players__lt=2, is_reserved=0)
         if rooms.exists():
             room = rooms.first()
             room.players += 1
-            print("room player are ", room.players)
             room.save()
             serializer = ProomSerializer(room)
             return Response(serializer.data)
         return Response({"message": "No available rooms"}, status=404)
 
     def post(self, request):
-        print("Create room")
         code = request.data.get('code')
         gameType = request.data.get('type')
-        print("code of  room", code)
         room = Proom.objects.create(code=code)
-        print("room player is ", room.players)
+        if (gameType == "local" or gameType == 'tourn'):
+            room.players = 2
+        if (request.data.get('is_reserved') == 1):
+            room.is_reserved = 1
+        room.players += 1
+        room.save()
         serializer = ProomSerializer(room)
-        if (gameType != "remote"):
-            room.players = 1
-        print("*-------------------------------------------------------------------------*")
         return Response(serializer.data)
+
+
+class TheRoomView(APIView):
+    def get(self, request, code):
+        rooms = Proom.objects.filter(code=code)
+        if rooms.exists():
+            room = rooms.first()
+            room.players += 1
+            room.save()
+            serializer = ProomSerializer(room)
+            return Response(serializer.data)
+        return Response({"message": "No available rooms"}, status=404)

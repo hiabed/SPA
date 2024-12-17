@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () =>  {
+// document.addEventListener("DOMContentLoaded", () =>  {
     const app = document.getElementById("app");
     const startContainer = document.createElement("div");
     const gameContainer = document.createElement("div");
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () =>  {
     const showResult = document.createElement("div");
     const Suser = document.createElement("div");
     let is_gameOver = false;
-    let socket;
+    let socket = null;
     let crtf;
     let matchdata = 
     {
@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () =>  {
         result:0,
         x_resuSuserlt:"",
         score:0,
+        userName:"",
+        openName:"",
     };
+    let gameStart = false;
     // const leftGameContainer = document.createElement("div");
 
     startContainer.className = "start-container";
@@ -55,7 +58,8 @@ document.addEventListener("DOMContentLoaded", () =>  {
             <div class="square align" data-index="8"></div>
         </div>
         <div id="alert_move">Your are </div>
-        <button id="play-again">Play Again</button> <!-- Moved here -->
+        <div id="enemyXo"></div>
+        <button id="pplay-again">Play Again</button> <!-- Moved here -->
     `;
     waitContainer.innerHTML=`
         <div class="loader-container">
@@ -66,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () =>  {
         <h2 id="result" ></h2>
         `;
     Suser.innerHTML = `
-        <h2 id="sameUser"> you can't Play with yourself</h2>
+        <h2 id="sameUser"> you can't Play against yourself</h2>
     `;
     app.appendChild(startContainer);
     app.appendChild(gameContainer);
@@ -78,32 +82,45 @@ document.addEventListener("DOMContentLoaded", () =>  {
     let currentTurn = 'X'; 
     let room_is_created = false;
 
-function fetchUser(){
-    fetch('https://localhost/user/get_curr_user/', {
+
+
+    window.addEventListener("beforeunload", (event) => {
+		if (socket && socket.readyState === WebSocket.OPEN) {
+			socket.send(JSON.stringify({
+                 event: "close",
+                message: ""
+            }));
+		}
+	});
+
+
+async function fetchUser(){
+    const res = await fetch('/user/get_curr_user/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         },
     })
-    .then(response => {
-        if (!response.ok) {
+    
+    if (!res.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();  
-    })
-    .then(data => {
-        if (data.status === '400') {
-            console.log('User is not authenticated:', data.data);
-        } else {
-            matchdata.id = data.data.id;
-            matchdata.user = data.data.id;
-            matchdata.level = data.data.level;
-            console.log("LEVEL is ", matchdata.level, " User is ", matchdata.user, matchdata.id)
-        }
-    })
+    }
+    let data = await res.json();  
+    if (data.status === '400') {
+        console.log('User is not authenticated:', data.data);
+    } else {
+        matchdata.id = data.data.id;
+        matchdata.user = data.data.id;
+        matchdata.level = data.data.level;
+        matchdata.userName = data.data.username;
+        matchdata.score = data.data.score
+        matchdata.result = -1;
+        console.log("full name is ", data.data.score);
+        console.log("LEVEL is ", matchdata.level, " User is ", matchdata.user, matchdata.id)
+    }
 }
 function fetchcrtf(){
-    fetch('https://localhost/get_csrf_token/', {
+    fetch('/get_csrf_token/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -125,8 +142,9 @@ function fetchcrtf(){
 }
 function postMatch()
 {
+    console.log("match result is ", matchdata.result);
     if (matchdata.result == 0)
-        matchdata.x_result = "lose";
+        matchdata.x_result = "loss";
     else if (matchdata.result == 1)
         matchdata.x_result = "won";
     else
@@ -148,7 +166,7 @@ function postMatch()
         postdata.score = 0;
     console.log("crtf ", crtf);
     console.log("postdata ",postdata);
-    fetch('https://localhost/user/store_match/', {
+    fetch('/user/store_match/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -159,8 +177,7 @@ function postMatch()
 }
 async function fetchRoom() {
     try {
-        const response = await fetch('http://127.0.0.1:8001/api/xrooms/');
-        
+        const response = await fetch('/api/xrooms/');        
         if (!response.ok) {
             console.log("No available rooms. Creating a new room...");
             return await createRoom();
@@ -178,13 +195,13 @@ async function fetchRoom() {
             await createRoom();
         }
     } catch (error) {
-        console.error("Error fetching or creating room:", error);
+        console.error("Error fetching or creating room:", error.message);
     }
 }
 
-async function createRoom() {
+export async  function createRoom() {
     try {
-        const response = await fetch('http://127.0.0.1:8001/api/xrooms/', {
+        const response = await fetch('/api/xrooms/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -192,18 +209,21 @@ async function createRoom() {
             body: JSON.stringify({ code: generateRoomCode() })
         });
         
-        const data = await response.json();
+        const data =  await response.json();
         roomCode = data.code;
-        console.log("Created new room with code:", roomCode);
+        console.log("Created new room with code:", roomCode, "and data code is ", data);
         connectWebSocket();
         
         return data;
-    } catch (error) {
+    } 
+    catch (error) {
         console.error("Error creating room:", error);
     }
 }
+
+
 function disconnect() {
-    if (socket.readyState === WebSocket.OPEN) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
         console.log("in closed");
         socket.close();
     }
@@ -211,18 +231,19 @@ function disconnect() {
 
 
 function generateRoomCode() {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
+    return  Math.random().toString(36).substring(2, 8).toUpperCase();
+    
 }
-document.getElementById("startGame").addEventListener("click", function() {
+document.getElementById("startGame").addEventListener("click", async function() {
     console.log("First Wait");
+    await fetchUser()
     wait_page();
-    fetchRoom();
+    await fetchRoom();
 });
 
 function wait_page()
 {
     console.log("wait fuction");
-    fetchUser();
     waitContainer.classList.add("active");
     startContainer.classList.remove("active");
     showResult.classList.remove("active");
@@ -234,7 +255,10 @@ function startGame() {
         fetchcrtf();
         socket.send(JSON.stringify({
             "event": "START",
-            "message": matchdata.id
+            "message": {
+                "id": matchdata.id,
+                "name": matchdata.userName
+            }
         }));
         startContainer.classList.remove("active");
         gameContainer.classList.add("active");
@@ -243,12 +267,15 @@ function startGame() {
             "event": "DUSER",
             "message": ""
         }));
+        gameStart = true;
 
    }
 
     function connectWebSocket() {
-        socket = new WebSocket(`ws://127.0.0.1:8001/ws/playx/${roomCode}/`);
-
+        // Get the protocol and host from window.location
+        const host = window.location.host;         // e.g., "example.com:3000"
+        // Construct the WebSocket URL dynamically
+        socket = new WebSocket(`wss://${host}/wss/playx/${roomCode}/`);
         socket.onopen = function() {
             console.log("Here New pr")
         };
@@ -269,49 +296,32 @@ function startGame() {
                     initializeGame();
                     break;
                 case "MOVE":
-                    console.log("Handle Move");
                     handleMove(message);
                     break;
                 case "TURN":
-                    console.log('TURN ', message, 'with ', eventType)
                     if (message.includes('X')) {
                         currentTurn = 'X';
                     } else {
                         currentTurn = 'O';
                     }
-                    document.getElementById("alert_move").textContent = message;
-                    document.getElementById("alert_move").textContent = `Your are ${currentTurn}`;
-
                     break;
                 case "END":
                     console.log('game over ', message, 'with ', eventType)
                     console.log("this char ", charChoice)
                     if (message.includes(charChoice)) {
-                        document.querySelector("#result").innerHTML = charChoice + " win";
-                        if (message.includes(matchdata.chose))
-                        {
+                        document.querySelector("#enemyXo").style.display = "none";
+                            console.log("winner ........")
                                 matchdata.result = 1;
                                 matchdata.level += 1; 
                                 matchdata.score +=15; 
-                        }   
-                        else
-                        {
-                            matchdata.result = 0;
-                            matchdata.level -=1; 
-                            matchdata.score -= 10; 
-                         }                      
                     } 
-                    else {
-                        if (message === 'X')
-                            {
-                            document.querySelector("#result").innerHTML = 'O' + " loss";
-                        }
-                        else
-                        {
-                            document.querySelector("#result").innerHTML = 'X' + " loss";
-                        }
-                    }
-                    console.log("res game ")
+                    else
+                    {
+                        console.log("loser ........")
+                        matchdata.result = 0;
+                        matchdata.level -=1; 
+                        matchdata.score -= 10; 
+                    }                      
                     resetGame(message);
                     break;
                 case "wait":
@@ -321,7 +331,7 @@ function startGame() {
                 case "DRAW":
                     matchdata.result = 2;
                     console.log("this is draw")
-                    resetGame(message);
+                    resetGame("DRAW");
                     break;
                 case "OVER":
                     console.log("this is over")
@@ -350,21 +360,18 @@ function startGame() {
                             "player": currentTurn
                         }
                     };
-                    console.log("sending ...");
                     socket.send(JSON.stringify(moveData));
                 }
             });
         });
 
         function validMove(index) {
-                console.log("Valid Move is ", !is_gameOver,  "and it is ", document.querySelector(`.square[data-index='${index}']`).textContent === '');
                 if (!is_gameOver)
                     return document.querySelector(`.square[data-index='${index}']`).textContent === '';
                 else
                     return false;
         }
         function isPlayerTurn() {
-            console.log("it is player ", charChoice === currentTurn)
             return charChoice === currentTurn;
         }
         
@@ -373,7 +380,6 @@ function startGame() {
             const player = message.player;
         
             document.querySelector(`.square[data-index='${index}']`).textContent = player;
-            console.log("from HM     player is ", player, "and indx is ", index);
             if (currentTurn === 'X') {
                 currentTurn = 'O';
                 document.querySelector(".bg").style.left = "85px";
@@ -392,11 +398,27 @@ function startGame() {
             if (matchdata.id == message.user1)
             {
                 matchdata.opponent = message.user2;
+                matchdata.openName = message.userName2;
             }
             else
             {
                 matchdata.opponent = message.user1;
+                matchdata.openName = message.userName1;
+
             }
+            if (charChoice == 'X'){
+                document.getElementById("enemyXo").textContent = `O is ${matchdata.openName }`;
+
+                document.getElementById("enemyXo").style.backgroundColor = "#08D9D6"
+                 document.getElementById("enemyXo").style.display = "flex";
+            }
+            else{
+
+                document.getElementById("enemyXo").textContent = `X is ${matchdata.openName }`;
+                document.getElementById("enemyXo").style.backgroundColor = "#FF2E63"
+                 document.getElementById("enemyXo").style.display = "flex";
+            }
+            console.log("message.userName", message)
             console.log("Update Match ", matchdata.id, " ope ", matchdata.opponent);
         }
         function hadnleSuser()
@@ -408,56 +430,53 @@ function startGame() {
         }
         function initializeGame() {
             console.log("intitialze fuction");
-            document.getElementById("alert_move").textContent = `Your are ${charChoice}`;
-
+            document.getElementById("alert_move").textContent = `You are ${charChoice}`;
+            document.getElementById("alert_move").display = "flex";
             startGame();
         }
 
         function left_game(message){
-            if (message === 'X')
+            console.log("message is ", message,  "CHar ",  charChoice);
+            if (message === charChoice)
             {
-                    document.querySelector("#result").innerHTML = 'O' + " won";
-                    if (message === matchdata.chose)
-                    {
-                            matchdata.result = 0;
-                            matchdata.level -=1; 
-                            matchdata.score -=10;
-                    }
-                    else
-                    {
-                        matchdata.result = 1;
-                        matchdata.level += 1; 
-                        matchdata.score +=15; 
-                    } 
+                    matchdata.result = 0;
+                    matchdata.level -=1; 
+                    matchdata.score -=10;
             }
             else
             {
-                document.querySelector("#result").innerHTML = 'X' + " won";
-                if (message === matchdata.chose)
-                {
-                        matchdata.result = 0;
-                        matchdata.level -=1; 
-                        matchdata.score -=10; 
-                }
-                else
-                {
-                    matchdata.result = 1;
-                    matchdata.level += 1;
-                    matchdata.score +=15; 
-                } 
-            }
+                matchdata.result = 1;
+                matchdata.level += 1; 
+                matchdata.score +=15; 
+            } 
+            if (message == 'X')
+                message = 'O'
+            else
+                message = 'X'
             resetGame(message);
             console.log("this one left");
         }
         function resetGame(message) {
-            // document.querySelectorAll('.square').forEach((element) => {
-            //     element.textContent = '';
-            // });
             is_gameOver = true;
-            console.log('t his restGame');
+            gameStart = true;
+            let curr_winner;
+            console.log("charChoice ", matchdata.charChoice, "userName", matchdata.userName, "openName", matchdata.openName)
+            if (charChoice == message)
+                curr_winner = matchdata.userName;
+            else
+                curr_winner = matchdata.openName
+            console.log('t his restGame', message);
             showResult.classList.add("active");
             showResult.style.display = "block";
-            document.querySelector("#play-again").style.display = "block";
+
+            if(message != "DRAW")
+            {
+                document.querySelector("#result").innerHTML= `The Winner is  ${curr_winner}`
+
+            }
+            document.querySelector("#pplay-again").style.display = "block";
+            document.getElementById("enemyXo").style.display = "none";
+            document.getElementById("alert_move").style.display = "none";
             let WinCondation = [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -474,7 +493,6 @@ function startGame() {
                     let v0 = boxes[WinCondation[i][0]].innerHTML;
                     let v1 = boxes[WinCondation[i][1]].innerHTML;
                     let v2 = boxes[WinCondation[i][2]].innerHTML;
-                    console.log("in win condatio with ", v0, v1, v2);
                 if (v0 != "" && v0 === v1 && v0 === v2){
                     for (let j = 0; j < 3; j++)
                     {
@@ -486,32 +504,32 @@ function startGame() {
                     }
                 }
             }
-            if (matchdata.result == 1)
-            {
-                console.log("this new is not ... ");
-                postMatch();
-            }
             disconnect();
+            postMatch();
         }
     }
     const playAgain = ()=> {
+        disconnect();
         is_gameOver = false;
         currentTurn = 'X'; 
+        matchdata = [];
         console.log('playAgain');
         room_is_created = false;
         gameContainer.classList.remove('player-o-turn');
         const same = document.querySelector(".same-User");
         same.style.display = "none";
         waitContainer.classList.remove("active")
-        startContainer.classList.add("active");
         gameContainer.classList.remove("active");
+        startContainer.classList.add("active");
         startContainer.style.display = "block";
         showResult.classList.remove("active");
         document.getElementById("alert_move").textContent = `Your are ${charChoice}`;
+        document.getElementById("alert_move").style.display = "flex";
         document.querySelector(".bg").style.left = "0";
         document.querySelector("#result").innerHTML = "";
-        document.querySelector("#play-again").style.display = "none";
+        document.querySelector("#pplay-again").style.display = "none";
         document.querySelector(".bg").style.backgroundColor = "#FF2E63";
+        document.getElementById("enemyXo").style.display = "none"
         // gameContainer.classList.remove('player-o-turn'); 
         document.querySelectorAll('.square').forEach((element) => {
             // element.classList.remove('filled');
@@ -520,7 +538,7 @@ function startGame() {
             element.style.color = "white";
         });
     }
-    document.querySelector("#play-again").addEventListener("click", playAgain);
+    document.querySelector("#pplay-again").addEventListener("click", playAgain);
     // const app = document.querySelector("#app");
     const freeze = document.querySelector("#freeze");
 
@@ -543,6 +561,12 @@ function startGame() {
     const closeGame = () => {
         freeze.classList.remove("unclick");
         playAgain();
+        if (gameStart){
+            matchdata.level -= 1;
+            matchdata.score -= 10;
+            matchdata.result = 0;
+        }
+        disconnect()
         app.style.display = "none";
         document.querySelector("#design").style.filter = "blur(0px)";
         document.querySelector("#games").style.filter = "blur(0px)";
@@ -559,5 +583,5 @@ function startGame() {
 
     const closeBtn = document.querySelector(".btn-close");
     closeBtn.addEventListener("click", closeGame);
-});
+// });
 /********  new    ********* */

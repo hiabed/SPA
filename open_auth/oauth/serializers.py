@@ -30,10 +30,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         # Ensure that the passwords match
         fist_name = data["firstname"].replace(" ","")
         last_name  = data["lastname"].replace(" ","")
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError({"password": "Passwords must match."})
         if len(data["username"]) > 8:
             raise serializers.ValidationError({"username": "username holds  more than 8 characters."})
+        if len(data["username"]) < 3:
+            raise serializers.ValidationError({"username": "username holds  less than 3 characters."})   
+        if data['password1'] != data['password2']:
+            raise serializers.ValidationError({"password": "Passwords must match."})
+        if len(data['password1']) < 8:
+            # print ("len : ", len(data['password1']))
+            raise serializers.ValidationError({"password": "Passwords hold less than 8 characters."})
         if  not fist_name.isalpha():
             raise serializers.ValidationError({"firstname": "Firstname should only contain alphabetic characters."})
         if  not last_name.isalpha():
@@ -50,4 +55,3 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)  # Hash the password
         user.save()
         return user
-

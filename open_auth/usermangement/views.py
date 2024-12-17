@@ -15,7 +15,8 @@ from .serializer         import UserInfoSerializer
 from django.contrib.auth import update_session_auth_hash
 from channels.layers     import get_channel_layer
 from asgiref.sync        import async_to_sync
-from django.core.cache import cache
+from django.core.cache   import cache
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -24,35 +25,13 @@ def     get_user(request):
     if request.method == 'GET':
         user = request.user
         if user.is_authenticated:
-            cache_key = f"user_profile_{user.id}"
-            cached_data = cache.get(cache_key)
-            if cached_data:
-                print(f"Returning cached data for user {user.id}")
-                return JsonResponse({'status': 'success', 'data': cached_data}, status=200)
             serialize = ProfileSerializer(instance=user)
-            cache.set(cache_key, serialize.data)  # Cache fresh data
-            print("\033[1;38m data ===> ", serialize.data)
             return JsonResponse ({"status" : "success",
              "data" : serialize.data})
         return JsonResponse ({"status" : "failed",
                 "error" : "User Not Authenticated"})
     return JsonResponse ({"status" : "failed", 
             "error" : "method Not allowed"})
-
-# @api_view(['GET'])
-# @permission_classes([AllowAny])
-# def     get_user(request):
-#     if request.method == 'GET':
-#         user = request.user
-#         if user.is_authenticated:
-#             serialize = ProfileSerializer(instance=user)
-#             print("\033[1;38m data ===> ", serialize.data)
-#             return JsonResponse ({"status" : "success",
-#              "data" : serialize.data})
-#         return JsonResponse ({"status" : "failed",
-#                 "error" : "User Not Authenticated"})
-#     return JsonResponse ({"status" : "failed", 
-#             "error" : "method Not allowed"})
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -79,42 +58,41 @@ def profile(request):
             'status': 'failed'
         }, status=400)
 
-@csrf_exempt
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def update_user(request):
     print("Entered update_user view")
 
-    if request.method != 'POST':
-        return JsonResponse({'status': 'failed', 'data': 'Invalid request method'}, status=400)
-
     user = request.user
 
-    if not user.is_authenticated:
-        return JsonResponse({'status': 'failed', 'data': 'User is not authenticated'}, status=401)
-    
     # Handle file uploads for imageProfile
-    if 'imageProfile' in request.FILES:
-        request.data['imageProfile'] = request.FILES['imageProfile']
+    data = request.data.copy()  # Create a mutable copy of the request data
 
-    # Use request.data instead of request.body
-    data  = request.data
-    
+    if 'imageProfile' in request.FILES:
+        data['imageProfile'] = request.FILES['imageProfile']
+    else:
+        data.pop('imageProfile', None)  # Ensure imageProfile isn't sent if not provided
+
     if not data:
         return JsonResponse({'status': 'failed', 'data': 'Request body is empty'}, status=400)
 
-    # check if data is a json form by method isinstance "dict" mean data is a dic or not
-    if  not isinstance(data, dict):
+    # Check if data is in JSON format
+    if not isinstance(data, dict):
         return JsonResponse({'status': 'failed', 'data': 'Expected a JSON object'}, status=400)
-    
-    if user.email == request.data['email']:
-        return JsonResponse({'status': 'failed', 'data': 'must to change email'}, status=400)
-    
+
+    # Check for email uniqueness
+    if 'email' in data and user.email == data['email']:
+        return JsonResponse({'status': 'failed', 'data': 'Must change email'}, status=400)
+
+    # Serialize and update user data
     update_serializer = UpdateUserSerializers(user, data=data, partial=True)
 
     if update_serializer.is_valid():
         update_serializer.save()
-    print('Updated data === ', update_serializer.data)
-    return JsonResponse({'status': 'success', 'data': update_serializer.data}, status=200) 
+        print('Updated data === ', update_serializer.data)
+        return JsonResponse({'status': 'success', 'data': update_serializer.data}, status=200)
+
+    return JsonResponse({'status': 'failed', 'errors': update_serializer.errors}, status=400)
 
 from django.db.models import Q  # Add this import
 
@@ -310,7 +288,7 @@ def accepte_request(request, receiver_id):
                     'id': from_user.id,
                     'username': from_user.username,
                     'imageProfile': from_user.imageProfile.url,
-                    'online_status': from_user.online_status  # Sender's online status
+                    'online_status': True  # Sender's online status
                 }
             }
         )
@@ -363,19 +341,25 @@ def reject_request(request, receiver_id):
         return JsonResponse({'status': 'success', 'data': 'The request has been rejected'}, status=200)
     except RequestFriend.DoesNotExist:
         return JsonResponse({'status': 'failed', 'data': f'Friend request with ID {receiver_id} does not exist'}, status=400)
-    
+
+from django.contrib.sessions.models import Session
+# from rest_framework.authtoken.models import Token
+from django.utils import timezone
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])  # Ensure the user is logged in
 def ChangePassword(request):
+
     user = request.user
     data = request.data
 
     # Get the old password and new password from the request
     old_password = data.get('old_password')
-    new_password = data.get('new_password')
+    new_password1 = data.get('new_password1')
+    new_password2 = data.get('new_password2')
     new_username = data.get('new_username')
-
-    # Check if new_username is provided
+    
     if new_username:
         if user.username == new_username:
             return JsonResponse({"error": "New username cannot be the same as the current one."}, status=400)
@@ -385,17 +369,39 @@ def ChangePassword(request):
                 return JsonResponse({"error": "Username is already taken."}, status=400)
             else:
                 user.username = new_username  # Update the username
+                user.save()
+                return JsonResponse({"status": "success"}, status=200)
 
     # Check if old password is correct
+    print ("old_password ", old_password)
+    print ("new_password ", new_password1)
+    print ("user ", user)
+    print("printi chi l3aba ", user.check_password(old_password))
+
     if not user.check_password(old_password):
+        print ("1 *********** ")
         return JsonResponse({"error": "Old password is incorrect."}, status=400)
-
-    if len(new_password) < 5:
+    
+    if len(new_password1) < 8:
+        print ("2 *********** ")
         return JsonResponse({"error": "New password must be at least 8 characters long."}, status=400)
-    user.set_password(new_password)
-    user.save()
 
-    # Update the session with the new password (to prevent logging out)
+    if not new_password1 == new_password2:
+        print ("3 *********** ")
+        return JsonResponse({"error": "The passwords do not match."}, status=400)
+    
+    if new_password1 == old_password:
+        print ("3 *********** ")
+        return JsonResponse({"error": "The new password is similar to the old password."}, status=400)
+
+    user.set_password(new_password1)
+    user.save()
+    print("After Hash pass : ", user.password)
+
+    print("Password changed successfully.")
+    print("status ", user.check_password(new_password1))  # Should print True
+
+    # Update the session to avoid logging out the current user
     update_session_auth_hash(request, user)
 
-    return JsonResponse({"status": "Password changed successfully!"}, status=200)
+    return JsonResponse({"status": "success"}, status=200)

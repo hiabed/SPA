@@ -9,7 +9,6 @@ from django.core.cache import cache
 @api_view(['POST'])
 def store_match(request):
     user = request.user
-
     if not user.is_authenticated:
         return JsonResponse({'status': '400', 'data': 'user is not authenticated'})
 
@@ -21,19 +20,19 @@ def store_match(request):
     # Update user level and score
     user_db.level = request.data.get('level')
     user_db.score = request.data.get('score')
+    print ("score : ",  request.data.get('score'))
+    print ("result : ", request.data.get('result'))
+
+    if request.data.get('result') == "won":
+        user_db.win  += 1
+    if request.data.get('result') == "loss":
+        user_db.loss += 1
+
     user_db.save()
     user_db.refresh_from_db()  # Ensure fresh data is loaded from DB
 
-    # Invalidate cache for the user
-    cache_key = f"user_profile_{user.id}"
-    cache.delete(cache_key)
-
-    # Update cache with the latest data
-    serialize_user = UserInfoSerializer(user_db)
-    cache.set(cache_key, serialize_user.data)
-
     # Store match data
-    match_serialize = MatchHistoricSerialzer(data=request.data)
+    match_serialize = MatchHistoricSerialzer(data=request.data, partial=True)
     if match_serialize.is_valid():
         match_serialize.save()
         return JsonResponse({'data': match_serialize.data, 'status': '200'})
@@ -46,8 +45,8 @@ def get_match_history(request):
     user = request.user  # Get the authenticated user
     if not user.is_authenticated:
         return JsonResponse({'status' : '400', 'data' : 'user is not authenticated'})
+    
     match_history = MatchHistoric.objects.filter(user=user)  # Retrieve matches for the authenticated user
-
     response_data = []
     for match in match_history:
         match_data = {
@@ -64,7 +63,8 @@ def get_match_history(request):
             },
             "result": match.result,
             "Type": match.Type,
-            "score": match.score
+            "score": match.score,
+            "date": match.date
         }
         response_data.append(match_data)
 
@@ -83,17 +83,5 @@ def get_curr_user(request):
     except User_info.DoesNotExist:
         return JsonResponse({'status': '404', 'data': 'User not found'})
 
-    # Cache management
-    cache_key = f"user_profile_{user.id}"
-    cached_data = cache.get(cache_key)
-
-    if cached_data:
-        print(f"Returning cached data for user {user.id}")
-        return JsonResponse({'status': '200', 'data': cached_data})
-
-    # Serialize and cache fresh user data
     serialize_user = UserInfoSerializer(user_db)
-    cache.set(cache_key, serialize_user.data)  # Cache the latest data
-    print("\033[1;33m Current user data -> : ", serialize_user.data, flush=True)
-
     return JsonResponse({'status': '200', 'data': serialize_user.data})

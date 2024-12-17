@@ -16,6 +16,7 @@ class   MatchHistoricSerialzer(serializers.ModelSerializer):
             'level',
             'Type',
             'score',
+            'date'
         ]
 
 class   ProfileSerializer(serializers.ModelSerializer):

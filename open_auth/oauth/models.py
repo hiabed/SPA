@@ -13,6 +13,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class User_info(AbstractUser):
     access_token = models.CharField(max_length=255, null=True, blank=True)
+    intra_user  = models.BooleanField(default=False)
     intra_id  = models.CharField(max_length=255, null=True, blank=True)
     imageProfile = models.ImageField(upload_to='profile_image/', null=True, blank=True)
     username  = models.CharField(max_length=255, null=True, blank=True, unique=True)
@@ -22,11 +23,11 @@ class User_info(AbstractUser):
     email     = models.EmailField(unique=True, null=True, blank=True)
     friends   = models.ManyToManyField('self', blank=True)
     online_status = models.BooleanField(default=False)   
-    level    = models.IntegerField()
-    score    = models.IntegerField()
-    win     = models.IntegerField()
-    loss    = models.IntegerField()
-    draw    = models.IntegerField()
+    level    = models.IntegerField(default=0)
+    score    = models.IntegerField(default=0)
+    win     = models.IntegerField(default=0)
+    loss    = models.IntegerField(default=0)
+    draw    = models.IntegerField(default=0)
 
     # understand this #
     groups = models.ManyToManyField(
