@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv("MAINKEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://localhost:8082', 'https://10.14.9.6:8082']
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8082', 'https://10.14.9.6:8082', 'https://146.190.71.153:8082/']
 
 
 # Application definition
